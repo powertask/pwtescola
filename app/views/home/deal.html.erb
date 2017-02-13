@@ -1,0 +1,68 @@
+<div class='title_tools'>
+  <a class="btn btn-large btn-warning" <%= link_to(t('deal.root'), show_path(@taxpayer)) %> </a>
+</div>
+
+<div class='title_page'>
+  <span> <%= t('deal.title') << ' - ' << @taxpayer.name.upcase %> </span>
+</div>
+
+<br>
+
+<div class="row marketing">
+
+  <div class="col-sm-6 col-md-3">
+    <div class="panel panel-primary" id="task-taxpayer">
+      <%= render 'show_taxpayer' %>    
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-md-9">
+
+    <div id='table-cna'>
+      <%= render 'cnas' %>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-md-offset-2" id="task-form" style="display:none;">
+        <%= render 'cna' %>
+      </div>
+    </div>
+
+    <br>
+    <div id='table-ticket'>
+      <div class='subtitle'> <%= t('deal.ticket') %> </div>
+
+      <%= bootstrap_form_tag url: get_tickets_path, method: 'get', remote: true, layout: :inline do |f| %>
+        <br>
+        <%= f.form_group :value_type, label: { text: "Cobrar Valor:" } do %>
+          <%= f.radio_button :value_type, 0, label: "À Vista", checked: false, inline: true %>
+          <%= f.radio_button :value_type, 1, label: "Parcelado", checked: true, inline: true %>
+        <% end %>
+
+        <%= f.number_field :unit_ticket_quantity, label: t('deal.ticket_quantity') %>
+        <%= f.date_field :unit_ticket_due, label: t('deal.unit_ticket_due') %>
+        <%= f.date_field :client_ticket_due, label: t('deal.client_ticket_due') %>
+
+        <%= f.form_group do %>
+          <% if @date_current == Date.current %>
+            <%= f.submit t('menu.tickets') %>
+          <% else %>
+            <%= '**Permite Gerar Parcelas somente quando data base de cálculo for igual data de hoje.' %>
+          <% end %>
+        <% end %>
+      <% end %>
+
+    </div>
+
+    <div id='table-tickets' style="display:none;">
+      <%= render 'tickets' %>
+    </div>
+
+    <br>
+    <br>
+    <%= render 'histories' %>
+    <br>
+    <%= render 'areas' %>
+
+  </div>
+</div>

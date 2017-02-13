@@ -1,0 +1,25 @@
+<%= bootstrap_form_for( @customer, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10") do |f| %>
+  <div class='section'>
+    <%= f.hidden_field :unit_id %>
+    <%= f.text_field :name, :label => t('customer.name') %>
+    <%= f.text_field :cnpj, :label => t('cnpj'), size: 20 %>
+    <%= f.text_field :cpf, :label => t('cpf') %>
+    <%= f.text_field :zipcode, :label => t('zipcode')  %>
+    <%= f.text_field :address, :label => t('address')  %>
+    <%= f.number_field :address_number, label: t('address_number') %>
+    <%= f.text_field :address_complement, :label => t('address_complement') %>
+    <%= f.text_field :neighborhood, :label => t('neighborhood') %>
+    <%= f.text_field :city_name, :label => t('city_name')  %>
+    <%= f.text_field :state, :label => t('state') %>
+    <%= f.phone_field :phone_number, :label => t('phone') %>
+    <%= f.email_field :email, :label => t('email') %>
+
+    <div class="actions">
+      <div class='buttonbar'>
+        <%= f.primary t('menu.save') %>
+        <%= 'ou' %>
+        <%= link_to t('menu.cancel'), customers_path %>
+      </div>
+    </div>
+  </div>
+<% end %>

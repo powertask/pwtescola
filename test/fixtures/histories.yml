@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  description: MyString
+  history_date: MyString
+  unit: one
+  customer: one
+
+two:
+  description: MyString
+  history_date: MyString
+  unit: two
+  customer: two

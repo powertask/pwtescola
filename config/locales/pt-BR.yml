@@ -1,0 +1,289 @@
+pt-BR:
+  sign_in_now: "Por favor, informe seus dados de acesso"
+  sign_in: Acessar minha conta
+  sign_in_customer: Acessar o Cliente
+  log_in: Acessar Sistema de Cobrança
+  corporation: Powertask
+
+  id: ID
+  zipcode: CEP
+  state: Estado
+  city_name: Cidade
+  address: Logradouro
+  address_complement: Complemento
+  address_number: Número
+  neighborhood: Bairro
+  email: Email
+  phone_number: Número do Telefone
+  cnpj: CNPJ
+  cpf: CPF
+  cnpj_cpf: CNPJ/CPF
+  password: Senha
+  password_hint: Deixe em branco caso voce não deseja mudar a senha
+  password_confirmation: Confirmação de Senha
+  current_password: Senha Atual
+  current_password_hint: Necessário informar sua senha atual para aprovar as mudanças
+  remember_me: Lembrar a Senha
+  choose: Escolha...
+  status: Situação
+  stage: Tipo cobrança
+  lawyer: Judicial
+  normal: Extrajudicial
+  not_pay: Em aberto
+  pay: Pago
+  edit: Editar
+  admin: Administrador
+  user: Colaborador
+  customer: Cliente
+  Yes: Sim
+  origin: Origem
+  set_customer: Definir o Cliente
+
+  menu:
+    home: Home
+    main: Cadastros
+    unit: Empresa
+    customer: Clientes
+    debtor: Devedores
+    user: Colaboradores
+    myuser: Meus Dados
+    category: Ações
+    lawyer: Advogados
+    edit: Editar
+    show: Detalhes
+    search: Procurar por Devedor
+    clean: Limpar Filtros
+    create: Criar
+    cancel: Cancelar
+    save: Salvar Dados
+    saving: Salvando...
+    remove: Apagar
+    tickets: Gerar Parcelas
+    city: Cidades
+    contract: Termos
+    remittance: Remessas
+    bankbillet: Boletos
+    discharge: Retornos
+    proposal: Propostas
+    word: Histórico Padrão
+
+  home:
+    title: Home do Colaborador
+    title_client: Acesso Cliente
+    deal: Ir para Ambiente de Negociações
+    taxpayer: Contribuinte
+    name: Nome do Contribuinte
+    calendar:
+      title: Agenda do dia
+    taxpayer:
+      show: Dados Cadastrais
+    search:
+      title: Procurar por Devedor
+      name: Nome do Devedor
+      cpf: CPF do Devedor
+      cod_contribuinte: Código Devedor
+    history:
+      title: Históricos do Devedor
+      new: Cadastrar Novo Histórico
+    filter:
+      name: Nome do Devedor
+    contract:
+      title: Contratos
+
+  deal:
+    title: Ambiente de Negociações
+    root: Sair do Ambiente de Negociações
+    ticket: "Simulação de Pagamentos À Vista ou Parcelados"
+    pay: Cobrar
+    ticket_quantity: Quant Parcelas do Cliente
+    unit_ticket_due: Vencimento Inicial GMA
+    client_ticket_due: Vencimento Inicial Cliente
+    unit_perc: Percentual GMA (%)
+    type_value: A Vista/Parcelado
+    value_charge: "Valor a Ser Cobrado: "
+    recalculate: Recalcular Parcelas
+    create_contract: Gravar Parcelamento e Gerar Termo
+    delete_contract: Deletar Termo
+    create_proposal: Gerar Proposta
+
+  contract:
+    title: Termos Negociados com Contribuintes
+    show: Detalhes do Termo
+    index: Listar Todos Termos
+    delete: Cancelar Termo
+    amount: "Valor - %{name}"
+    unit_fee: "Percentual - %{name}"
+    ticket_quantity: "Quantidade de Parcelas - %{name}" 
+    contract_date: Data do Termo
+    taxpayer: Contribuinte
+    print_pdf: Termo em PDF
+    print_transaction_pdf: Termo de Transação
+    bankbillet: Boleto
+    create_ticket: Gerar Boletos
+    status:
+      active: ATIVO
+      cancel: CANCELADO
+      paid: PAGO
+
+  ticket:
+    cancel: Cancelar Boleto
+    new: Gerar Novo Vencimento
+    ticket_type: Tipo Boleto
+    ticket_number: Numero da Parcela
+    amount: Valor do Boleto
+    due: Novo Vencimento
+    
+
+  proposal:
+    title: Propostas Negociados com Contribuintes
+    show: Detalhes da Proposta
+    index: Listar Todas Propostas
+    delete: Cancelar Proposta
+    amount: "Valor - %{name}"
+    unit_fee: "Percentual - %{name}"
+    ticket_quantity: "Quantidade de Parcelas - %{name}" 
+    contract_date: Data do Termo
+    taxpayer: Contribuinte
+    create_contract: Gerar Parcelamento e Termo
+    status:
+      active: PROPOSTA ATIVA
+      cancel: PROPOSTA CANCELADA
+      contract: 'TERMO NRO %{contract} GERADO'
+
+  proposal_ticket:
+    edit: Editar Parcelas
+    amount: Valor da Parcela a Alterar
+
+  customer:
+    title: Cadastro de Clientes
+    new: Novo Cliente
+    edit: Editar Dados do Cliente
+    index: Listar Todas os Clientes
+    create: Gravar Dados do Cliente
+    show: Detalhes do Cliente
+    name: Nome do Cliente
+    fee: Taxa de Intermediação
+    search: Procurar por Cliente
+
+  debtor:
+    title: Cadastro de Devedores
+    new: Cadastrar Novo Devedor
+    edit: Editar Dados do Devedor
+    index: Listar Todas os Devedores
+    create: Gravar Dados do Devedor
+    show: Detalhes do Devedor
+    name: Nome do Devedor
+    search: Procurar por Devedor
+
+  unit:
+    title: Cadastro do Empresa
+    new: Nova Empresa
+    edit: Editar Dados da Empresa
+    index: Listar Todas as Empresas
+    create: Gravar Dados da Empresa
+    show: Detalhes da Empresa
+    name: Razão Social
+    fee: Percentual de Cobrança (%)
+    fl_correcao: Cálculos com correção de CNA
+
+  history:
+    new: Cadastro de Históricos
+    taxpayer: Contribuinte
+    description: Histórico a ser gerado
+    word: Histórico Padrão
+
+  user:
+    edit: Editar Dados Colaborador
+    index: Listar Todos os Colaboradores
+    new: Novo Colaborador
+    show: Detalhes do Colaborador
+    title: Cadastro de Colaboradores
+    cancel_account: Cancelar Minha Conta
+    name: Nome do Colaborador
+    fl_taxpayer: Permissão para cobrar Contribuinte?
+    profile: Perfil do Colaborador
+    status:
+      admin:  "ADMINISTRADOR"
+      client: "CLIENTE"
+      user:   "COLABORADOR"
+
+  remittance:
+    title: Remessas
+    index: Listar Todas as Remessas
+    new: Gerar Arquivos de Remessa
+    bank_billet_account: Carteira de Cobrança
+    status:
+      unprocessed: Pendente
+      processed: Processado
+      downloaded: Baixada pelo usuário
+      sent: Enviada para o banco
+
+  bank_billet:
+    title: Boletos
+    index: Listar Todos os Boletos
+    show: Detalhes do Boleto
+    search: Procurar boletos
+    customer_person_name: Contribuinte
+    bank_billet_account_name: Carteira de Cobrança
+    our_name: Nosso Número
+    expire_at: Vencimento
+    amount: Quantia (R$)
+    paid_at: Data do Pagamento
+    paid_amount: Valor do Pagamento (R$)
+    link: Clique aqui para Visualizar o Boleto
+    bankbillet: Boleto
+    cancel: Cancelar
+    view: Visualizar Boleto
+    status:
+      generating: Gerando
+      opened: Aberto
+      canceled: Cancelado
+      paid: Pago
+      overdue: Vencido
+      blocked: Bloqueado
+      chargeback: Estornado
+
+  discharge:
+    title: Retornos
+    index: Listar Todos os Retornos
+    sent: Enviar Retorno
+    filename: Nome do Arquivo
+    processed_at: Processado em
+    select_file: Arquivo
+    status:
+      unprocessed: Pendente
+      processed: Processado
+
+  activerecord:
+    errors:
+      messages:
+        record_invalid: Registro inválido
+      models:
+        task:
+          attributes:
+            category_id:
+              blank: Voce deve definir uma ação.
+            taxpayer_id:
+              blank: Voce deve definir para quem a ação será executada.
+        taxpayer:
+          attributes:
+            client_id:
+              blank: Voce deve definir uma Federação
+
+  will_paginate:
+    next_label: Próximos &#8594;
+    page_entries_info:
+      multi_page: Exibindo %{model} %{from} - %{to} de %{count} no total
+      multi_page_html: Exibindo %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> de <b>%{count}</b> no total
+      single_page:
+        one: Exibindo 1 %{model}
+        other: Exibindo todos os %{count} %{model}
+        zero: Nenhum %{model} encontrado
+      single_page_html:
+        one: Exibindo <b>1</b> %{model}
+        other: Exibindo <b>todos os&nbsp;%{count}</b> %{model}
+        zero: Nenhum %{model} encontrado
+    page_gap: "&hellip;"
+    previous_label: "&#8592; Anteriores"
+
+

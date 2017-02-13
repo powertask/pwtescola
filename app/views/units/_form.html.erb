@@ -1,0 +1,22 @@
+<%= bootstrap_form_for(@unit, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10") do |f| %>
+  <div class='section'>
+    <%= f.text_field :name, :label => t('unit.name') %>
+    <%= f.text_field :cnpj_cpf, :label => t('cnpj')  %>
+    <%= f.text_field :zipcode, :label => t('zipcode')  %>
+    <%= f.text_field :address, :label => t('address')  %>
+    <%= f.text_field :address_complement, :label => t('address_complement') %>
+    <%= f.text_field :neighborhood, :label => t('neighborhood')  %>
+    <%= f.text_field :city_name, :label => t('city_name')  %>
+    <%= f.text_field :state, :label => t('state')  %>
+    <%= f.text_field :email, :label => t('email') %>
+  </div>
+
+   <div class="actions">
+    <div class='buttonbar'>
+      <%= f.primary t('menu.save') %>
+      <%= 'ou' %>
+      <%= link_to t('menu.cancel'), units_path %>
+    </div>
+  </div>
+
+<% end %>

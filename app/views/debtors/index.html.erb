@@ -1,0 +1,41 @@
+<div class='title_tools'>
+  <a class="btn btn-large btn-warning" <%= link_to(t('debtor.new'), new_debtor_path) %> </a>
+</div>
+
+<div class='title_page'>
+  <span> <%= t('debtor.title') %> </span>
+</div>
+
+<div class='list1'>
+  <% unless @debtors.empty? %>
+    <% @debtors.each do |debtor| %>
+      <li>
+        <div class='strip' id='none'> <%= debtor.id %> </div>
+
+        <div class='tools'>
+          <%= link_to(t('menu.edit'), edit_debtor_path(debtor), class: "btn btn-xs btn-default") %>
+        </div>
+ 
+        <div class='indent'>
+          <%= link_to(debtor.name, debtor_path(debtor)) %>
+          &ndash;
+          <tt>
+          <% if debtor.cnpj.present? %> 
+            <%= debtor.cnpj %>
+          <% else %>
+            <%= debtor.cpf %>
+          <% end %>
+          </tt>
+          <dt>
+          </dt>
+        </div>
+      </li>
+    <% end %>
+  <% end %>
+</div>
+
+<div id='paginate'>
+  <div class="apple_pagination">
+    <%= will_paginate :container => false %>
+  </div>
+</div>

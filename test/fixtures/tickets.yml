@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  description: MyString
+  amount: MyString
+  debtor: one
+  document_number: MyString
+  due_at: MyString
+  charge: MyString
+
+two:
+  description: MyString
+  amount: MyString
+  debtor: two
+  document_number: MyString
+  due_at: MyString
+  charge: MyString

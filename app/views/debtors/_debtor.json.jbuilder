@@ -1,0 +1,2 @@
+json.extract! debtor, :id, :name, :cnpj_cpf, :zipcode, :state, :city_name, :address, :address_number, :address_complement, :neighborhood, :email, :phone, :created_at, :updated_at
+json.url debtor_url(debtor, format: :json)

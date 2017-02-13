@@ -1,0 +1,19 @@
+<div class='title_tools'>
+  <a class="btn btn-large btn-warning" <%= link_to(t('customer.index'), customers_path) %> </a>
+</div>
+
+<div class='title_page'> <%= t('customer.show') %> </div>
+
+<div class='section'>
+  <div class='label1 top req'> <%=t("customer.name") %>: </div>       <%= @customer.name %>
+  <div class='label1 top req'> <%=t("cnpj") %>: </div>          <%= @customer.cnpj %>
+  <div class='label1 top req'> <%=t("zipcode") %>: </div>         <%= @customer.zipcode %>
+  <div class='label1 top req'> <%=t("address") %>: </div>         <%= @customer.address %>
+    <div class='label1 top req'> <%=t("phone") %>: </div>           <%= @customer.phone_number %>
+  <div class='label1 top req'> <%=t("email") %>: </div>         <%= @customer.email %>
+  <div class='label1 top req'> <%=t("complement") %>: </div>        <%= @customer.address_complement %>
+  <div class='label1 top req'> <%=t("neighborhood") %>: </div>      <%= @customer.neighborhood %>
+  <div class='label1 top req'> <%=t("city") %>: </div>          <%= @customer.city_name %>
+  <div class='label1 top req'> <%=t("state") %>: </div>         <%= @customer.state %>
+</div>
+

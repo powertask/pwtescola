@@ -1,0 +1,38 @@
+<div class='title_page'>
+  <span> <%= t('customer.title') %> </span>
+</div>
+
+<div class='list1'>
+  <% unless @customers.empty? %>
+    <% @customers.each do |customer| %>
+      <li>
+        <div class='strip' id='none'> <%= customer.id %> </div>
+
+        <div class='tools'>
+          <%= link_to(t('menu.edit'), edit_customer_path(customer), class: "btn btn-xs btn-default") %>
+        </div>
+ 
+        <div class='indent'>
+          <%= link_to(customer.name, customer_path(customer)) %>
+          &ndash;
+          <tt>
+          <% if customer.cnpj.present? %> 
+            <%= customer.cnpj %>
+          <% else %>
+            <%= customer.cpf %>
+          <% end %>
+          </tt>
+          <dt>
+            <%= customer.email %>
+          </dt>
+        </div>
+      </li>
+    <% end %>
+  <% end %>
+</div>
+
+<div id='paginate'>
+  <div class="apple_pagination">
+    <%= will_paginate :container => false %>
+  </div>
+</div>

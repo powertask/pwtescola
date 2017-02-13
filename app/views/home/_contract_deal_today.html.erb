@@ -1,0 +1,23 @@
+<div class="col-md-6">
+  <div class='subtitle'> <%= 'Contratos Fechados HOJE' %> </div>
+
+   <table class="table">
+      <thead>
+        <tr>
+          <th>Colaborador</th>
+          <th>Contrato(s)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% unless @count_contracts_day_master.nil? %>
+          <% @count_contracts_day_master.each do |contract| %>
+            <tr>
+              <td><%= user_name contract[0] %> </td>
+              <td><%= contract[1] %> </td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

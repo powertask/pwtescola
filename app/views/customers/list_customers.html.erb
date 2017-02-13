@@ -1,0 +1,10 @@
+<div class='title'> <%= t("set_customer") %> </div>
+
+<div class='section'>
+	<p>
+	  <%= bootstrap_form_for :customer, url: 'define_customer', method: 'get', layout: :inline do |f| %>
+  		<%= f.select :customer_id, @customers.collect {|p| [ p.name, p.id ] }, hide_label: true %>
+		 	<%= f.primary t("sign_in_customer") %>
+		<% end %>
+	</p>
+</div>

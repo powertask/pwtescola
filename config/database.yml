@@ -1,0 +1,10 @@
+development:
+  adapter: postgresql
+  encoding: utf8
+  database: pwtcharges_development
+
+
+test:
+  adapter: postgresql
+  encoding: utf8
+  database: pwtcharges_test

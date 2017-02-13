@@ -1,0 +1,39 @@
+<div class='title_tools'>
+  <a class="btn btn-large btn-default" <%= link_to(t('deal.recalculate'), :back) %> </a>
+  <a class="btn btn-large btn-success" <%= link_to(t('deal.create_proposal'), create_proposal_path, method: :post ) %> </a>
+  <a class="btn btn-large btn-success" <%= link_to(t('deal.create_contract'), create_contract_path, method: :post ) %> </a>
+</div>
+
+<br>
+<div class='subtitle'> <%= t('deal.ticket') %> </div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Valor de Parcela GMA</th>
+      <th>Valor de Parcela Cliente</th>
+      <th>Vencimento</th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+      <td>Totais</td>
+      <td><%= @tickets.map{|i|i[:unit_amount]}.inject(:+).real if @tickets %></td>
+      <td><%= @tickets.map{|i|i[:client_amount]}.inject(:+).real if @tickets %></td>
+      <td></td>
+    </tr>
+  </tfoot>  
+  <tbody>
+    <% unless @tickets.nil? %>
+      <% @tickets.each do |ticket| %>
+        <tr>
+          <td><%= ticket[:ticket] %> </td>
+          <td><%= ticket[:unit_amount].real %> </td>
+          <td><%= ticket[:client_amount].real %> </td>
+          <td><%= ticket[:due].to_s_br %> </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

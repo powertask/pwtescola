@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  unit: one
+  amount_unit: MyString
+  amount_client: MyString
+  status: MyString
+  debtor: one
+  client_ticket_quantity: MyString
+
+two:
+  unit: two
+  amount_unit: MyString
+  amount_client: MyString
+  status: MyString
+  debtor: two
+  client_ticket_quantity: MyString
