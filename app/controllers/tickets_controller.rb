@@ -1,58 +1,40 @@
 class TicketsController < ApplicationController
   before_action :set_ticket, only: [:show, :edit, :update, :destroy]
-
-  # GET /tickets
-  # GET /tickets.json
+  respond_to :html
+  layout 'window'
+  
   def index
     @tickets = Ticket.all
   end
 
-  # GET /tickets/1
-  # GET /tickets/1.json
   def show
   end
 
-  # GET /tickets/new
   def new
     @ticket = Ticket.new
+    @ticket.unit_id = current_user.unit_id
+    @ticket.status = :opened
+    @ticket.debtor_id = params[:format]
   end
 
-  # GET /tickets/1/edit
   def edit
   end
 
-  # POST /tickets
-  # POST /tickets.json
   def create
     @ticket = Ticket.new(ticket_params)
+    @ticket.save!
 
-    respond_to do |format|
-      if @ticket.save
-        format.html { redirect_to @ticket, notice: 'Ticket was successfully created.' }
-        format.json { render :show, status: :created, location: @ticket }
-      else
-        format.html { render :new }
-        format.json { render json: @ticket.errors, status: :unprocessable_entity }
-      end
-    end
+    @debtor = Debtor.find(@ticket.debtor_id)
+    respond_with @debtor
   end
 
-  # PATCH/PUT /tickets/1
-  # PATCH/PUT /tickets/1.json
+
   def update
-    respond_to do |format|
-      if @ticket.update(ticket_params)
-        format.html { redirect_to @ticket, notice: 'Ticket was successfully updated.' }
-        format.json { render :show, status: :ok, location: @ticket }
-      else
-        format.html { render :edit }
-        format.json { render json: @ticket.errors, status: :unprocessable_entity }
-      end
-    end
+    @ticket.update_attributes(ticket_params)
+    redirect_to( debtor_path( @ticket.debtor.id ) )
   end
 
-  # DELETE /tickets/1
-  # DELETE /tickets/1.json
+
   def destroy
     @ticket.destroy
     respond_to do |format|
@@ -69,6 +51,6 @@ class TicketsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def ticket_params
-      params.require(:ticket).permit(:description, :amount, :debtor_id, :document_number, :due_at, :charge)
+      params.require(:ticket).permit(:unit_id, :status, :description, :amount, :debtor_id, :document_number, :due_at, :charge)
     end
 end

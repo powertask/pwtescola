@@ -1,16 +1,26 @@
-<%= simple_form_for(@ticket) do |f| %>
-  <%= f.error_notification %>
+<div class='section'>
+  <div class='label1 top req'> <%=t("debtor.id") %>: </div>  <%= @ticket.debtor.id %>
+  <div class='label1 top req'> <%=t("debtor.origin_code") %>: </div>  <%= @ticket.debtor.origin_code %>
+  <div class='label1 top req'> <%=t("debtor.name") %>: </div>  <%= @ticket.debtor.name %>
+  <div class='label1 top req'> <%=t("ticket.id") %>: </div>  <%= @ticket.id %>
+</div>
+<br>
 
-  <div class="form-inputs">
-    <%= f.input :description %>
-    <%= f.input :amount %>
-    <%= f.association :debtor %>
-    <%= f.input :document_number %>
-    <%= f.input :due_at %>
-    <%= f.input :charge %>
-  </div>
+<%= simple_form_for( @ticket) do |f| %>
+  <div class='section'>
+    <%= f.input :unit_id, as: :hidden %>
+    <%= f.input :debtor_id, as: :hidden %>
+    <%= f.input :status, as: :hidden %>
+    <%= f.input :description, :label => t('ticket.description') %>
+    <%= f.input :amount, :label => t('ticket.amount') %>
+    <%= f.input :document_number, :label => t('ticket.document_number') %>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
+    <div class="actions">
+      <div class='buttonbar'>
+        <%= f.button :submit, t('menu.save') %>
+        <%= 'ou' %>
+        <%= link_to t('menu.cancel'), debtors_path %>
+      </div>
+    </div>
   </div>
 <% end %>

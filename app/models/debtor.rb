@@ -8,4 +8,6 @@ class Debtor < ApplicationRecord
   belongs_to :unit
   belongs_to :customer
 
+  has_many :tickets
+
 end

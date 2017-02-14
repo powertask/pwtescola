@@ -1,34 +1,23 @@
-<p id="notice"><%= notice %></p>
+<div class='title_tools'>
+  <a class="btn btn-large btn-warning" <%= link_to(t('debtor.index'), debtors_path) %> </a>
+</div>
 
-<p>
-  <strong>Description:</strong>
-  <%= @ticket.description %>
-</p>
+<div class='title_page'> <%= t('debtor.show') %> </div>
 
-<p>
-  <strong>Amount:</strong>
-  <%= @ticket.amount %>
-</p>
+<div class='section'>
+  <div class='label1 top req'> <%=t("id") %>: </div>       <%= @debtor.id %>
+  <div class='label1 top req'> <%=t("debtor.name") %>: </div>       <%= @debtor.name %>
+  <div class='label1 top req'> <%=t("cnpj") %>: </div>          <%= @debtor.cnpj %>
+  <div class='label1 top req'> <%=t("cpf") %>: </div>          <%= @debtor.cpf %>
+  <div class='label1 top req'> <%=t("zipcode") %>: </div>         <%= @debtor.zipcode %>
+  <div class='label1 top req'> <%=t("address") %>: </div>         <%= @debtor.address %>
+  <div class='label1 top req'> <%=t("address_number") %>: </div>         <%= @debtor.address_number %>
+  <div class='label1 top req'> <%=t("address_complement") %>: </div>        <%= @debtor.address_complement %>
+  <div class='label1 top req'> <%=t("neighborhood") %>: </div>      <%= @debtor.neighborhood %>
+  <div class='label1 top req'> <%=t("city_name") %>: </div>          <%= @debtor.city_name %>
+  <div class='label1 top req'> <%=t("state") %>: </div>         <%= @debtor.state %>
+  <div class='label1 top req'> <%=t("phone_number") %>: </div>           <%= @debtor.phone_number %>
+  <div class='label1 top req'> <%=t("email") %>: </div>         <%= @debtor.email %>
+</div>
 
-<p>
-  <strong>Debtor:</strong>
-  <%= @ticket.debtor %>
-</p>
-
-<p>
-  <strong>Document number:</strong>
-  <%= @ticket.document_number %>
-</p>
-
-<p>
-  <strong>Due at:</strong>
-  <%= @ticket.due_at %>
-</p>
-
-<p>
-  <strong>Charge:</strong>
-  <%= @ticket.charge %>
-</p>
-
-<%= link_to 'Edit', edit_ticket_path(@ticket) %> |
-<%= link_to 'Back', tickets_path %>
+<%= render 'tickets' %>

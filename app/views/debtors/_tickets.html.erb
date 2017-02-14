@@ -1,0 +1,36 @@
+<div class='title_tools'>
+	<a class="btn btn-large btn-warning" <%= link_to(t('ticket.new'), new_ticket_path(@debtor.id)) %> </a>
+</div>
+
+<div class='title_page'>
+	<span> <%= t('ticket.title') %> </span>
+</div>
+
+<div class='list1'>
+	<% unless @tickets.empty? %>
+		<% @tickets.each do |ticket| %>
+			<li>
+				<div class='strip' id='none'> <%= ticket.id %> </div>
+
+				<div class='tools'>
+					<%= link_to(t('menu.edit'), edit_ticket_path(ticket), class: "btn btn-xs btn-default") unless ticket.contract_id %>
+				</div>
+
+				<div class='indent'>
+          <%= ticket.description %>
+          &ndash;
+          <%= ticket.document_number %>
+          &ndash;
+          <%= ticket.amount.real_contabil %>
+          &ndash;
+          <%=  t('ticket.status.' << ticket.status) %>
+          &ndash;
+          <%=  'Contrato nro ' << ticket.contract_id.to_s if ticket.contract_id %>
+					<tt></tt>
+					<dt></dt>
+				</div>
+			</li>
+		<% end %>
+	<% end %>
+</div>
+

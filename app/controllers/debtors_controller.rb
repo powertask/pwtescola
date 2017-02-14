@@ -3,31 +3,24 @@ class DebtorsController < ApplicationController
   respond_to :html
   layout 'window'
 
-  # GET /debtors
-  # GET /debtors.json
   def index
     @debtors = Debtor.where('unit_id = ? and customer_id = ?', current_user.unit_id, session[:customer_id]).paginate(:page => params[:page], :per_page => 20)
     respond_with @debtors, :layout => 'application'
   end
 
-  # GET /debtors/1
-  # GET /debtors/1.json
   def show
+    @tickets = Ticket.list(current_user.unit_id, @debtor.id)
   end
 
-  # GET /debtors/new
   def new
     @debtor = Debtor.new
     @debtor.unit_id = current_user.unit_id
     @debtor.customer_id = session[:customer_id]
   end
 
-  # GET /debtors/1/edit
   def edit
   end
 
-  # POST /debtors
-  # POST /debtors.json
   def create
     @debtor = Debtor.new(debtor_params)
 
@@ -42,8 +35,6 @@ class DebtorsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /debtors/1
-  # PATCH/PUT /debtors/1.json
   def update
     respond_to do |format|
       if @debtor.update(debtor_params)
@@ -56,8 +47,6 @@ class DebtorsController < ApplicationController
     end
   end
 
-  # DELETE /debtors/1
-  # DELETE /debtors/1.json
   def destroy
     @debtor.destroy
     respond_to do |format|
@@ -67,12 +56,10 @@ class DebtorsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_debtor
       @debtor = Debtor.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def debtor_params
       params.require(:debtor).permit(:unit_id, :customer_id, :name, :cnpj, :cpf, :zipcode, :state, :city_name, :address, :address_number, :address_complement, :neighborhood, :email, :phone_number)
     end

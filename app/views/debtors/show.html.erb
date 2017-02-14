@@ -5,6 +5,7 @@
 <div class='title_page'> <%= t('debtor.show') %> </div>
 
 <div class='section'>
+  <div class='label1 top req'> <%=t("id") %>: </div>       <%= @debtor.id %>
   <div class='label1 top req'> <%=t("debtor.name") %>: </div>       <%= @debtor.name %>
   <div class='label1 top req'> <%=t("cnpj") %>: </div>          <%= @debtor.cnpj %>
   <div class='label1 top req'> <%=t("cpf") %>: </div>          <%= @debtor.cpf %>
@@ -19,3 +20,4 @@
   <div class='label1 top req'> <%=t("email") %>: </div>         <%= @debtor.email %>
 </div>
 
+<%= render 'tickets' %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170211212210) do
+ActiveRecord::Schema.define(version: 20170214104421) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,6 +72,7 @@ ActiveRecord::Schema.define(version: 20170211212210) do
     t.string   "mobile_number"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+    t.string   "origin_code"
     t.index ["customer_id"], name: "index_debtors_on_customer_id", using: :btree
     t.index ["unit_id"], name: "index_debtors_on_unit_id", using: :btree
   end
@@ -97,6 +98,10 @@ ActiveRecord::Schema.define(version: 20170211212210) do
     t.string   "charge"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.integer  "contract_id"
+    t.integer  "status"
+    t.string   "origin_code"
+    t.index ["contract_id"], name: "index_tickets_on_contract_id", using: :btree
     t.index ["debtor_id"], name: "index_tickets_on_debtor_id", using: :btree
     t.index ["unit_id"], name: "index_tickets_on_unit_id", using: :btree
   end
@@ -144,6 +149,7 @@ ActiveRecord::Schema.define(version: 20170211212210) do
   add_foreign_key "debtors", "units"
   add_foreign_key "histories", "customers"
   add_foreign_key "histories", "units"
+  add_foreign_key "tickets", "contracts"
   add_foreign_key "tickets", "debtors"
   add_foreign_key "tickets", "units"
   add_foreign_key "users", "units"

@@ -38,6 +38,7 @@ pt-BR:
   Yes: Sim
   origin: Origem
   set_customer: Definir o Cliente
+  origin_code: Código Origem
 
   menu:
     home: Home
@@ -119,20 +120,20 @@ pt-BR:
     print_pdf: Termo em PDF
     print_transaction_pdf: Termo de Transação
     bankbillet: Boleto
-    create_ticket: Gerar Boletos
     status:
       active: ATIVO
       cancel: CANCELADO
       paid: PAGO
 
   ticket:
-    cancel: Cancelar Boleto
-    new: Gerar Novo Vencimento
-    ticket_type: Tipo Boleto
-    ticket_number: Numero da Parcela
-    amount: Valor do Boleto
-    due: Novo Vencimento
-    
+    title: Cadastro de Valores em Aberto
+    new: Cadastrar Mensalidades
+    edit: Editar Mensalidades
+    amount: Valor
+    origin_code: Código Original
+    id: ID da Mensalidade
+    description: Descrição
+    document_number: Número do Documento
 
   proposal:
     title: Propostas Negociados com Contribuintes
@@ -174,6 +175,8 @@ pt-BR:
     show: Detalhes do Devedor
     name: Nome do Devedor
     search: Procurar por Devedor
+    origin_code: Código Original do Devedor
+    id: ID Devedor
 
   unit:
     title: Cadastro do Empresa
