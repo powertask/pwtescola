@@ -1,6 +1,7 @@
 <%= bootstrap_form_for( @customer, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10") do |f| %>
   <div class='section'>
     <%= f.hidden_field :unit_id %>
+    <%= f.text_field :full_name, :label => t('customer.full_name') %>
     <%= f.text_field :name, :label => t('customer.name') %>
     <%= f.text_field :cnpj, :label => t('cnpj'), size: 20 %>
     <%= f.text_field :cpf, :label => t('cpf') %>

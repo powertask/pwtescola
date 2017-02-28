@@ -9,8 +9,11 @@ pt-BR:
   zipcode: CEP
   state: Estado
   city_name: Cidade
+  city: Cidade
+  phone: Telefone
   address: Logradouro
   address_complement: Complemento
+  complement: Complemento
   address_number: Número
   neighborhood: Bairro
   email: Email
@@ -163,6 +166,7 @@ pt-BR:
     create: Gravar Dados do Cliente
     show: Detalhes do Cliente
     name: Nome do Cliente
+    full_name: Razão Social do Cliente
     fee: Taxa de Intermediação
     search: Procurar por Cliente
 
