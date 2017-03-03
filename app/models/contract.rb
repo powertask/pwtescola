@@ -1,4 +1,9 @@
 class Contract < ApplicationRecord
   belongs_to :unit
   belongs_to :debtor
+
+  def self.list(unit, customer)
+    self.where("unit_id = ? AND customer_id = ?", unit, customer)
+  end
+
 end

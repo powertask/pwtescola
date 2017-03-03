@@ -1,0 +1,2 @@
+class Arcdev < ApplicationRecord 
+end

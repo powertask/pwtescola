@@ -13,14 +13,20 @@
 </div>
 
 <% if @debtor %>
+
   <div class='title'>
     <br>
     <span> <%= 'Informações sobre Devedor - ' << @debtor.name.upcase %> </span>
   </div>
+
+  <div class='title_tools'>
+    <a class="btn btn-large btn-warning" <%= link_to(t('home.deal'), deal_url(cod: @debtor.id)) %> </a>
+  </div>
+
 <% end %>
 
-<% if @debtor.nil? %>
 
+<% if @debtor.nil? %>
   <div class='subtitle'> <%= t('home.search.title') %> </div>
   <div class='section'>
     <%= bootstrap_form_tag url: filter_name_home_index_path, method: 'get', layout: :inline do |f| %>
@@ -82,106 +88,21 @@
 
 <% if @debtor %>
   <div class="row marketing">
+    
     <div class="col-sm-6 col-md-3">
       <div class="panel panel-primary">
-        <%= render 'show_taxpayer' %> 
+        <%= render 'show_debtor' %> 
       </div>
     </div>
 
     <div class="col-sm-6 col-md-9">
+   
+      <%= render 'show_tickets' %> 
+      <%= render 'show_contracts' %> 
 
-      <div class='title_tools'>
-        <a class="btn btn-large btn-warning" <%= link_to(t('home.deal'), deal_url(cod: @debtor.id)) %> </a>
-      </div>
-      
-      <div class='title_page'> <%= t('home.cna.title') %> </div>
-
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Ano</th>
-            <th>Valor CNA</th>
-            <th>Meses</th>
-            <th>Multa</th>
-            <th>Juros</th>
-            <th>Valor GUIA</th>
-            <th><%= t('stage') %></th>
-            <th><%= t('status') %></th>
-            <th>Termo</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <% unless @cnas.nil? %>
-            <% @cnas.each do |cna| %>
-              <tr>
-                <td><%= cna.year %> </td>
-                <td><%= cna.amount.real %> </td>
-                <td><%= calc_meses_atraso(cna, nil, nil) %> </td>
-                <td><%= calc_multa(cna, nil, nil).real %> </td>
-                <td><%= calc_juros(cna, nil, nil).real %> </td>
-                <td><%= calc_cna(cna, nil, nil).real %> </td>
-                <td><%= t('cna.stage.'<<cna.stage) %> </td>
-                <td><%= t('cna.status.'<<cna.status) %> </td>
-                <td><%= cna.contract_id %> </td>
-                <td><%= link_to('Marcar Pago', pay_cna_path(cna), method: :patch) if current_user.id == 1 and cna.not_pay? %> </td>
-              </tr>
-            <% end %>
-          <% end %>
-        </tbody>
-        <tfoot>
-          <tr>
-            <td></td>
-            <td><%= session[:value_cna].real %></td>
-            <td></td>
-            <td> <%= session[:total_multa].real %> </td>
-            <td> <%= session[:total_juros].real %> </td>
-            <td> <%= session[:total_cna].real %></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-        </tfoot>  
-      </table>
-
-      <div class='title_page'> <%= t('home.contract.title') %> </div>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Termo</th>
-            <th>Situação</th>
-            <th>Data Contrato</th>
-            <th>Parcelas GMA</th>
-            <th>Valor GMA</th>
-            <th>Parcelas Federação</th>
-            <th>Valor Federação</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% if @contracts.nil? %>
-            'Nenhum TERMO gerado para o contribuinte.'
-          <% else %>
-            <% @contracts.each do |contract| %>
-              <tr>
-                <td><%= contract.id %> </td>
-                <% if contract.active? %>
-                  <td><%= link_to(t('contract.status.' << contract.status) << ' - Ver Termo', contract_path(contract)) %> </td>
-                <% else %>
-                  <td><%= t('contract.status.' << contract.status) %></td>
-                <% end %>
-                <td><%= contract.contract_date.to_s_br %> </td>
-                <td><%= contract.unit_ticket_quantity %> </td>
-                <td><%= contract.unit_amount.real %> </td>
-                <td><%= contract.client_ticket_quantity %> </td>
-                <td><%= contract.client_amount.real %> </td>
-              </tr>
-            <% end %>
-          <% end %>
-        </tbody>
-      </table>
       <br>
       <br>
+
       <%= render 'histories' %>
       
     </div>

@@ -7,6 +7,7 @@ class Customer < ApplicationRecord
   belongs_to :unit
 
   has_many :debtors
+  has_many :tickets
 
   def self.list(unit)
     self.where("unit_id = ?", unit).order("name ASC")

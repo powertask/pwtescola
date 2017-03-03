@@ -56,13 +56,13 @@
   def show
     @debtor = Debtor.find(params[:cod])
    
-    @tickets = Ticket.list(current_user.unit_id, session[:client_id]).where('debtor_id = ?', params[:cod])
-    @contracts = Contract.list(current_user.unit_id, session[:client_id]).where('debtor_id = ?', params[:cod])
-    
-    clear_variable_session()
-    contracts_meter
+    @tickets = Ticket.list(current_user.unit_id, session[:customer_id], params[:cod]).order('document_number')
+    @contracts = Contract.list(current_user.unit_id, session[:customer_id]).where('debtor_id = ?', params[:cod])
 
-    @histories = History.list(current_user.unit_id, session[:client_id]).where('debtor_id = ?', params[:cod]).order('created_at DESC')
+    clear_variable_session
+    #contracts_meter
+
+    @histories = History.list(current_user.unit_id, session[:customer_id]).where('debtor_id = ?', params[:cod]).order('created_at DESC')
 
     session[:debtor_id] = params[:cod]
 
@@ -146,7 +146,7 @@
       @date_current = Date.new(params[:date_current][:year].to_i, params[:date_current][:month].to_i, params[:date_current][:day].to_i)
     end
     
-    clear_variable_session()
+    clear_variable_session
 
   end
 
@@ -204,13 +204,13 @@
   end
 
 
-  def get_taxpayer
-    @taxpayer = Taxpayer.find(params[:cod])
+  def get_debtor
+    @debtor = Debtor.find(params[:cod])
   end
 
-  def set_taxpayer
-    @taxpayer = Taxpayer.find(params[:cod])
-    @taxpayer.update_attributes(taxpayer_params)
+  def set_debtor
+    @debtor = Debtor.find(params[:cod])
+    @debtor.update_attributes(debtor_params)
   end
 
 
@@ -218,8 +218,8 @@
     @clients = Client.all.select('id', 'name')
   end
 
-  def set_client
-    session[:client_id] = params[:client][:client_id]
+  def set_customer
+    session[:customer_id] = params[:customer][:customer_id]
     redirect_to root_path
   end
 
@@ -236,31 +236,27 @@
     params.require(:cna).permit(:fl_charge)
   end
 
-  def taxpayer_params
-    params.require(:taxpayer).permit(:phone)
-  end
-
   def clear_variable_session
 
-    session[:value_cna] = 0
+    session[:value_ticket] = 0
     session[:total_multa] = 0
     session[:total_juros] = 0
     session[:total_correcao] = 0
-    session[:total_cna] = 0
+    session[:total_ticket] = 0
 
-    session[:value_cna_cobrado] = 0
+    session[:value_ticket_cobrado] = 0
     session[:total_multa_cobrado] = 0
     session[:total_juros_cobrado] = 0
     session[:total_correcao_cobrado] = 0
-    session[:total_cna_cobrado] = 0
-    session[:total_cna_sem_fee_cobrado] = 0
+    session[:total_ticket_cobrado] = 0
+    session[:total_ticket_sem_fee_cobrado] = 0
     session[:total_fee_cobrado] = 0
 
-    session[:value_cna_a_vista] = 0
+    session[:value_ticket_a_vista] = 0
     session[:total_multa_a_vista] = 0
     session[:total_juros_a_vista] = 0
     session[:total_correcao_a_vista] = 0
-    session[:total_cna_a_vista] = 0
+    session[:total_ticket_a_vista] = 0
     session[:total_fee_a_vista] = 0
 
   end

@@ -4,10 +4,10 @@ class CreateTickets < ActiveRecord::Migration[5.0]
       t.references :unit, foreign_key: true
       t.references :debtor, foreign_key: true
       t.string :description
-      t.string :amount
+      t.decimal :amount
       t.string :document_number
-      t.string :due_at
-      t.string :charge
+      t.date :due_at
+      t.integer :charge
 
       t.timestamps
     end

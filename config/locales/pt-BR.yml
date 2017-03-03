@@ -73,13 +73,10 @@ pt-BR:
 
   home:
     title: Home do Colaborador
-    title_client: Acesso Cliente
     deal: Ir para Ambiente de Negociações
-    taxpayer: Contribuinte
-    name: Nome do Contribuinte
-    calendar:
-      title: Agenda do dia
-    taxpayer:
+    debtor: Devedor
+    name: Nome do Devedor
+    debtor:
       show: Dados Cadastrais
     search:
       title: Procurar por Devedor
@@ -93,6 +90,10 @@ pt-BR:
       name: Nome do Devedor
     contract:
       title: Contratos
+    ticket:
+      title: Mensalidades
+      status:
+        opened: Aberto
 
   deal:
     title: Ambiente de Negociações

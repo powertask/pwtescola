@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170228203600) do
+ActiveRecord::Schema.define(version: 20170303132720) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -416,7 +416,9 @@ ActiveRecord::Schema.define(version: 20170228203600) do
     t.string   "unit_ticket_quantity"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+    t.integer  "debtor_id"
     t.index ["customer_id"], name: "index_contracts_on_customer_id", using: :btree
+    t.index ["debtor_id"], name: "index_contracts_on_debtor_id", using: :btree
     t.index ["unit_id"], name: "index_contracts_on_unit_id", using: :btree
   end
 
@@ -440,6 +442,7 @@ ActiveRecord::Schema.define(version: 20170228203600) do
     t.string   "mobile_number"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+    t.string   "origin_code"
     t.index ["unit_id"], name: "index_customers_on_unit_id", using: :btree
   end
 
@@ -475,7 +478,9 @@ ActiveRecord::Schema.define(version: 20170228203600) do
     t.string   "history_date"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.integer  "debtor_id"
     t.index ["customer_id"], name: "index_histories_on_customer_id", using: :btree
+    t.index ["debtor_id"], name: "index_histories_on_debtor_id", using: :btree
     t.index ["unit_id"], name: "index_histories_on_unit_id", using: :btree
   end
 
@@ -483,16 +488,18 @@ ActiveRecord::Schema.define(version: 20170228203600) do
     t.integer  "unit_id"
     t.integer  "debtor_id"
     t.string   "description"
-    t.string   "amount"
+    t.decimal  "amount"
     t.string   "document_number"
-    t.string   "due_at"
-    t.string   "charge"
+    t.date     "due_at"
+    t.integer  "charge"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.integer  "contract_id"
     t.integer  "status"
     t.string   "origin_code"
+    t.integer  "customer_id"
     t.index ["contract_id"], name: "index_tickets_on_contract_id", using: :btree
+    t.index ["customer_id"], name: "index_tickets_on_customer_id", using: :btree
     t.index ["debtor_id"], name: "index_tickets_on_debtor_id", using: :btree
     t.index ["unit_id"], name: "index_tickets_on_unit_id", using: :btree
   end
@@ -534,13 +541,16 @@ ActiveRecord::Schema.define(version: 20170228203600) do
   end
 
   add_foreign_key "contracts", "customers"
+  add_foreign_key "contracts", "debtors"
   add_foreign_key "contracts", "units"
   add_foreign_key "customers", "units"
   add_foreign_key "debtors", "customers"
   add_foreign_key "debtors", "units"
   add_foreign_key "histories", "customers"
+  add_foreign_key "histories", "debtors"
   add_foreign_key "histories", "units"
   add_foreign_key "tickets", "contracts"
+  add_foreign_key "tickets", "customers"
   add_foreign_key "tickets", "debtors"
   add_foreign_key "tickets", "units"
   add_foreign_key "users", "units"

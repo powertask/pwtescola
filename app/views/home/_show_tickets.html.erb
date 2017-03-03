@@ -1,0 +1,44 @@
+<div class='title_page'> <%= t('home.ticket.title') %> </div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Ano</th>
+      <th>Valor Mensalidade</th>
+      <th>Atraso Meses</th>
+      <th>Multa</th>
+      <th>Juros</th>
+      <th>Valor GUIA</th>
+      <th><%= t('status') %></th>
+      <th>Contrato</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% unless @tickets.nil? %>
+      <% @tickets.each do |ticket| %>
+        <tr>
+          <td><%= ticket.document_number %> </td>
+          <td><%= ticket.amount.real %> </td>
+          <td><%= calc_meses_atraso(ticket, nil, nil) %> </td>
+          <td><%= calc_multa(ticket, nil, nil).real %> </td>
+          <td><%= calc_juros(ticket, nil, nil).real %> </td>
+          <td><%= calc_ticket(ticket, nil, nil).real %> </td>
+          <td><%= t('home.ticket.status.'<<ticket.status) %> </td>
+          <td><%= ticket.contract_id %> </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td></td>
+      <td><%= session[:value_ticket].real %></td>
+      <td></td>
+      <td> <%= session[:total_multa].real %> </td>
+      <td> <%= session[:total_juros].real %> </td>
+      <td> <%= session[:total_ticket].real %></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tfoot>  
+</table>

@@ -1,0 +1,2 @@
+class Arctit < ApplicationRecord
+end
