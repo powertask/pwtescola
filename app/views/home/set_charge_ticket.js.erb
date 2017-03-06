@@ -1,0 +1,9 @@
+$('#form-deal-tickets').html("<%= escape_javascript(render partial: 'deal_tickets', locals: {tickets: @tickets}) %>");
+$('#form-deal-tickets_total').html("<%= escape_javascript(render partial: 'deal_tickets_total') %>");
+
+$('#form-deal-charge-ticket').slideUp(350);
+
+$('#form-deal-date_calc').slideDown(100);
+$('#form-deal-tickets').slideDown(100);
+$('#form-deal-tickets-total').slideDown(100);
+$('#form-deal-tickets-simul').slideDown(100);

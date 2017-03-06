@@ -23,6 +23,29 @@ task :import => :environment do
       user.password = "galotito"
       user.save!      
 
+      user = User.new
+      user.unit_id = unit.id
+      user.profile = 0
+      user.name = 'Luciano Monaco'
+      user.email = "luciano@powertask.com.br"
+      user.password = "galotito"
+      user.save!      
+
+      user = User.new
+      user.unit_id = unit.id
+      user.profile = 0
+      user.name = 'Bruna Santos'
+      user.email = "bruna.santos@gianellimartins.com.br"
+      user.password = "BrunaSantos"
+      user.save!      
+
+      user = User.new
+      user.unit_id = unit.id
+      user.profile = 0
+      user.name = 'Edinara Spanholi'
+      user.email = "edinara.spanholi@gianellimartins.com.br"
+      user.password = "EdinaraSpanholi"
+      user.save!      
 
       ## Import CUSTOMERS
       puts "Import data from MYSQL.....CUSTOMERS"
@@ -139,9 +162,9 @@ task :import => :environment do
           ticket.amount = amount.to_f
           ticket.document_number = document_number
           ticket.due_at = due_at
-          ticket.charge = 0
+          ticket.charge = false
           ticket.created_at = created_at
-          ticket.status = :opened
+          ticket.status = 0
           ticket.save!
         end
       end

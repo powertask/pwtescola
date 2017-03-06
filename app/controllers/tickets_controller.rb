@@ -13,7 +13,7 @@ class TicketsController < ApplicationController
   def new
     @ticket = Ticket.new
     @ticket.unit_id = current_user.unit_id
-    @ticket.status = :opened
+    @ticket.status = :not_pay
     @ticket.debtor_id = params[:format]
   end
 

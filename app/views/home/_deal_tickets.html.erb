@@ -1,0 +1,63 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>ID</th>
+      <th>Documento</th>
+      <th>Vencimento</th>
+      <th><%= t('status') %></th>
+      <th>Meses</th>
+      <th>Valor</th>
+      <th>Correção</th>
+      <th>Multa</th>
+      <th>Juros</th>
+      <th>Valor Total</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% unless @tickets.nil? %>
+      <% @tickets.each do |ticket| %>
+        <tr>
+          <td>
+            <% if ticket.charge %>
+              <div class='strip green'> <%= 'Cobrar' %> </div>
+            <% else %>
+              <div class='strip red' id='none'> <%= 'Não Cobrar' %> </div>
+            <% end %> 
+          </td>    
+          <td><%= ticket.id %>
+          <td><%= ticket.document_number %> </td>
+          <td><%= ticket.due_at.to_s_br %> </td>
+          <td><%= t(ticket.status) %> </td>
+          <td><%= calc_meses_atraso(ticket, nil, @date_current) %> </td>
+          <td><%= ticket.amount.real %> </td>
+          <td><%= calc_correcao(ticket, nil, @date_current).real %> </td>
+          <td><%= calc_multa(ticket, nil, @date_current).real %> </td>
+          <td><%= calc_juros(ticket, nil, @date_current).real %> </td>
+          <td><%= calc_ticket(ticket, nil, @date_current).real %> </td>
+          <td><%= link_to(t('edit'), get_charge_ticket_path(ticket), class: "btn btn-xs btn-default", remote: true ) %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td> <%= session[:value_ticket].real %></td>
+      <td> <%= session[:total_correcao].real %></td>
+      <td> <%= session[:total_multa].real %> </td>
+      <td> <%= session[:total_juros].real %> </td>
+      <td> <%= session[:total_ticket].real %></td>
+      <td></td>
+    </tr>
+  </tfoot>  
+</table>
+
+<%= render 'deal_tickets_total' %>
+

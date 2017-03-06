@@ -1,0 +1,24 @@
+<br>
+<%= bootstrap_form_for(@ticket, :url => set_charge_ticket_path, remote: true) do |f| %>
+
+	<table style="width:100%">
+		<tr>
+			<td><div class='label1 top req'> <%= f.label t("ticket.document_number") %></div></td>
+			<td><div class='label1 top req'> <%= f.label t("ticket.due_at") %></div></td>
+			<td><div class='label1 top req'> <%= f.label t("ticket.amount") %></div></td>
+			<td><div class='label1 top req'> <%= f.label t('ticket.charge') %></div></td>
+		</tr>
+		<tr>
+			<td><%= @ticket.document_number %></td>
+			<td><%= @ticket.due_at.to_date.to_s_br if @ticket.due_at %></td>
+			<td><%= @ticket.amount.real %></td>
+			<td><%= f.check_box :charge, label: 'Sim' %></td>
+		</tr>
+	</table>
+  
+	<div class="actions">
+		<div class='buttonbar'>
+			<%= f.primary t('menu.save') %>
+		</div>
+  </div>
+<% end %>

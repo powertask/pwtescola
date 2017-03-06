@@ -4,6 +4,8 @@ pt-BR:
   sign_in_customer: Acessar o Cliente
   log_in: Acessar Sistema de Cobrança
   corporation: Powertask
+  yes: SIM
+  no: NÃO
 
   id: ID
   zipcode: CEP
@@ -38,7 +40,6 @@ pt-BR:
   admin: Administrador
   user: Colaborador
   customer: Cliente
-  Yes: Sim
   origin: Origem
   set_customer: Definir o Cliente
   origin_code: Código Origem
@@ -93,16 +94,16 @@ pt-BR:
     ticket:
       title: Mensalidades
       status:
-        opened: Aberto
+        not_pay: Aberto
 
   deal:
     title: Ambiente de Negociações
+    tickets: Mensalidades
     root: Sair do Ambiente de Negociações
     ticket: "Simulação de Pagamentos À Vista ou Parcelados"
     pay: Cobrar
-    ticket_quantity: Quant Parcelas do Cliente
-    unit_ticket_due: Vencimento Inicial GMA
-    client_ticket_due: Vencimento Inicial Cliente
+    ticket_quantity: Quantidade Parcelas
+    ticket_due_at: Vencimento Inicial
     unit_perc: Percentual GMA (%)
     type_value: A Vista/Parcelado
     value_charge: "Valor a Ser Cobrado: "
@@ -138,6 +139,9 @@ pt-BR:
     id: ID da Mensalidade
     description: Descrição
     document_number: Número do Documento
+    due_at: Vencimento
+    charge: Cobrar?
+    yes: 'Sim, cobrar'
 
   proposal:
     title: Propostas Negociados com Contribuintes

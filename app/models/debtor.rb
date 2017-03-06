@@ -9,5 +9,6 @@ class Debtor < ApplicationRecord
   belongs_to :customer
 
   has_many :tickets
+  has_many :histories
 
 end

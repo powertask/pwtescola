@@ -491,7 +491,7 @@ ActiveRecord::Schema.define(version: 20170303132720) do
     t.decimal  "amount"
     t.string   "document_number"
     t.date     "due_at"
-    t.integer  "charge"
+    t.boolean  "charge"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.integer  "contract_id"

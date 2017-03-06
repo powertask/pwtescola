@@ -7,7 +7,7 @@ class CreateTickets < ActiveRecord::Migration[5.0]
       t.decimal :amount
       t.string :document_number
       t.date :due_at
-      t.integer :charge
+      t.boolean :charge
 
       t.timestamps
     end

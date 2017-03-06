@@ -62,7 +62,7 @@
     clear_variable_session
     #contracts_meter
 
-    @histories = History.list(current_user.unit_id, session[:customer_id]).where('debtor_id = ?', params[:cod]).order('created_at DESC')
+    @histories = History.list(current_user.unit_id, session[:customer_id], params[:cod]).order('created_at DESC')
 
     session[:debtor_id] = params[:cod]
 
@@ -83,62 +83,48 @@
       redirect_to deal_path(params[:cod]) and return 
     end
 
-    if current_user.client?
-      flash[:alert] = "Não permitido acessar Ambiente de Negociações!"
-      redirect_to show_path(params[:cod]) and return 
-    end
+    @debtor = Debtor.find(params[:cod])
 
-    @taxpayer = Taxpayer.find(params[:cod])
-
+=begin
     unless current_user.admin?
       if @taxpayer.user_id != current_user.id
         flash[:alert] = "Devedor não pertence a sua lista."
         redirect_to :root and return
       end
     end
- 
+=end 
+
+=begin
     unless Taxpayer.chargeble? @taxpayer
       flash[:alert] = "Cidade não liberada para negociações!"
       redirect_to show_path(params[:cod]) and return 
     end
+=end
 
-    @areas = Area.list(session[:unit_id]).where('taxpayer_id = ?', params[:cod]).order('year DESC, nr_document')
-    @histories = History.list(session[:unit_id], session[:client_id]).where('taxpayer_id = ?', params[:cod]).order('created_at DESC')
+    @histories = History.list(current_user.unit_id, session[:customer_id], params[:cod]).order('created_at DESC')
 
     @contract = Contract.new
-    @contract.unit_ticket_quantity = 1
-    @contract.client_ticket_quantity = 1
 
-    @cnas = Cna.list(session[:unit_id], session[:client_id]).not_pay.where('taxpayer_id = ?', params[:cod]).order(:year)
-    @cna = Cna.new
+    @tickets = Ticket.list(current_user.unit_id, session[:customer_id], params[:cod]).not_pay
+    @ticket = Ticket.new
 
     clear_variable_session()
 
-    respond_with @taxpayer, :layout => 'application'     
+    respond_with @debtor, :layout => 'application'     
   end
 
 
-  def get_cna
-    @cna = Cna.find(params[:cod])
-  end
-
-  
-  def pay_cna
-    if current_user.id == 1
-      @cna = Cna.find(params[:cod])
-      @cna.pay!
-
-      redirect_to show_path(@cna.taxpayer_id) and return
-    end
+  def get_charge_ticket
+    @ticket = Ticket.find(params[:cod])
   end
 
 
-  def set_cna
-    @cna = Cna.find(params[:cod])
-    @cna.update_attributes(cna_params)
+  def set_charge_ticket
+    @ticket = Ticket.find(params[:cod])
+    @ticket.update_attributes(ticket_params)
 
-    @cnas = Cna.list(session[:unit_id], session[:client_id]).not_pay.where('taxpayer_id = ?', @cna.taxpayer.id).order(:year)
-    @taxpayer = Taxpayer.find @cna.taxpayer.id
+    @tickets = Ticket.list(current_user.unit_id, session[:customer_id], @ticket.debtor.id).not_pay.order(:document_number, :due_at)
+    @debtor = Debtor.find @ticket.debtor.id
 
     if params[:date_current].nil?
       @date_current = Date.current
@@ -151,56 +137,31 @@
   end
 
 
-  def get_tickets
-    unit_ticket_quantity  =  params[:unit_ticket_quantity].to_i
-    unit_ticket_due       =  params[:unit_ticket_due].to_date
-    client_ticket_due     =  params[:client_ticket_due].to_date
+  def get_tickets_simul
+    ticket_quantity  =  params[:ticket_quantity].to_i
+    ticket_due_at    =  params[:ticket_due].to_date
 
     if params[:value_type].to_i == 0
-      total_cna_a_vista = session[:total_cna_a_vista].to_f
+      total_ticket_a_vista = session[:total_ticket_a_vista].to_f
       total_fee = session[:total_fee_a_vista].to_f.round(2)
-      total_cna = total_cna_a_vista - total_fee      
+      ticket_total = total_ticket_a_vista - total_fee      
     else
-      total_cna_cobrado = session[:total_cna_cobrado].to_f
+      total_ticket_cobrado = session[:total_ticket_cobrado].to_f
       total_fee = (session[:total_fee_cobrado].to_f).round(2)
-      total_cna = total_cna_cobrado - total_fee      
+      ticket_total = total_ticket_cobrado - total_fee      
     end
 
-    cna_ticket = total_cna / unit_ticket_quantity.to_i
+    ticket_amount = ticket_total / ticket_quantity
     @tickets = []
 
-    unit_ticket_quantity  = unit_ticket_quantity + 1
+    (1..ticket_quantity).each  do |tic|
+      due_at = ticket_due_at if tic == 1
+      due_at = ticket_due_at + (tic - 1).month if tic > 1
 
-    (1..unit_ticket_quantity).each  do |tic|
-      unit_due = unit_ticket_due if tic == 1
-      client_due = client_ticket_due if tic == 2
-      client_due = client_ticket_due + (tic - 2).month if tic > 2
-
-      ticket = { ticket: tic, unit_amount: total_fee, client_amount: 0.00, due: unit_due} if tic == 1
-      ticket = { ticket: tic, unit_amount: 0.00, client_amount: cna_ticket.round(2), due: client_due} if tic > 1
+      ticket = { ticket: tic, amount: ticket_amount.round(2), due_at: due_at}
       @tickets << ticket
       session[:tickets] = @tickets
     end
-  end
-
-  
-  def get_tasks
-    
-    @tasks = Task.where("unit_id = ? AND user_id = ? AND task_date >= ?", session[:unit_id], current_user.id, Date.current - 1.day).order('id ASC')
-
-    tasks = []
-    @tasks.each do |task|
-      tasks << {:id => task.id, 
-                :title => task.description, 
-                :start => "#{task.task_date.to_date}", 
-                :end => "#{task.task_date.to_date}", 
-                :allDay => true, 
-                :recurring => false,
-                :url => Rails.application.routes.url_helpers.show_path(task.taxpayer_id),
-                :color => "green"
-              }
-    end
-    render :text => tasks.to_json
   end
 
 
@@ -232,8 +193,8 @@
 
 
   private
-  def cna_params
-    params.require(:cna).permit(:fl_charge)
+  def ticket_params
+    params.require(:ticket).permit(:charge)
   end
 
   def clear_variable_session
