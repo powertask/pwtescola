@@ -4,12 +4,13 @@ class DebtorsController < ApplicationController
   layout 'window'
 
   def index
-    @debtors = Debtor.where('unit_id = ? and customer_id = ?', current_user.unit_id, session[:customer_id]).paginate(:page => params[:page], :per_page => 20)
+    @debtors = index_class(Debtor)
+#    @debtors = Debtor.where('unit_id = ? and customer_id = ?', current_user.unit_id, session[:customer_id]).paginate(:page => params[:page], :per_page => 20)
     respond_with @debtors, :layout => 'application'
   end
 
   def show
-    @tickets = Ticket.list(current_user.unit_id, @debtor.id)
+    @tickets = Ticket.list(current_user.unit_id, session[:customer_id], @debtor.id)
   end
 
   def new

@@ -10,10 +10,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170303132720) do
+ActiveRecord::Schema.define(version: 20170309000814) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "arcacies", force: :cascade do |t|
+    t.decimal "acie_codi"
+    t.date    "acie_dlan"
+    t.time    "acie_dhor"
+    t.date    "acie_dpxa"
+    t.time    "acie_hpxa"
+    t.decimal "acie_coco"
+    t.decimal "acie_cgru"
+    t.string  "acie_nusu"
+    t.string  "acie_ntel"
+    t.string  "acie_clie"
+    t.string  "acie_cobr"
+    t.string  "acie_ecli"
+    t.string  "acie_nusa"
+    t.date    "acie_datu"
+    t.time    "acie_hatu"
+    t.string  "acie_nusc"
+    t.date    "acie_dcad"
+    t.time    "acie_hcad"
+    t.string  "acie_fleg"
+    t.string  "acie_auma"
+    t.string  "acie_res1"
+    t.date    "acie_res2"
+    t.string  "acie_comx"
+    t.string  "acie_comm"
+    t.integer "acie_id"
+  end
 
   create_table "arcclis", force: :cascade do |t|
     t.string  "cli_codi"
@@ -202,6 +230,69 @@ ActiveRecord::Schema.define(version: 20170303132720) do
     t.string  "cli_re61"
     t.decimal "cli_re62"
     t.decimal "cli_re63"
+  end
+
+  create_table "arccobrs", force: :cascade do |t|
+    t.string  "cob_codi"
+    t.string  "cob_nome"
+    t.string  "cob_ende"
+    t.string  "cob_bair"
+    t.string  "cob_cida"
+    t.string  "cob_uf"
+    t.decimal "cob_cep"
+    t.date    "cob_dcad"
+    t.string  "cob_contat"
+    t.string  "cob_telcon"
+    t.decimal "cob_cgccic"
+    t.string  "cob_ines"
+    t.string  "cob_banco"
+    t.string  "cob_agen"
+    t.string  "cob_conta"
+    t.string  "cob_telcom"
+    t.string  "cob_telres"
+    t.string  "cob_telfax"
+    t.string  "cob_super"
+    t.decimal "cob_vfax1"
+    t.decimal "cob_pfax1"
+    t.decimal "cob_vfax2"
+    t.decimal "cob_pfax2"
+    t.decimal "cob_vfax3"
+    t.decimal "cob_pfax3"
+    t.decimal "cob_vfax4"
+    t.decimal "cob_pfax4"
+    t.decimal "cob_vfax5"
+    t.decimal "cob_pfax5"
+    t.decimal "cob_vfax6"
+    t.decimal "cob_pfax6"
+    t.decimal "cob_vfax7"
+    t.decimal "cob_pfax7"
+    t.decimal "cob_vfax8"
+    t.decimal "cob_pfax8"
+    t.decimal "cob_vfax9"
+    t.decimal "cob_pfax9"
+    t.decimal "cob_vfaxa"
+    t.decimal "cob_pfaxa"
+    t.decimal "cob_vfaxb"
+    t.decimal "cob_pfaxb"
+    t.decimal "cob_vfaxc"
+    t.decimal "cob_pfaxc"
+    t.decimal "cob_tipoc"
+    t.string  "cob_res1"
+    t.date    "cob_res2"
+    t.decimal "cob_res3"
+    t.string  "cob_sloc"
+    t.decimal "cob_grdz"
+    t.decimal "cob_srdz"
+    t.decimal "cob_drdz"
+    t.string  "cob_res4"
+    t.date    "cob_res5"
+    t.decimal "cob_res6"
+    t.string  "cob_res7"
+    t.string  "cob_res8"
+    t.decimal "cob_res9"
+    t.decimal "cob_mati"
+    t.decimal "cob_matf"
+    t.string  "cob_hist"
   end
 
   create_table "arcdevs", force: :cascade do |t|
@@ -474,14 +565,16 @@ ActiveRecord::Schema.define(version: 20170303132720) do
   create_table "histories", force: :cascade do |t|
     t.integer  "unit_id"
     t.integer  "customer_id"
+    t.integer  "debtor_id"
+    t.integer  "user_id"
     t.string   "description"
-    t.string   "history_date"
+    t.datetime "history_date"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
-    t.integer  "debtor_id"
     t.index ["customer_id"], name: "index_histories_on_customer_id", using: :btree
     t.index ["debtor_id"], name: "index_histories_on_debtor_id", using: :btree
     t.index ["unit_id"], name: "index_histories_on_unit_id", using: :btree
+    t.index ["user_id"], name: "index_histories_on_user_id", using: :btree
   end
 
   create_table "tickets", force: :cascade do |t|
@@ -532,6 +625,7 @@ ActiveRecord::Schema.define(version: 20170303132720) do
     t.inet     "last_sign_in_ip"
     t.integer  "profile"
     t.string   "name"
+    t.string   "origin_code"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.integer  "unit_id"
@@ -549,6 +643,7 @@ ActiveRecord::Schema.define(version: 20170303132720) do
   add_foreign_key "histories", "customers"
   add_foreign_key "histories", "debtors"
   add_foreign_key "histories", "units"
+  add_foreign_key "histories", "users"
   add_foreign_key "tickets", "contracts"
   add_foreign_key "tickets", "customers"
   add_foreign_key "tickets", "debtors"

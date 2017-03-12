@@ -142,6 +142,8 @@ pt-BR:
     due_at: Vencimento
     charge: Cobrar?
     yes: 'Sim, cobrar'
+    status:
+      not_pay: Aberto
 
   proposal:
     title: Propostas Negociados com Contribuintes

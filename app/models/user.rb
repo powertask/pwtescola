@@ -10,4 +10,6 @@ class User < ApplicationRecord
 
   belongs_to :unit
 
+  has_many :histories
+
 end

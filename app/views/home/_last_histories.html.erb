@@ -7,17 +7,15 @@
         <th>Devedor</th>
         <th>Colaborador</th>
         <th>Histórico</th>
-        <th></th>
       </tr>
     </thead>
     <tbody>
       <% unless @histories.nil? %>
         <% @histories.each do |history| %>
           <tr>
-            <td><%= history.created_at.to_s_br %> </td>
+            <td><%= history.history_date.to_s_br %> </td>
             <td><%= link_to(history.debtor.name, show_path(history.debtor)) if history.debtor.present? %> </td>
             <td><%= history.user.name if history.user.present? %> </td>
-            <td><%= history.word.name if history.word.present? %> </td>
             <td><%= history.description %> </td>
           </tr>
         <% end %>

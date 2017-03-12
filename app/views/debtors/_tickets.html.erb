@@ -7,30 +7,28 @@
 </div>
 
 <div class='list1'>
-	<% unless @tickets.empty? %>
-		<% @tickets.each do |ticket| %>
-			<li>
-				<div class='strip' id='none'> <%= ticket.id %> </div>
+	<% @tickets.each do |ticket| %>
+		<li>
+			<div class='strip' id='none'> <%= ticket.id %> </div>
 
-				<div class='tools'>
-					<%= link_to(t('menu.edit'), edit_ticket_path(ticket), class: "btn btn-xs btn-default") unless ticket.contract_id %>
-				</div>
+			<div class='tools'>
+				<%= link_to(t('menu.edit'), edit_ticket_path(ticket), class: "btn btn-xs btn-default") unless ticket.contract_id %>
+			</div>
 
-				<div class='indent'>
-          <%= ticket.description %>
-          &ndash;
-          <%= ticket.document_number %>
-          &ndash;
-          <%= ticket.amount.real_contabil %>
-          &ndash;
-          <%=  t('ticket.status.' << ticket.status) %>
-          &ndash;
-          <%=  'Contrato nro ' << ticket.contract_id.to_s if ticket.contract_id %>
-					<tt></tt>
-					<dt></dt>
-				</div>
-			</li>
-		<% end %>
+			<div class='indent'>
+        <%= ticket.description %>
+        &ndash;
+        <%= ticket.document_number %>
+        &ndash;
+        <%= ticket.amount.real_contabil %>
+        &ndash;
+        <%=  t('ticket.status.' << ticket.status) %>
+        &ndash;
+        <%=  'Contrato nro ' << ticket.contract_id.to_s if ticket.contract_id %>
+				<tt></tt>
+				<dt></dt>
+			</div>
+		</li>
 	<% end %>
 </div>
 

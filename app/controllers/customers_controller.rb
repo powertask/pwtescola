@@ -54,7 +54,7 @@ class CustomersController < ApplicationController
   end
 
   def list_customers
-    @customers = Customer.select('id', 'name').where('id in (2,6)')
+    @customers = Customer.select('id', 'name').where(origin_code: [10,4])
   end
 
   def define_customer

@@ -6,31 +6,36 @@
   <span> <%= t('debtor.title') %> </span>
 </div>
 
-<div class='list1'>
-  <% unless @debtors.empty? %>
-    <% @debtors.each do |debtor| %>
-      <li>
-        <div class='strip' id='none'> <%= debtor.id %> </div>
+<p>
+  <%= form_tag(debtors_path, :method => 'get') do |f| %>
+    <%= text_field_tag 'name', params[:name], :size => 80 %>
+    <%= submit_tag t('debtor.search') %> ou <%= link_to t('menu.clean'), debtors_path %>
+  <% end %>
+</p>
 
-        <div class='tools'>
-          <%= link_to(t('menu.edit'), edit_debtor_path(debtor), class: "btn btn-xs btn-default") %>
-        </div>
- 
-        <div class='indent'>
-          <%= link_to(debtor.name, debtor_path(debtor)) %>
-          &ndash;
-          <tt>
-          <% if debtor.cnpj.present? %> 
-            <%= debtor.cnpj %>
-          <% else %>
-            <%= debtor.cpf %>
-          <% end %>
-          </tt>
-          <dt>
-          </dt>
-        </div>
-      </li>
-    <% end %>
+<div class='list1'>
+  <% @debtors.each do |debtor| %>
+    <li>
+      <div class='strip' id='none'> <%= debtor.id %> </div>
+
+      <div class='tools'>
+        <%= link_to(t('menu.edit'), edit_debtor_path(debtor), class: "btn btn-xs btn-default") %>
+      </div>
+
+      <div class='indent'>
+        <%= link_to(debtor.name, debtor_path(debtor)) %>
+        &ndash;
+        <tt>
+        <% if debtor.cnpj.present? %> 
+          <%= debtor.cnpj %>
+        <% else %>
+          <%= debtor.cpf %>
+        <% end %>
+        </tt>
+        <dt>
+        </dt>
+      </div>
+    </li>
   <% end %>
 </div>
 

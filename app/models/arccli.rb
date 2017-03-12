@@ -1,3 +1,0 @@
-class Arccli < ApplicationRecord
-
-end
