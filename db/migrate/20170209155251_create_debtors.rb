@@ -18,6 +18,7 @@ class CreateDebtors < ActiveRecord::Migration[5.0]
       t.string :phone_number
       t.string :mobile_local_code
       t.string :mobile_number
+      t.string :origin_code
 
       t.timestamps
     end

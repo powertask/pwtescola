@@ -11,7 +11,7 @@
 		<tr>
 			<td><%= @ticket.document_number %></td>
 			<td><%= @ticket.due_at.to_date.to_s_br if @ticket.due_at %></td>
-			<td><%= @ticket.amount.real %></td>
+			<td><%= @ticket.amount_principal.real %></td>
 			<td><%= f.check_box :charge, label: 'Sim' %></td>
 		</tr>
 	</table>

@@ -105,7 +105,7 @@
 
     @contract = Contract.new
 
-    @tickets = Ticket.list(current_user.unit_id, session[:customer_id], params[:cod]).not_pay
+    @tickets = Ticket.list(current_user.unit_id, session[:customer_id], params[:cod]).open.order('document_number')
     @ticket = Ticket.new
 
     clear_variable_session()
@@ -123,7 +123,7 @@
     @ticket = Ticket.find(params[:cod])
     @ticket.update_attributes(ticket_params)
 
-    @tickets = Ticket.list(current_user.unit_id, session[:customer_id], @ticket.debtor.id).not_pay.order(:document_number, :due_at)
+    @tickets = Ticket.list(current_user.unit_id, session[:customer_id], @ticket.debtor.id).open.order(:document_number, :due_at)
     @debtor = Debtor.find @ticket.debtor.id
 
     if params[:date_current].nil?

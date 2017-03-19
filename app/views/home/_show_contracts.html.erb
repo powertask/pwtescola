@@ -4,31 +4,29 @@
   <thead>
     <tr>
       <th>Contrato</th>
+      <th>Nro Original</th>
       <th>Situação</th>
       <th>Data Contrato</th>
-      <th>Parcelas GMA</th>
-      <th>Valor GMA</th>
-      <th>Parcelas Cliente</th>
-      <th>Valor Cliente</th>
+      <th>Parcelas</th>
+      <th>Valor</th>
     </tr>
   </thead>
   <tbody>
     <% if @contracts.nil? %>
-      'Nenhum TERMO gerado para o contribuinte.'
+      'Nenhum CONTRATO gerado.'
     <% else %>
       <% @contracts.each do |contract| %>
         <tr>
           <td><%= contract.id %> </td>
-          <% if contract.active? %>
+          <td><%= contract.origin_code %> </td>
+          <% if contract.open? %>
             <td><%= link_to(t('contract.status.' << contract.status) << ' - Ver Contrato', contract_path(contract)) %> </td>
           <% else %>
             <td><%= t('contract.status.' << contract.status) %></td>
           <% end %>
-          <td><%= contract.contract_date.to_s_br %> </td>
-          <td><%= contract.unit_ticket_quantity %> </td>
-          <td><%= contract.unit_amount.real %> </td>
-          <td><%= contract.client_ticket_quantity %> </td>
-          <td><%= contract.client_amount.real %> </td>
+          <td><%= contract.created_at.to_s_br %> </td>
+          <td><%= contract.ticket_quantity %> </td>
+          <td><%= contract.amount_principal.real %> </td>
         </tr>
       <% end %>
     <% end %>

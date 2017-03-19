@@ -16,29 +16,27 @@
     </tr>
   </thead>
   <tbody>
-    <% unless @tickets.nil? %>
-      <% @tickets.each do |ticket| %>
-        <tr>
-          <td>
-            <% if ticket.charge %>
-              <div class='strip green'> <%= 'Cobrar' %> </div>
-            <% else %>
-              <div class='strip red' id='none'> <%= 'Não Cobrar' %> </div>
-            <% end %> 
-          </td>    
-          <td><%= ticket.id %>
-          <td><%= ticket.document_number %> </td>
-          <td><%= ticket.due_at.to_s_br %> </td>
-          <td><%= t(ticket.status) %> </td>
-          <td><%= calc_meses_atraso(ticket, nil, @date_current) %> </td>
-          <td><%= ticket.amount.real %> </td>
-          <td><%= calc_correcao(ticket, nil, @date_current).real %> </td>
-          <td><%= calc_multa(ticket, nil, @date_current).real %> </td>
-          <td><%= calc_juros(ticket, nil, @date_current).real %> </td>
-          <td><%= calc_ticket(ticket, nil, @date_current).real %> </td>
-          <td><%= link_to(t('edit'), get_charge_ticket_path(ticket), class: "btn btn-xs btn-default", remote: true ) %></td>
-        </tr>
-      <% end %>
+    <% @tickets.each do |ticket| %>
+      <tr>
+        <td>
+          <% if ticket.charge %>
+            <div class='strip green'> <%= 'Cobrar' %> </div>
+          <% else %>
+            <div class='strip red' id='none'> <%= 'Não Cobrar' %> </div>
+          <% end %> 
+        </td>    
+        <td><%= ticket.id %>
+        <td><%= ticket.document_number %> </td>
+        <td><%= ticket.due_at.to_s_br %> </td>
+        <td><%= t('ticket.status.'<<ticket.status) %> </td>
+        <td><%= calc_meses_atraso(ticket, nil, @date_current) %> </td>
+        <td><%= ticket.amount_principal.real %> </td>
+        <td><%= calc_correcao(ticket, nil, @date_current).real %> </td>
+        <td><%= calc_multa(ticket, nil, @date_current).real %> </td>
+        <td><%= calc_juros(ticket, nil, @date_current).real %> </td>
+        <td><%= calc_ticket(ticket, nil, @date_current).real %> </td>
+        <td><%= link_to(t('edit'), get_charge_ticket_path(ticket), class: "btn btn-xs btn-default", remote: true ) %></td>
+      </tr>
     <% end %>
   </tbody>
   <tfoot>

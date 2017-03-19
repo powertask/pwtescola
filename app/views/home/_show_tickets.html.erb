@@ -3,6 +3,7 @@
 <table class="table">
   <thead>
     <tr>
+      <th>ID</th>
       <th>Documento</th>
       <th>Valor</th>
       <th>Atraso Meses</th>
@@ -14,23 +15,23 @@
     </tr>
   </thead>
   <tbody>
-    <% unless @tickets.nil? %>
-      <% @tickets.each do |ticket| %>
-        <tr>
-          <td><%= ticket.document_number %> </td>
-          <td><%= ticket.amount.real %> </td>
-          <td><%= calc_meses_atraso(ticket, nil, nil) %> </td>
-          <td><%= calc_multa(ticket, nil, nil).real %> </td>
-          <td><%= calc_juros(ticket, nil, nil).real %> </td>
-          <td><%= calc_ticket(ticket, nil, nil).real %> </td>
-          <td><%= t('home.ticket.status.'<<ticket.status) %> </td>
-          <td><%= ticket.contract_id %> </td>
-        </tr>
-      <% end %>
+    <% @tickets.each do |ticket| %>
+      <tr>
+        <td><%= ticket.id %> </td>
+        <td><%= ticket.document_number %> </td>
+        <td><%= ticket.amount_principal.real %> </td>
+        <td><%= calc_meses_atraso(ticket, nil, nil) %> </td>
+        <td><%= calc_multa(ticket, nil, nil).real %> </td>
+        <td><%= calc_juros(ticket, nil, nil).real %> </td>
+        <td><%= calc_ticket(ticket, nil, nil).real %> </td>
+        <td><%= t('ticket.status.'<<ticket.status) %> </td>
+        <td><%= ticket.contract_id %> </td>
+      </tr>
     <% end %>
   </tbody>
   <tfoot>
     <tr>
+      <td></td>
       <td></td>
       <td><%= session[:value_ticket].real %></td>
       <td></td>

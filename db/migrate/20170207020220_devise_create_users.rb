@@ -33,6 +33,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.0]
       t.integer :profile
       t.string :name
       t.string :origin_code
+      t.references :unit, foreign_key: true
       
       t.timestamps null: false
     end

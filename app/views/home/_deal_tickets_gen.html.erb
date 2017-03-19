@@ -18,7 +18,7 @@
   <tfoot>
     <tr>
       <td>Totais</td>
-      <td><%= @tickets.map{|i|i[:amount]}.inject(:+).real if @tickets %></td>
+      <td><%= @tickets.map{|i|i[:amount_principal]}.inject(:+).real if @tickets %></td>
       <td></td>
     </tr>
   </tfoot>  
@@ -27,7 +27,7 @@
       <% @tickets.each do |ticket| %>
         <tr>
           <td><%= ticket[:ticket] %> </td>
-          <td><%= ticket[:amount].real %> </td>
+          <td><%= ticket[:amount_principal].real %> </td>
           <td><%= ticket[:due_at].to_s_br %> </td>
         </tr>
       <% end %>

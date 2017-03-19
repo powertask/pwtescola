@@ -19,7 +19,7 @@ module ApplicationHelper
 
     _dt_ini = Date.new(_dt_ini.year, _dt_ini.month, 1)
     _dt_end = Date.new(_dt_end.year, _dt_end.month, 1) + 1.month - 1.day
-    _value = ticket.amount
+    _value = ticket.amount_principal
 
     inpcs = Inpc.where("idx_date between ? AND ?", _dt_ini, _dt_end)
     idx_sum = 0
@@ -28,7 +28,7 @@ module ApplicationHelper
       _value = _value + (_value * (inpc.idx/100))
     end
     
-    (_value.to_f - ticket.amount).round(2)
+    (_value.to_f - ticket.amount_principal).round(2)
   end
 
 
@@ -69,7 +69,7 @@ module ApplicationHelper
     _multa    = calc_multa(ticket, _dt_ini, _dt_end)
     _juros    = calc_juros(ticket, _dt_ini, _dt_end)
 
-    total     = ticket.amount + _correcao + _multa + _juros
+    total     = ticket.amount_principal + _correcao + _multa + _juros
 
     if ticket.charge
       total_cobrado = total
@@ -77,14 +77,14 @@ module ApplicationHelper
       total_cobrado = 0
     end
 
-    session[:value_ticket]   = (session[:value_ticket].nil? ? 0 : session[:value_ticket]) + (ticket.amount.nil? ? 0 : ticket.amount)
+    session[:value_ticket]   = (session[:value_ticket].nil? ? 0 : session[:value_ticket]) + (ticket.amount_principal.nil? ? 0 : ticket.amount_principal)
     session[:total_multa]    = (session[:total_multa].nil? ? 0 : session[:total_multa]) + (_multa.nil? ? 0 : _multa)
     session[:total_juros]    = (session[:total_juros].nil? ? 0 : session[:total_juros]) + (_juros.nil? ? 0 : _juros)
     session[:total_correcao] = (session[:total_correcao].nil? ? 0 : session[:total_correcao]) + (_correcao.nil? ? 0 : _correcao)
     session[:total_ticket]   = (session[:total_ticket].nil? ? 0 : session[:total_ticket]) + (total.nil? ? 0 : total)
 
     if ticket.charge
-      session[:value_ticket_cobrado]         = session[:value_ticket_cobrado].to_f + (ticket.amount.nil? ? 0 : ticket.amount)
+      session[:value_ticket_cobrado]         = session[:value_ticket_cobrado].to_f + (ticket.amount_principal.nil? ? 0 : ticket.amount_principal)
       session[:total_multa_cobrado]       = session[:total_multa_cobrado].to_f + (_multa.nil? ? 0 : _multa)
       session[:total_juros_cobrado]       = session[:total_juros_cobrado].to_f + (_juros.nil? ? 0 : _juros)
       session[:total_correcao_cobrado]    = session[:total_correcao_cobrado].to_f + (_correcao.nil? ? 0 : _correcao)

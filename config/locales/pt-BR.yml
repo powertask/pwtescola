@@ -93,8 +93,6 @@ pt-BR:
       title: Contratos
     ticket:
       title: Mensalidades
-      status:
-        not_pay: Aberto
 
   deal:
     title: Ambiente de Negociações
@@ -144,7 +142,11 @@ pt-BR:
     yes: 'Sim, cobrar'
     status:
       not_pay: Aberto
-
+      open: Aberto
+      paid: Pago
+      contract: Em contrato
+      proposal: Em proposta
+      
   proposal:
     title: Propostas Negociados com Contribuintes
     show: Detalhes da Proposta

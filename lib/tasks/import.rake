@@ -2,16 +2,24 @@ desc "Import data"
 task :import => :environment do
 
   begin
-    puts "Import data from MYSQL....."
 
     ActiveRecord::Base.transaction do
 
-      puts "Import data from MYSQL.....UNIT"
+      puts "Import data from MYSQL....."
+
+      puts "Create.....UNIT"
       unit = Unit.new
       unit.name = "Gianelli Martins Advogados"
       unit.cnpj_cpf = "04307840000152"
       unit.state = "RS"
       unit.save!
+
+      puts "Create.....BANK ACCOUNT"
+      bank = BankAccount.new
+      bank.unit_id = unit.id
+      bank.name = "Banco do Brasil"
+      bank.bank_code = "1188"
+      bank.save!
 
 
       puts "Import data from MYSQL.....USERS"
@@ -127,7 +135,7 @@ task :import => :environment do
       end
 
 
-      ## Import TIT
+      ## Import TICKETS
       puts "Import data from MYSQL.....TICKETS"
      
       JSON.parse(File.read('lib/tasks/arctit.json')).each do |j|
@@ -142,12 +150,13 @@ task :import => :environment do
           ticket.debtor_id = debtor.first.id
           ticket.customer_id = customer.first.id
           ticket.description = j['tit_numt']
-          ticket.amount = j['tit_vpar'].to_f
+          ticket.amount_principal = j['tit_vpar'].to_f
           ticket.document_number = j['tit_numt']
           ticket.due_at = j['tit_dven']
           ticket.charge = false
           ticket.created_at = j['tit_dcad']
-          ticket.status = 0
+          ticket.sequence = j['tit_sequ']
+          ticket.status = :open
           ticket.save!
         end
       end
@@ -177,6 +186,74 @@ task :import => :environment do
         end
       end
 
+
+      ## Import PAYMENT
+      puts "Import data from MYSQL.....CONTRACT/BANK_SLIP"
+
+      JSON.parse(File.read('lib/tasks/arccnab.json')).each do |j|
+
+        debtor = Debtor.where('origin_code = ?', j['cnab_codi'].to_s)
+
+        if debtor.present?
+
+          contract = Contract.new
+          contract.unit_id = debtor.first.unit_id
+          contract.debtor_id = debtor.first.id
+          contract.customer_id = debtor.first.customer_id
+          contract.amount_principal = j['cnab_vpri'].to_f
+          contract.amount_monetary_correction = j['cnab_vcom'].to_f
+          contract.amount_interest = j['cnab_vjur'].to_f
+          contract.amount_fine = j['cnab_vmul'].to_f
+          contract.origin_code = j['cnab_nreci'].to_s
+          contract.status = :legacy
+          contract.ticket_quantity = j['cnab_qpar'].to_i
+          contract.created_at = j['cnab_demt']
+
+          contract.save!
+
+
+          bank_slip = BankSlip.new
+          bank_slip.unit_id = debtor.first.unit_id
+          bank_slip.debtor_id = debtor.first.id
+          bank_slip.customer_id = debtor.first.customer_id
+          bank_slip.bank_account_id = BankAccount.all.first.id
+          bank_slip.contract_id = contract.id
+          bank_slip.origin_code = ''
+          bank_slip.our_number = j['cnab_ntibr'].to_s
+          bank_slip.amount_principal = j['cnab_vpar'].to_f
+          bank_slip.due_at = j['cnab_dvep']
+          bank_slip.customer_name = j['cnab_nome']
+          bank_slip.customer_document = j['cnab_cpfc']
+          bank_slip.paid_at = j['cnab_dcrep']
+          bank_slip.paid_amount_principal = j['cnab_vpagp'].to_f
+          bank_slip.status = :legacy
+
+          bank_slip.save!
+        end
+      end
+
+
+      ## Import PAYMENT
+      puts "Import data from MYSQL.....CONTRACT TICKET"
+
+      JSON.parse(File.read('lib/tasks/arcpag.json')).each do |j|
+
+        debtor = Debtor.where('origin_code = ?', j['pag_codi'].to_s)
+        ticket = Ticket.where('unit_id = ? AND debtor_id = ? AND sequence = ?', debtor.first.unit_id, debtor.first.id, j['pag_sequ'].to_i)
+        contract = Contract.where('origin_code = ?', j['pag_reci'].to_s)
+
+        contract_ticket = ContractTicket.new
+        contract_ticket.unit_id = debtor.first.unit_id
+        contract_ticket.contract_id = contract.first.id if contract.present?
+        contract_ticket.ticket_id = ticket.first.id
+        contract_ticket.amount_principal = j['pag_vpri'].to_f
+        contract_ticket.amount_monetary_correction = j['pag_vcom'].to_f
+        contract_ticket.amount_interest = j['pag_vjur'].to_f
+        contract_ticket.amount_fine = j['pag_vmul'].to_f
+
+        contract_ticket.save!
+
+      end
 
     end
 
