@@ -1,1 +1,0 @@
-SELECT concat('insert into arcacies(acie_codi, acie_dlan, acie_dhor, acie_clie, acie_cobr, acie_comm) values(' , acie_codi,",'",acie_dlan, "','",acie_dhor, "',", acie_clie, ',', (case when acie_cobr = '*' then 0 else acie_cobr end), ",'", ifnull(acie_comm, '*Sem registro'), "');" ) FROM cobsql.arcacie;
