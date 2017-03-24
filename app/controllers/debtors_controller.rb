@@ -4,8 +4,7 @@ class DebtorsController < ApplicationController
   layout 'window'
 
   def index
-    @debtors = index_class(Debtor)
-#    @debtors = Debtor.where('unit_id = ? and customer_id = ?', current_user.unit_id, session[:customer_id]).paginate(:page => params[:page], :per_page => 20)
+    @debtors = Debtor.list(current_user.unit_id, session[:customer_id]).paginate(:page => params[:page], :per_page => 20)
     respond_with @debtors, :layout => 'application'
   end
 
