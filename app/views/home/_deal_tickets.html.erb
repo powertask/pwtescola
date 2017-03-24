@@ -7,10 +7,11 @@
       <th>Vencimento</th>
       <th><%= t('status') %></th>
       <th>Meses</th>
-      <th>Valor</th>
+      <th>Principal</th>
       <th>Correção</th>
-      <th>Multa</th>
       <th>Juros</th>
+      <th>Multa</th>
+      <th>Taxa</th>
       <th>Valor Total</th>
       <th></th>
     </tr>
@@ -32,8 +33,9 @@
         <td><%= calc_meses_atraso(ticket, nil, @date_current) %> </td>
         <td><%= ticket.amount_principal.real %> </td>
         <td><%= calc_correcao(ticket, nil, @date_current).real %> </td>
-        <td><%= calc_multa(ticket, nil, @date_current).real %> </td>
         <td><%= calc_juros(ticket, nil, @date_current).real %> </td>
+        <td><%= calc_multa(ticket, nil, @date_current).real %> </td>
+        <td><%= calc_taxa(ticket, nil, @date_current).real %> </td>
         <td><%= calc_ticket(ticket, nil, @date_current).real %> </td>
         <td><%= link_to(t('edit'), get_charge_ticket_path(ticket), class: "btn btn-xs btn-default", remote: true ) %></td>
       </tr>
@@ -49,8 +51,9 @@
       <td></td>
       <td> <%= session[:value_ticket].real %></td>
       <td> <%= session[:total_correcao].real %></td>
-      <td> <%= session[:total_multa].real %> </td>
       <td> <%= session[:total_juros].real %> </td>
+      <td> <%= session[:total_multa].real %> </td>
+      <td> <%= session[:total_taxa].real %> </td>
       <td> <%= session[:total_ticket].real %></td>
       <td></td>
     </tr>

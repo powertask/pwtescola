@@ -56,7 +56,7 @@
   def show
     @debtor = Debtor.find(params[:cod])
    
-    @tickets = Ticket.list(current_user.unit_id, session[:customer_id], params[:cod]).order('document_number')
+    @tickets = Ticket.list(current_user.unit_id, session[:customer_id], params[:cod]).order('due_at, document_number')
     @contracts = Contract.list(current_user.unit_id, session[:customer_id]).where('debtor_id = ?', params[:cod])
 
     clear_variable_session
@@ -84,22 +84,6 @@
     end
 
     @debtor = Debtor.find(params[:cod])
-
-=begin
-    unless current_user.admin?
-      if @taxpayer.user_id != current_user.id
-        flash[:alert] = "Devedor não pertence a sua lista."
-        redirect_to :root and return
-      end
-    end
-=end 
-
-=begin
-    unless Taxpayer.chargeble? @taxpayer
-      flash[:alert] = "Cidade não liberada para negociações!"
-      redirect_to show_path(params[:cod]) and return 
-    end
-=end
 
     @histories = History.list(current_user.unit_id, session[:customer_id], params[:cod]).order('created_at DESC')
 
@@ -141,7 +125,7 @@
     ticket_quantity  =  params[:ticket_quantity].to_i
     ticket_due_at    =  params[:ticket_due].to_date
 
-    if params[:value_type].to_i == 0
+    if ticket_quantity == 1
       total_ticket_a_vista = session[:total_ticket_a_vista].to_f
       total_fee = session[:total_fee_a_vista].to_f.round(2)
       ticket_total = total_ticket_a_vista - total_fee      
@@ -158,7 +142,7 @@
       due_at = ticket_due_at if tic == 1
       due_at = ticket_due_at + (tic - 1).month if tic > 1
 
-      ticket = { ticket: tic, amount: ticket_amount.round(2), due_at: due_at}
+      ticket = { ticket: tic, amount_principal: ticket_amount.round(2), due_at: due_at}
       @tickets << ticket
       session[:tickets] = @tickets
     end
@@ -202,6 +186,7 @@
     session[:value_ticket] = 0
     session[:total_multa] = 0
     session[:total_juros] = 0
+    session[:total_taxa] = 0
     session[:total_correcao] = 0
     session[:total_ticket] = 0
 
@@ -209,6 +194,7 @@
     session[:total_multa_cobrado] = 0
     session[:total_juros_cobrado] = 0
     session[:total_correcao_cobrado] = 0
+    session[:total_taxa_cobrado] = 0
     session[:total_ticket_cobrado] = 0
     session[:total_ticket_sem_fee_cobrado] = 0
     session[:total_fee_cobrado] = 0
@@ -216,6 +202,7 @@
     session[:value_ticket_a_vista] = 0
     session[:total_multa_a_vista] = 0
     session[:total_juros_a_vista] = 0
+    session[:total_taxa_a_vista] = 0
     session[:total_correcao_a_vista] = 0
     session[:total_ticket_a_vista] = 0
     session[:total_fee_a_vista] = 0

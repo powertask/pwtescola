@@ -5,10 +5,11 @@
     <thead>
       <tr>
         <th>Tipo Cobrança</th>
-        <th>Valor</th>
+        <th>Principal</th>
         <th>Correção</th>
-        <th>Multa</th>
         <th>Juros</th>
+        <th>Multa</th>
+        <th>Taxa</th>
         <th>Valor Total</th>
       </tr>
     </thead>
@@ -17,16 +18,18 @@
         <td>Parcelado</td>
         <td><%= session[:value_ticket_cobrado].real.to_s %></td>    
         <td><%= session[:total_correcao_cobrado].real.to_s %></td>
-        <td><%= session[:total_multa_cobrado].real.to_s %></td>
         <td><%= session[:total_juros_cobrado].real.to_s %></td>
+        <td><%= session[:total_multa_cobrado].real.to_s %></td>
+        <td><%= session[:total_taxa_cobrado].real.to_s %></td>
         <td><%= session[:total_ticket_cobrado].real.to_s %></td>
       </tr>
       <tr>
         <td>A Vista</td>
         <td><%= session[:value_ticket_cobrado].real.to_s %></td>    
         <td><%= session[:total_correcao_cobrado].real.to_s %></td>
-        <td><%= session[:total_multa_a_vista].real.to_s %></td>
         <td><%= session[:total_juros_a_vista].real.to_s %></td>
+        <td><%= session[:total_multa_a_vista].real.to_s %></td>
+        <td><%= session[:total_taxa_a_vista].real.to_s %></td>
         <td><%= session[:total_ticket_a_vista].real.to_s %></td>
       </tr>
     </tbody>

@@ -4,7 +4,7 @@ class CustomersController < ApplicationController
   layout 'window'
 
   def index
-    @customers = index_class(Customer)
+    @customers = Customer.where(id: session[:customer_id])
     respond_with @customers, :layout => 'application'
   end
 
@@ -36,6 +36,13 @@ class CustomersController < ApplicationController
   def update
     respond_to do |format|
       if @customer.update(customer_params)
+        
+        session[:customer_name] = @customer.name
+        session[:fl_charge_monetary_correction] = @customer.fl_charge_monetary_correction
+        session[:fl_charge_interest] = @customer.fl_charge_interest
+        session[:fl_charge_fine] = @customer.fl_charge_fine
+        session[:fl_charge_tax] = @customer.fl_charge_tax
+
         format.html { redirect_to @customer, notice: 'Customer was successfully updated.' }
         format.json { render :show, status: :ok, location: @customer }
       else
@@ -63,6 +70,11 @@ class CustomersController < ApplicationController
     if customer.present?
       session[:customer_id] = customer.id
       session[:customer_name] = customer.name
+      session[:fl_charge_monetary_correction] = customer.fl_charge_monetary_correction
+      session[:fl_charge_interest] = customer.fl_charge_interest
+      session[:fl_charge_fine] = customer.fl_charge_fine
+      session[:fl_charge_tax] = customer.fl_charge_tax
+
     end
     redirect_to root_path
   end
@@ -76,6 +88,6 @@ class CustomersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def customer_params
-      params.require(:customer).permit(:unit_id, :name, :cnpj, :cpf, :zipcode, :state, :city_name, :address, :address_number, :address_complement, :neighborhood, :email, :phone_number, :created_at)
+      params.require(:customer).permit(:unit_id, :name, :cnpj, :cpf, :zipcode, :state, :city_name, :address, :address_number, :address_complement, :neighborhood, :email, :phone_number, :created_at, :fl_charge_monetary_correction, :fl_charge_interest, :fl_charge_fine, :fl_charge_tax)
     end
 end

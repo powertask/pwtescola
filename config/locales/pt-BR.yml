@@ -178,6 +178,10 @@ pt-BR:
     full_name: Razão Social do Cliente
     fee: Taxa de Intermediação
     search: Procurar por Cliente
+    fl_charge_monetary_correction: Calcular Correção Monetária?
+    fl_charge_interest: Calcular Juros?
+    fl_charge_fine: Calcular Multa?
+    fl_charge_tax: Calcular Taxa?
 
   debtor:
     title: Cadastro de Devedores

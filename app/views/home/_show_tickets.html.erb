@@ -5,11 +5,14 @@
     <tr>
       <th>ID</th>
       <th>Documento</th>
-      <th>Valor</th>
+      <th>Vencimento</th>
       <th>Atraso Meses</th>
-      <th>Multa</th>
+      <th>Principal</th>
+      <th>Correção</th>
       <th>Juros</th>
-      <th>Valor GUIA</th>
+      <th>Multa</th>
+      <th>Taxa</th>
+      <th>Valor Total</th>
       <th><%= t('status') %></th>
       <th>Contrato</th>
     </tr>
@@ -19,10 +22,13 @@
       <tr>
         <td><%= ticket.id %> </td>
         <td><%= ticket.document_number %> </td>
-        <td><%= ticket.amount_principal.real %> </td>
+        <td><%= ticket.due_at.to_s_br %> </td>
         <td><%= calc_meses_atraso(ticket, nil, nil) %> </td>
-        <td><%= calc_multa(ticket, nil, nil).real %> </td>
+        <td><%= ticket.amount_principal.real %> </td>
+        <td><%= calc_correcao(ticket, nil, nil).real %> </td>
         <td><%= calc_juros(ticket, nil, nil).real %> </td>
+        <td><%= calc_multa(ticket, nil, nil).real %> </td>
+        <td><%= calc_taxa(ticket, nil, nil).real %> </td>
         <td><%= calc_ticket(ticket, nil, nil).real %> </td>
         <td><%= t('ticket.status.'<<ticket.status) %> </td>
         <td><%= ticket.contract_id %> </td>
@@ -33,10 +39,13 @@
     <tr>
       <td></td>
       <td></td>
-      <td><%= session[:value_ticket].real %></td>
       <td></td>
-      <td> <%= session[:total_multa].real %> </td>
+      <td></td>
+      <td> <%= session[:value_ticket].real %></td>
+      <td> <%= session[:total_correcao].real %> </td>
       <td> <%= session[:total_juros].real %> </td>
+      <td> <%= session[:total_multa].real %> </td>
+      <td> <%= session[:total_taxa].real %> </td>
       <td> <%= session[:total_ticket].real %></td>
       <td></td>
       <td></td>

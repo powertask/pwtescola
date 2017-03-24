@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170317205003) do
+ActiveRecord::Schema.define(version: 20170324203455) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,8 +99,12 @@ ActiveRecord::Schema.define(version: 20170317205003) do
     t.string   "mobile_local_code"
     t.string   "mobile_number"
     t.string   "origin_code"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.boolean  "fl_charge_monetary_correction"
+    t.boolean  "fl_charge_interest"
+    t.boolean  "fl_charge_fine"
+    t.boolean  "fl_charge_tax"
     t.index ["unit_id"], name: "index_customers_on_unit_id", using: :btree
   end
 
@@ -142,6 +146,11 @@ ActiveRecord::Schema.define(version: 20170317205003) do
     t.index ["debtor_id"], name: "index_histories_on_debtor_id", using: :btree
     t.index ["unit_id"], name: "index_histories_on_unit_id", using: :btree
     t.index ["user_id"], name: "index_histories_on_user_id", using: :btree
+  end
+
+  create_table "monetary_indices", force: :cascade do |t|
+    t.date    "index_at"
+    t.decimal "value",    precision: 5, scale: 4
   end
 
   create_table "tickets", force: :cascade do |t|
