@@ -26,10 +26,10 @@
     <%= f.input :state, :label => t('state') %>
     <%= f.input :phone_number, :label => t('phone') %>
     <%= f.input :email, :label => t('email') %>
-    <%= f.input :fl_charge_monetary_correction, :label => t('customer.fl_charge_monetary_correction') %>
-    <%= f.input :fl_charge_interest, :label => t('customer.fl_charge_interest') %>
-    <%= f.input :fl_charge_fine, :label => t('customer.fl_charge_fine') %>
-    <%= f.input :fl_charge_tax, :label => t('customer.fl_charge_tax') %>
+    <%= f.input :fl_charge_monetary_correction, as: :boolean, :label => t('customer.fl_charge_monetary_correction') %>
+    <%= f.input :fl_charge_interest, as: :boolean, :label => t('customer.fl_charge_interest') %>
+    <%= f.input :fl_charge_fine, as: :boolean, :label => t('customer.fl_charge_fine') %>
+    <%= f.input :fl_charge_tax, as: :boolean, :label => t('customer.fl_charge_tax') %>
 
 
     <div class="actions">
