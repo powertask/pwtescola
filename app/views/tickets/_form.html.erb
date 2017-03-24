@@ -12,12 +12,12 @@
     <%= f.input :debtor_id, as: :hidden %>
     <%= f.input :status, as: :hidden %>
     <%= f.input :description, :label => t('ticket.description') %>
-    <%= f.input :amount, :label => t('ticket.amount') %>
+    <%= f.input :amount_principal, :label => t('ticket.amount') %>
     <%= f.input :document_number, :label => t('ticket.document_number') %>
 
     <div class="actions">
       <div class='buttonbar'>
-        <%= f.button :submit, t('menu.save') %>
+        <%= f.button :submit, t('menu.save'), class: 'btn-primary' %>
         <%= 'ou' %>
         <%= link_to t('menu.cancel'), debtors_path %>
       </div>
