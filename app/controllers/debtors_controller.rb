@@ -26,7 +26,7 @@ class DebtorsController < ApplicationController
 
     respond_to do |format|
       if @debtor.save
-        format.html { redirect_to @debtor, notice: 'Debtor was successfully created.' }
+        format.html { redirect_to @debtor, notice: 'Devedor criado.' }
         format.json { render :show, status: :created, location: @debtor }
       else
         format.html { render :new }
@@ -38,7 +38,7 @@ class DebtorsController < ApplicationController
   def update
     respond_to do |format|
       if @debtor.update(debtor_params)
-        format.html { redirect_to @debtor, notice: 'Debtor was successfully updated.' }
+        format.html { redirect_to @debtor, notice: 'Devedor atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @debtor }
       else
         format.html { render :edit }
@@ -47,13 +47,6 @@ class DebtorsController < ApplicationController
     end
   end
 
-  def destroy
-    @debtor.destroy
-    respond_to do |format|
-      format.html { redirect_to debtors_url, notice: 'Debtor was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
 
   private
     def set_debtor
