@@ -1,16 +1,27 @@
 <div id='table-ticket-simul'>
   <div class='subtitle'> <%= t('deal.ticket') %> </div>
   <br>
-  <%= bootstrap_form_tag url: get_tickets_simul_path, method: 'get', remote: true do |f| %>
-    <%= f.number_field :ticket_quantity, label: t('deal.ticket_quantity') %>
-    <%= f.date_field :ticket_due, label: t('deal.ticket_due_at') %>
 
-    <%= f.form_group do %>
-      <% if @date_current == Date.current %>
-        <%= f.submit t('menu.tickets') %>
-      <% else %>
-        <%= '**Permite Gerar Parcelas somente quando data base de cálculo for igual data de hoje.' %>
-      <% end %>
+  <%= simple_form_for(:simul, 
+                      url: get_tickets_simul_path, 
+                      method: 'get', 
+                      remote: true,
+                      html: { class: 'form-horizontal' }, 
+                      wrapper: :horizontal_form,
+                      wrapper_mappings: {
+                          check_boxes: :horizontal_radio_and_checkboxes,
+                          radio_buttons: :horizontal_radio_and_checkboxes,
+                          file: :horizontal_file_input,
+                          boolean: :horizontal_boolean
+                        }) do |f| %>
+
+    <%= f.input :bank_slip_quantity, label: t('deal.ticket_quantity') %>
+    <%= f.input :bank_slip_due_at, label: t('deal.ticket_due_at') %>
+
+    <% if @date_current == Date.current %>
+      <%= f.button :submit, t('menu.tickets'), class: 'btn-primary' %>
+    <% else %>
+      <%= '**Permite Gerar Parcelas somente quando data base de cálculo for igual data de hoje.' %>
     <% end %>
   <% end %>
 

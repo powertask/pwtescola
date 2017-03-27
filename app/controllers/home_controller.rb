@@ -122,29 +122,25 @@
 
 
   def get_tickets_simul
-    ticket_quantity  =  params[:ticket_quantity].to_i
-    ticket_due_at    =  params[:ticket_due].to_date
+    bank_slip_quantity  =  params[:simul][:bank_slip_quantity].to_i
+    bank_slip_due_at    =  params[:simul][:bank_slip_due_at].to_date
 
-    if ticket_quantity == 1
-      total_ticket_a_vista = session[:total_ticket_a_vista].to_f
-      total_fee = session[:total_fee_a_vista].to_f.round(2)
-      ticket_total = total_ticket_a_vista - total_fee      
+    if bank_slip_quantity == 1
+      total = session[:total_ticket_a_vista].to_f
     else
-      total_ticket_cobrado = session[:total_ticket_cobrado].to_f
-      total_fee = (session[:total_fee_cobrado].to_f).round(2)
-      ticket_total = total_ticket_cobrado - total_fee      
+      total = session[:total_ticket_cobrado].to_f
     end
 
-    ticket_amount = ticket_total / ticket_quantity
-    @tickets = []
+    amount = total / bank_slip_quantity
+    @bank_slips = []
 
-    (1..ticket_quantity).each  do |tic|
-      due_at = ticket_due_at if tic == 1
-      due_at = ticket_due_at + (tic - 1).month if tic > 1
+    (1..bank_slip_quantity).each  do |tic|
+      due_at = bank_slip_due_at if tic == 1
+      due_at = bank_slip_due_at + (tic - 1).month if tic > 1
 
-      ticket = { ticket: tic, amount_principal: ticket_amount.round(2), due_at: due_at}
-      @tickets << ticket
-      session[:tickets] = @tickets
+      bank_slip = { id: tic, amount_principal: amount.round(2), due_at: due_at}
+      @bank_slips << bank_slip
+      session[:bank_slips] = @bank_slips
     end
   end
 

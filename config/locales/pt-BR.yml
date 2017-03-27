@@ -106,7 +106,7 @@ pt-BR:
     type_value: A Vista/Parcelado
     value_charge: "Valor a Ser Cobrado: "
     recalculate: Recalcular Parcelas
-    create_contract: Gravar Parcelamento e Gerar Termo
+    create_contract: Gravar Parcelamento e Gerar Contrato
     delete_contract: Deletar Termo
     create_proposal: Gerar Proposta
 

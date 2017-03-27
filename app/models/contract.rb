@@ -3,7 +3,7 @@ class Contract < ApplicationRecord
   belongs_to :customer
   belongs_to :debtor
 
-	validates_presence_of :unit_id, :status
+	validates_presence_of :unit_id, :customer_id, :debtor_id, :status
 
   enum status: [:open, :cancel, :paid, :legacy]
 

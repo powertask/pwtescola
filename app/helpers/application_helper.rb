@@ -1,6 +1,5 @@
 module ApplicationHelper
 
-
   def calc_meses_atraso(ticket, _dt_ini, _dt_end)
     _dt_ini = ticket.due_at if _dt_ini.nil?
     _dt_end = Date.current if _dt_end.nil?

@@ -16,6 +16,9 @@ gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'jquery-turbolinks'
+gem 'jquery-ui-rails'
+
+gem 'momentjs-rails', '>= 2.9.0'
 
 gem 'devise'
 gem 'simple_form'

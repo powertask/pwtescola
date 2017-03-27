@@ -1,67 +1,79 @@
 class ContractsController < ApplicationController
-  before_action :set_contract, only: [:show, :edit, :update, :destroy]
+  before_action :set_contract, only: [:show]
   respond_to :html
   layout 'window'
   
-  # GET /contracts
-  # GET /contracts.json
+
   def index
     @contracts = Contract.all
   end
 
-  # GET /contracts/1
-  # GET /contracts/1.json
+
   def show
   end
 
-  # GET /contracts/new
-  def new
-    @contract = Contract.new
-  end
 
-  # GET /contracts/1/edit
-  def edit
-  end
+  def create_contract
+    cod = params[:cod]
 
-  # POST /contracts
-  # POST /contracts.json
-  def create
-    @contract = Contract.new(contract_params)
+    debtor = Debtor.find(cod)
+    customer = Customer.find session[:customer_id]
+    unit = Unit.find(current_user.unit_id)
+    tickets = Ticket.list(current_user.unit_id, session[:customer_id], params[:cod]).open.where('charge = ?', true)
 
-    respond_to do |format|
-      if @contract.save
-        format.html { redirect_to @contract, notice: 'Contract was successfully created.' }
-        format.json { render :show, status: :created, location: @contract }
-      else
-        format.html { render :new }
-        format.json { render json: @contract.errors, status: :unprocessable_entity }
+    ActiveRecord::Base.transaction do
+      @contract = Contract.new
+
+      @contract.unit_id = current_user.unit_id
+      @contract.customer_id = session[:customer_id]
+      @contract.debtor_id = cod
+      @contract.user_id = current_user.id
+      @contract.amount_principal = session[:total_ticket_cobrado].to_f.round(2)
+      @contract.ticket_quantity = session[:tickets].size
+      @contract.status = :open
+      @contract.save!
+
+      session[:bank_slips].each  do |tic|
+        bank_slip = BankSlip.new
+        bank_slip.unit_id = current_user.unit_id
+        bank_slip.customer_id = @contract.customer_id
+        bank_slip.debtor_id = @contract.debtor_id
+        bank_slip.bank_account_id = customer.bank_account_id
+        bank_slip.contract_id = @contract.id
+
+        bank_slip.amount_principal = tic['amount_principal'].to_f
+        bank_slip.due_at = tic['due_at']
+
+        bank_slip.customer_name = customer[:name]
+        bank_slip.customer_document = customer[:cnpj].present? ? customer[:cnpj] : customer[:cpf]
+        bank_slip.status = :generating
+
+        bank_slip.save!
+      end
+
+      tickets.each do  |ticket|
+        ticket.contract_id = @contract.id
+        ticket.status = :contract
+        ticket.save!
+
+        contract_ticket = ContractTicket.new
+        contract_ticket.unit_id = current_user.unit_id
+        contract_ticket.contract_id = @contract.id
+        contract_ticket.ticket_id = ticket.id
+        contract_ticket.amount_principal = ticket.amount_principal
+        contract_ticket.amount_monetary_correction = Ticket.calc_amount_monetary_correction(ticket, nil, nil, false)
+        contract_ticket.amount_interest = Ticket.calc_amount_interest(ticket, nil, nil, true, false)
+        contract_ticket.amount_fine = Ticket.calc_amount_fine(ticket, nil, nil, true, true, false)
+        contract_ticket.amount_tax = Ticket.calc_amount_tax(ticket, nil, nil, false, true, true, true)
+        contract_ticket.save!
+
       end
     end
+
+    respond_with @contract, notice: 'Contrato gerado com sucesso.'
+
   end
 
-  # PATCH/PUT /contracts/1
-  # PATCH/PUT /contracts/1.json
-  def update
-    respond_to do |format|
-      if @contract.update(contract_params)
-        format.html { redirect_to @contract, notice: 'Contract was successfully updated.' }
-        format.json { render :show, status: :ok, location: @contract }
-      else
-        format.html { render :edit }
-        format.json { render json: @contract.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /contracts/1
-  # DELETE /contracts/1.json
-  def destroy
-    @contract.destroy
-    respond_to do |format|
-      format.html { redirect_to contracts_url, notice: 'Contract was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

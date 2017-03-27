@@ -1,6 +1,6 @@
 <div class='title_tools'>
   <a class="btn btn-large btn-default" <%= link_to(t('deal.recalculate'), :back) %> </a>
-  <a class="btn btn-large btn-success" <%= link_to(t('deal.create_proposal'), create_proposal_path, method: :post ) %> </a>
+  <a class="btn btn-large btn-default" <%= link_to(t('deal.create_proposal'), create_proposal_path, method: :post ) %> </a>
   <a class="btn btn-large btn-success" <%= link_to(t('deal.create_contract'), create_contract_path, method: :post ) %> </a>
 </div>
 
@@ -18,17 +18,17 @@
   <tfoot>
     <tr>
       <td>Totais</td>
-      <td><%= @tickets.map{|i|i[:amount_principal]}.inject(:+).real if @tickets %></td>
+      <td><%= @bank_slips.map{|i|i[:amount_principal]}.inject(:+).real if @bank_slips %></td>
       <td></td>
     </tr>
   </tfoot>  
   <tbody>
-    <% unless @tickets.nil? %>
-      <% @tickets.each do |ticket| %>
+    <% unless @bank_slips.nil? %>
+      <% @bank_slips.each do |bank_slip| %>
         <tr>
-          <td><%= ticket[:ticket] %> </td>
-          <td><%= ticket[:amount_principal].real %> </td>
-          <td><%= ticket[:due_at].to_s_br %> </td>
+          <td><%= bank_slip[:id] %> </td>
+          <td><%= bank_slip[:amount_principal].real %> </td>
+          <td><%= bank_slip[:due_at].to_s_br %> </td>
         </tr>
       <% end %>
     <% end %>

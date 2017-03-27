@@ -1,3 +1,11 @@
+$(function() {
+    $( '#simul_bank_slip_due_at' ).datepicker({
+      	format: 'dd/mm/yyyy',
+      	autoclose: true
+    });
+  });
+
+
 
 $(function() {
     $( '#due_at' ).datepicker({

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170324203455) do
+ActiveRecord::Schema.define(version: 20170327161845) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 20170324203455) do
     t.decimal "amount_monetary_correction"
     t.decimal "amount_interest"
     t.decimal "amount_fine"
+    t.decimal "amount_tax"
     t.index ["contract_id"], name: "index_contract_tickets_on_contract_id", using: :btree
     t.index ["ticket_id"], name: "index_contract_tickets_on_ticket_id", using: :btree
     t.index ["unit_id"], name: "index_contract_tickets_on_unit_id", using: :btree
@@ -75,9 +76,11 @@ ActiveRecord::Schema.define(version: 20170324203455) do
     t.string   "origin_code"
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+    t.integer  "user_id"
     t.index ["customer_id"], name: "index_contracts_on_customer_id", using: :btree
     t.index ["debtor_id"], name: "index_contracts_on_debtor_id", using: :btree
     t.index ["unit_id"], name: "index_contracts_on_unit_id", using: :btree
+    t.index ["user_id"], name: "index_contracts_on_user_id", using: :btree
   end
 
   create_table "customers", force: :cascade do |t|
@@ -105,6 +108,8 @@ ActiveRecord::Schema.define(version: 20170324203455) do
     t.boolean  "fl_charge_interest"
     t.boolean  "fl_charge_fine"
     t.boolean  "fl_charge_tax"
+    t.integer  "bank_account_id"
+    t.index ["bank_account_id"], name: "index_customers_on_bank_account_id", using: :btree
     t.index ["unit_id"], name: "index_customers_on_unit_id", using: :btree
   end
 
@@ -223,6 +228,8 @@ ActiveRecord::Schema.define(version: 20170324203455) do
   add_foreign_key "contracts", "customers"
   add_foreign_key "contracts", "debtors"
   add_foreign_key "contracts", "units"
+  add_foreign_key "contracts", "users"
+  add_foreign_key "customers", "bank_accounts"
   add_foreign_key "customers", "units"
   add_foreign_key "debtors", "customers"
   add_foreign_key "debtors", "units"
