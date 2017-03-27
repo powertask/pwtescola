@@ -29,7 +29,6 @@ gem 'will_paginate'
 gem 'rails_12factor'
 gem 'responders'
 gem 'brazilian-rails'
-gem 'awesome_print'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.3.3'
