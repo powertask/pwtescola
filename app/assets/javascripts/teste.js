@@ -10,7 +10,7 @@ $(function() {
 $(function() {
     $( '#due_at' ).datepicker({
       	showOtherMonths: true,
-		formatDate: "dd/mm/yyyy",
+		format: "dd/mm/yyyy",
       	selectOtherMonths: true,
 		changeMonth: true,
 		changeYear: true,

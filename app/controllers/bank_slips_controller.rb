@@ -1,9 +1,16 @@
 class BankSlipsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_bank_slip, only: [:show]
 
   respond_to :html
   layout 'window'
+
+  def create
+    @bank_slip = BankSlip.new(bank_slip_params)
+
+    @bank_slip.save!
+    respond_with @bank_slip
+  end
+
 
   def create_new_due_at
     bank_slip = BankSlip.find(params[:cod])
@@ -23,4 +30,17 @@ class BankSlipsController < ApplicationController
 
     respond_with @bank_slip
   end
+
+
+  def show
+    redirect_to(contracts_path)
+  end
+
+
+  private
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def bank_slip_params
+      params.require(:bank_slip).permit(:unit_id, :customer_id, :debtor_id, :bank_account_id, :amount_principal, :contract_id, :due_at, :customer_name, :customer_document, :status)
+    end
+
 end

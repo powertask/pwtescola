@@ -9,25 +9,23 @@
   <div class='label1 top req'> <%=t("id") %>: </div>          <%= @contract.id %>
   <div class='label1 top req'> <%=t("status") %>: </div>      <%= t('contract.status.' << @contract.status) %>
   
-  <div class='label1 top req'> <%=t("origin") %>:</div>
-
   <div class='label1 top req'> <%=t("contract.contract_date") %>: </div>
       <%= @contract.created_at.to_s_br %>
-  <div class='label1 top req'> <%=t("contract.taxpayer") %>: </div>
+  <div class='label1 top req'> <%=t("contract.debtor") %>: </div>
       <%= @contract.debtor.origin_code.to_s << " - " << @contract.debtor.name.upcase %>
   <div class='label1 top req'> <%=t("user.name") %>: </div>
       <%= @contract.user ? @contract.user.name.upcase : 'ADMIN'  %>
-  <div class='label1 top req'> <%=t("contract.amount", name: @contract.customer.name) %>: </div>
+  <div class='label1 top req'> <%=t("contract.amount") %>: </div>
       <%= @contract.amount_principal.real %>
 </div>
 
 <div class='title_tools'>
   <% if @contract.open? %>
-    <a class="btn btn-large btn-default" <%= link_to(t('contract.create_ticket'), :action => "create_bank_billet", :cod => @contract.id) %></a>
+    <a class="btn btn-large btn-default" <%= link_to(t('contract.create_bank_slip'), :action => "create_bank_billet", :cod => @contract.id) %></a>
   <% end %>
 </div>
 
-<div class='title_page'> <%= 'Parcelas' %> </div>
+<div class='title_page'> <%= t('contract.bank_slip') %> </div>
 
 <table class="table">
   <thead>
@@ -47,7 +45,9 @@
         <tr>
           <td><%= bank_slip.id %> </td>
           <td>
-            <% if bank_slip.open? %>
+            <% if bank_slip.generating? %>
+              <a class="label label-primary"><%= t('bank_slip.status.generating') %></a>
+            <% elsif bank_slip.open? %>
               <a class="label label-primary"><%= t('bank_slip.status.open') %></a>
             <% elsif bank_slip.canceled? %>
               <span class="label label-warning"><%= t('bank_slip.status.canceled') %></span>
@@ -56,7 +56,7 @@
             <% elsif bank_slip.overdue? %>
               <a class="label label-danger"><%= t('bank_slip.status.overdue') %></a>
             <% else %>
-              <span class="label label-default"><%= t('bank_slip.status.'<< bank_slip.status) if bank_slip.status.present? %></span>
+              <a class="label label-default"><%= t('bank_slip.status.'<< bank_slip.status) if bank_slip.status.present? %></a>
             <% end %>
           </td>
           <td><%= bank_slip.our_number unless bank_slip.nil? %> </td>
@@ -64,9 +64,10 @@
           <td><%= bank_slip.amount_principal.real %> </td>
           <td><%= bank_slip.paid_at.nil? ? '' : bank_slip.paid_at.to_s_br %></td>
           <td>
-            <%= link_to('Boleto', bank_slip.shorten_url, class: "btn btn-xs btn-default") if bank_slip.present? %> 
+            <%= link_to(t('contract.show_bank_slip'), bank_slip.shorten_url, class: "btn btn-xs btn-default") if bank_slip.shorten_url? %> 
 
-            <%= link_to('Novo Vencimento', create_new_due_at_path(bank_slip.id), class: "btn btn-xs btn-default") unless bank_slip.paid?  %> 
+            <%= link_to(t('contract.create_new_due_at'), create_new_due_at_path(bank_slip.id), class: "btn btn-xs btn-default") unless bank_slip.paid?  %> 
+
             <%= link_to(t('bank_slip.cancel'), bank_slip_cancel_path(bank_slip.id), class: "btn btn-xs btn-danger", remote: true, id: 'cancel_ticket') if bank_slip.present? & (bank_slip.open? || bank_slip.overdue?) %> 
 
             <%= link_to(t('bank_slip.paid'), update_status_ticket_path(bank_slip.id), class: "btn btn-xs btn-success") if bank_slip.overdue? %> 

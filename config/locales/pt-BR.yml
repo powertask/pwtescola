@@ -112,20 +112,26 @@ pt-BR:
     show: Detalhes do Contrato
     index: Listar Todos Contratos
     delete: Cancelar Contrato
-    amount: "Valor - %{name}"
+    amount: "Valor do Contrato"
     unit_fee: "Percentual - %{name}"
     ticket_quantity: "Quantidade de Parcelas - %{name}" 
     contract_date: Data do Contrato
     debtor: Devedor
     print_pdf: Contrato em PDF
     print_transaction_pdf: Contrato de Transação
-    bank_slip: Boleto
+    bank_slip: Boletos Emitidos para o Contrato
+    create_bank_slip: Gerar Boletos Agrupados
+    show_bank_slip: Ver Boleto
+    create_new_due_at: Gerar Novo Vencimento
     status:
-      active: ATIVO
+      open: ABERTO
       cancel: CANCELADO
       paid: PAGO
 
   bank_slip:
+    new: Gerar Novo Boleto
+    new_due_at: Novo Vencimento
+    amount_principal: Valor do Boleto
     status:
       open: Em Aberto
       canceled: Cancelado

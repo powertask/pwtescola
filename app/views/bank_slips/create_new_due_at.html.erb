@@ -1,0 +1,45 @@
+
+<div class='title_page'> <%= t('bank_slip.new') %> </div>
+
+<div class='section'>
+  <div class='label1 top req'> <%=t("id") %>: </div>
+    <%= @contract.id %>
+  <div class='label1 top req'> <%=t("contract.contract_date") %>: </div> 
+    <%= @contract.created_at.to_s_br %>
+  <div class='label1 top req'> <%=t("contract.debtor") %>: </div>               
+  	<%= @contract.debtor.origin_code.to_s << " - " << @contract.debtor.name %>
+  <div class='label1 top req'> <%=t("user.name") %>: </div>
+    <%= @contract.user ? @contract.user.name : 'ADMIN'  %>
+	<div class='label1 top req'> <%=t("contract.amount") %>: </div>
+    <%= @contract.amount_principal.real %>
+</div>
+
+
+<div class='title_page'> <%= t('bank_slip.new_due_at') %> </div>
+
+<div class='section'>
+  <div class='label1 top req'> <%=t("bank_slip.amount_principal") %>: </div><%= @bank_slip.amount_principal.real %>
+</div>
+
+<%= simple_form_for(@bank_slip) do |f| %>
+	<div class='section'>
+		<%= f.input :unit_id, as: :hidden %>
+    <%= f.input :contract_id, as: :hidden %>
+    <%= f.input :customer_id, as: :hidden %>
+    <%= f.input :debtor_id, as: :hidden %>
+    <%= f.input :bank_account_id, as: :hidden %>
+    <%= f.input :amount_principal, as: :hidden %>
+    <%= f.input :customer_name, as: :hidden %>
+    <%= f.input :customer_document, as: :hidden %>
+		<%= f.input :status, as: :hidden %>
+		<%= f.input :due_at, :label => t('bank_slip.new_due_at'), as: :string, readonly: true, placeholder: 'DD/MM/YYYY - Clique para definir data.', input_html: { :class => 'form-input', id: "due_at" } %>
+
+		<div class="actions">
+			<div class='buttonbar'>
+				<%= f.button :submit, t('menu.save'), class: 'btn-primary' %>
+				<%= 'ou' %>
+				<%= link_to t('menu.cancel'), contract_path(@bank_slip.contract_id) %>
+			</div>
+		</div>
+	</div>
+<% end %>

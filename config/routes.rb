@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :debtors
   resources :customers
   resources :units
+  resources :bank_slips
   devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
