@@ -1,75 +1,27 @@
 class HistoriesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_history, only: [:show, :edit, :update, :destroy]
+  respond_to :html
+  layout 'window'
 
-  # GET /histories
-  # GET /histories.json
-  def index
-    @histories = History.all
-  end
 
-  # GET /histories/1
-  # GET /histories/1.json
-  def show
-  end
-
-  # GET /histories/new
-  def new
+  def new_history
     @history = History.new
+    @history.unit_id = current_user.unit_id
+    @history.customer_id = session[:customer_id]
+    @history.debtor_id = params[:debtor_id]
+    @history.user_id = current_user.id
+    @history.history_date = Time.current
   end
 
-  # GET /histories/1/edit
-  def edit
-  end
-
-  # POST /histories
-  # POST /histories.json
-  def create
+  def create_history
     @history = History.new(history_params)
-
-    respond_to do |format|
-      if @history.save
-        format.html { redirect_to @history, notice: 'History was successfully created.' }
-        format.json { render :show, status: :created, location: @history }
-      else
-        format.html { render :new }
-        format.json { render json: @history.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /histories/1
-  # PATCH/PUT /histories/1.json
-  def update
-    respond_to do |format|
-      if @history.update(history_params)
-        format.html { redirect_to @history, notice: 'History was successfully updated.' }
-        format.json { render :show, status: :ok, location: @history }
-      else
-        format.html { render :edit }
-        format.json { render json: @history.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /histories/1
-  # DELETE /histories/1.json
-  def destroy
-    @history.destroy
-    respond_to do |format|
-      format.html { redirect_to histories_url, notice: 'History was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    @history.save
+    redirect_to( show_path(params[:debtor_id]) )
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_history
-      @history = History.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def history_params
-      params.require(:history).permit(:description, :history_date, :unit_id, :customer_id)
+      params.require(:history).permit(:description, :history_date, :unit_id, :customer_id, :debtor_id, :user_id)
     end
 end

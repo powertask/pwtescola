@@ -1,14 +1,35 @@
-<%= simple_form_for(@history) do |f| %>
+<div class='section'>
+  <div class='label1 top req'> <%=t("history.debtor") %>: </div> <%= @history.debtor.name if @history.debtor %>
+  <div class='label1 top req'> <%=t("history.user") %>: </div>     <%= @history.user.name if @history.user %>
+</div>
+
+<%= simple_form_for(
+    @history, url: 'create_history', method: :post,
+    html: { class: 'form-horizontal' }, 
+    wrapper: :horizontal_form,
+    wrapper_mappings: {
+    check_boxes: :horizontal_radio_and_checkboxes,
+    radio_buttons: :horizontal_radio_and_checkboxes,
+    file: :horizontal_file_input,
+    boolean: :horizontal_boolean
+  }) do |f| %>
+
   <%= f.error_notification %>
 
-  <div class="form-inputs">
-    <%= f.input :description %>
-    <%= f.input :history_date %>
-    <%= f.association :unit %>
-    <%= f.association :customer %>
-  </div>
+  <div class='section'>
+    <%= f.input :unit_id, as: :hidden %>
+    <%= f.input :user_id, as: :hidden %>
+    <%= f.input :customer_id, as: :hidden %>
+    <%= f.input :debtor_id, as: :hidden %>
+    <%= f.input :history_date, as: :hidden %>
+    <%= f.input :description, as: :text, :label => t('history.description'), input_html:{:class => 'form-control'} %>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
+    <div class="actions">
+      <div class='buttonbar'>
+        <%= f.button :submit, t('menu.save'), class: 'btn-primary' %>
+        <%= 'ou' %>
+        <%= link_to t('menu.cancel'), :back %>
+      </div>
+    </div>
   </div>
 <% end %>

@@ -8,4 +8,8 @@ class History < ApplicationRecord
     self.where("unit_id = ? and customer_id = ? AND debtor_id = ?", unit, customer, debtor)
   end
 
+  def self.list_dashboard(unit, customer)
+    self.where("unit_id = ? and customer_id = ?", unit, customer)
+  end
+
 end

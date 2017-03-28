@@ -11,7 +11,7 @@
       <% unless @count_contracts_month_master.nil? %>
         <% @count_contracts_month_master.each do |contract| %>
           <tr>
-            <td><%= user_name contract[0] %> </td>
+            <td><%= contract[0].present? ? user_name(contract[0]) : 'Não informado'   %> </td>
             <td><%= contract[1] %> </td>
           </tr>
         <% end %>

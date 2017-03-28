@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
-  resources :histories
+
   resources :contracts
   resources :tickets
   resources :debtors
   resources :customers
   resources :units
   resources :bank_slips
+
   devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
@@ -34,6 +35,8 @@ Rails.application.routes.draw do
   get 'bank_slip/:cod/create_new_due_at' => 'bank_slips#create_new_due_at', as: :create_new_due_at
   get 'bank_slip/:cod/bank_slip_cancel' => 'bank_slips#bank_slip_cancel', as: :bank_slip_cancel
 
+  get 'history/:debtor_id/new_history' => 'histories#new_history', as: :new_history
+  post 'history/:debtor_id/create_history' => 'histories#create_history', as: :create_history
 
   get 'contract/:contract/delete_contract' => 'contracts#delete_contract', as: :delete_contract
   get 'contract/:cod/contract_pdf' => 'contracts#contract_pdf', as: :contract_pdf

@@ -216,9 +216,9 @@ pt-BR:
 
   history:
     new: Cadastro de Históricos
-    taxpayer: Contribuinte
-    description: Histórico a ser gerado
-    word: Histórico Padrão
+    debtor: Devedor
+    description: Histórico
+    user: Colaborador
 
   user:
     edit: Editar Dados Colaborador
