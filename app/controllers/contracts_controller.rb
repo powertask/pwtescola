@@ -34,7 +34,7 @@ class ContractsController < ApplicationController
       @contract.debtor_id = cod
       @contract.user_id = current_user.id
       @contract.amount_principal = session[:total_ticket_cobrado].to_f.round(2)
-      @contract.ticket_quantity = session[:tickets].size
+      @contract.ticket_quantity = session[:bank_slips].count
       @contract.status = :open
       @contract.save!
 
