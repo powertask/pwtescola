@@ -52,8 +52,6 @@ pt-BR:
     debtor: Devedores
     user: Colaboradores
     myuser: Meus Dados
-    category: Ações
-    lawyer: Advogados
     edit: Editar
     show: Detalhes
     search: Procurar por Devedor
@@ -65,12 +63,11 @@ pt-BR:
     remove: Apagar
     tickets: Gerar Parcelas
     city: Cidades
-    contract: Termos
+    contract: Contratos
     remittance: Remessas
     bankbillet: Boletos
     discharge: Retornos
     proposal: Propostas
-    word: Histórico Padrão
 
   home:
     title: Home do Colaborador
@@ -111,22 +108,27 @@ pt-BR:
     create_proposal: Gerar Proposta
 
   contract:
-    title: Termos Negociados com Contribuintes
-    show: Detalhes do Termo
-    index: Listar Todos Termos
-    delete: Cancelar Termo
+    title: Contratos Negociados
+    show: Detalhes do Contrato
+    index: Listar Todos Contratos
+    delete: Cancelar Contrato
     amount: "Valor - %{name}"
     unit_fee: "Percentual - %{name}"
     ticket_quantity: "Quantidade de Parcelas - %{name}" 
-    contract_date: Data do Termo
-    taxpayer: Contribuinte
-    print_pdf: Termo em PDF
-    print_transaction_pdf: Termo de Transação
-    bankbillet: Boleto
+    contract_date: Data do Contrato
+    debtor: Devedor
+    print_pdf: Contrato em PDF
+    print_transaction_pdf: Contrato de Transação
+    bank_slip: Boleto
     status:
       active: ATIVO
       cancel: CANCELADO
       paid: PAGO
+
+  bank_slip:
+    status:
+      open: Em Aberto
+      canceled: Cancelado
 
   ticket:
     title: Cadastro de Valores em Aberto
@@ -148,16 +150,16 @@ pt-BR:
       proposal: Em proposta
       
   proposal:
-    title: Propostas Negociados com Contribuintes
+    title: Propostas Negociados
     show: Detalhes da Proposta
     index: Listar Todas Propostas
     delete: Cancelar Proposta
     amount: "Valor - %{name}"
     unit_fee: "Percentual - %{name}"
     ticket_quantity: "Quantidade de Parcelas - %{name}" 
-    contract_date: Data do Termo
+    contract_date: Data do Contrato
     taxpayer: Contribuinte
-    create_contract: Gerar Parcelamento e Termo
+    create_contract: Gerar Parcelamento e Contrato
     status:
       active: PROPOSTA ATIVA
       cancel: PROPOSTA CANCELADA

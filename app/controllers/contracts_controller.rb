@@ -1,15 +1,20 @@
 class ContractsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_contract, only: [:show]
   respond_to :html
   layout 'window'
   
 
   def index
-    @contracts = Contract.all
+    @contracts = Contract.list(current_user.unit_id, session[:customer_id]).paginate(:page => params[:page], :per_page => 20)
   end
 
 
   def show
+    @contract = Contract.where('id = ? AND unit_id = ? AND customer_id = ?', params[:id].to_i, current_user.unit_id, session[:customer_id]).first
+    @contract_ticket = ContractTicket.list(current_user.unit_id, session[:customer_id]).where("contract_id = ?", params[:id]).order('due_at')
+    @bank_slips = BankSlip.list(current_user.unit_id, session[:customer_id]).where("contract_id = ?", params[:id]).order('due_at')
+    respond_with @contract
   end
 
 

@@ -11,5 +11,6 @@ class User < ApplicationRecord
   belongs_to :unit
 
   has_many :histories
+  has_many :contracts
 
 end

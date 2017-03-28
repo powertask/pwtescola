@@ -30,6 +30,10 @@ Rails.application.routes.draw do
 
   post 'proposal/:cod/create_proposal' => 'proposals#create_proposal', as: :create_proposal
 
+  get 'bank_slip/:cod/create_new_due_at' => 'bank_slips#create_new_due_at', as: :create_new_due_at
+  get 'bank_slip/:cod/bank_slip_cancel' => 'bank_slips#bank_slip_cancel', as: :bank_slip_cancel
+
+
   get 'contract/:contract/delete_contract' => 'contracts#delete_contract', as: :delete_contract
   get 'contract/:cod/contract_pdf' => 'contracts#contract_pdf', as: :contract_pdf
   get 'contract/:cod/contract_transaction_pdf' => 'contracts#contract_transaction_pdf', as: :contract_transaction_pdf

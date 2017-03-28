@@ -1,4 +1,5 @@
 class DebtorsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_debtor, only: [:show, :edit, :update, :destroy]
   respond_to :html
   layout 'window'

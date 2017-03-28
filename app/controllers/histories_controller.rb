@@ -1,4 +1,5 @@
 class HistoriesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_history, only: [:show, :edit, :update, :destroy]
 
   # GET /histories

@@ -1,34 +1,122 @@
-<p id="notice"><%= notice %></p>
+<div class='title_tools'>
+  <a class="btn btn-large btn-warning" <%= link_to(t('contract.index'), contracts_path) %> </a>
+  <a class="btn btn-large btn-warning" <%= link_to t('contract.print_pdf'), :action => "contract_transaction_pdf", :cod => @contract.id, :format => "pdf" %> </a>
+</div>
 
-<p>
-  <strong>Unit:</strong>
-  <%= @contract.unit %>
-</p>
+<div class='title_page'> <%= t('contract.show') %> </div>
 
-<p>
-  <strong>Amount unit:</strong>
-  <%= @contract.amount_unit %>
-</p>
+<div class='section'>
+  <div class='label1 top req'> <%=t("id") %>: </div>          <%= @contract.id %>
+  <div class='label1 top req'> <%=t("status") %>: </div>      <%= t('contract.status.' << @contract.status) %>
+  
+  <div class='label1 top req'> <%=t("origin") %>:</div>
 
-<p>
-  <strong>Amount client:</strong>
-  <%= @contract.amount_client %>
-</p>
+  <div class='label1 top req'> <%=t("contract.contract_date") %>: </div>
+      <%= @contract.created_at.to_s_br %>
+  <div class='label1 top req'> <%=t("contract.taxpayer") %>: </div>
+      <%= @contract.debtor.origin_code.to_s << " - " << @contract.debtor.name.upcase %>
+  <div class='label1 top req'> <%=t("user.name") %>: </div>
+      <%= @contract.user ? @contract.user.name.upcase : 'ADMIN'  %>
+  <div class='label1 top req'> <%=t("contract.amount", name: @contract.customer.name) %>: </div>
+      <%= @contract.amount_principal.real %>
+</div>
 
-<p>
-  <strong>Status:</strong>
-  <%= @contract.status %>
-</p>
+<div class='title_tools'>
+  <% if @contract.open? %>
+    <a class="btn btn-large btn-default" <%= link_to(t('contract.create_ticket'), :action => "create_bank_billet", :cod => @contract.id) %></a>
+  <% end %>
+</div>
 
-<p>
-  <strong>Debtor:</strong>
-  <%= @contract.debtor %>
-</p>
+<div class='title_page'> <%= 'Parcelas' %> </div>
 
-<p>
-  <strong>Client ticket quantity:</strong>
-  <%= @contract.client_ticket_quantity %>
-</p>
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Status</th>
+      <th>Nosso Número</th>
+      <th>Vencimento</th>
+      <th>Valor de Parcela</th>
+      <th>Data do Pagamento</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% unless @bank_slips.nil? %>
+      <% @bank_slips.each do |bank_slip| %>
+        <tr>
+          <td><%= bank_slip.id %> </td>
+          <td>
+            <% if bank_slip.open? %>
+              <a class="label label-primary"><%= t('bank_slip.status.open') %></a>
+            <% elsif bank_slip.canceled? %>
+              <span class="label label-warning"><%= t('bank_slip.status.canceled') %></span>
+            <% elsif bank_slip.paid? %>
+              <a class="label label-success"><%= t('bank_slip.status.paid') %></a>
+            <% elsif bank_slip.overdue? %>
+              <a class="label label-danger"><%= t('bank_slip.status.overdue') %></a>
+            <% else %>
+              <span class="label label-default"><%= t('bank_slip.status.'<< bank_slip.status) if bank_slip.status.present? %></span>
+            <% end %>
+          </td>
+          <td><%= bank_slip.our_number unless bank_slip.nil? %> </td>
+          <td><%= bank_slip.due_at.to_date.to_s_br %> </td>
+          <td><%= bank_slip.amount_principal.real %> </td>
+          <td><%= bank_slip.paid_at.nil? ? '' : bank_slip.paid_at.to_s_br %></td>
+          <td>
+            <%= link_to('Boleto', bank_slip.shorten_url, class: "btn btn-xs btn-default") if bank_slip.present? %> 
 
-<%= link_to 'Edit', edit_contract_path(@contract) %> |
-<%= link_to 'Back', contracts_path %>
+            <%= link_to('Novo Vencimento', create_new_due_at_path(bank_slip.id), class: "btn btn-xs btn-default") unless bank_slip.paid?  %> 
+            <%= link_to(t('bank_slip.cancel'), bank_slip_cancel_path(bank_slip.id), class: "btn btn-xs btn-danger", remote: true, id: 'cancel_ticket') if bank_slip.present? & (bank_slip.open? || bank_slip.overdue?) %> 
+
+            <%= link_to(t('bank_slip.paid'), update_status_ticket_path(bank_slip.id), class: "btn btn-xs btn-success") if bank_slip.overdue? %> 
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<script>
+  $(function() {
+    $('.title_tools #delete_contract').click(function (event) {
+      var targetUrl = $(this).attr("href");
+      $.confirm({
+          title: 'CANCELAR Termo??',
+          content: 'Deseja realmente CANCELAR o termo?',
+        confirmButton: 'Sim',
+        cancelButton: 'Não',
+        confirmButtonClass: 'btn-danger',
+        theme: 'supervan',
+          confirm: function(){
+              window.location.href = targetUrl;
+          },
+          cancel: function(){
+
+          }
+      });
+      return false;
+    });
+});
+  
+  $(function() {
+    $('#cancel_ticket').click(function (event) {
+      var targetUrl = $(this).attr("href");
+      $.confirm({
+          title: 'CANCELAR boleto??',
+          content: 'Deseja realmente CANCELAR o boleto?',
+        confirmButton: 'Sim',
+        cancelButton: 'Não',
+        confirmButtonClass: 'btn-danger',
+        theme: 'supervan',
+          confirm: function(){
+              window.location.href = targetUrl;
+          },
+          cancel: function(){
+          }
+      });
+      return false;
+    });
+});
+</script>
+
