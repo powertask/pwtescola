@@ -5,7 +5,7 @@ class DebtorsController < ApplicationController
   layout 'window'
 
   def index
-    @debtors = Debtor.list(current_user.unit_id, session[:customer_id]).paginate(:page => params[:page], :per_page => 20)
+    @debtors = index_list(Debtor)
     respond_with @debtors, :layout => 'application'
   end
 

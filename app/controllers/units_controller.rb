@@ -5,7 +5,7 @@ class UnitsController < ApplicationController
   # GET /units
   # GET /units.json
   def index
-    @units = Unit.all
+    @units = Unit.find current_user.unit_id
   end
 
   # GET /units/1
@@ -52,15 +52,6 @@ class UnitsController < ApplicationController
     end
   end
 
-  # DELETE /units/1
-  # DELETE /units/1.json
-  def destroy
-    @unit.destroy
-    respond_to do |format|
-      format.html { redirect_to units_url, notice: 'Unit was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

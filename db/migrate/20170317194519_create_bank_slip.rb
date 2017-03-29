@@ -8,12 +8,12 @@ class CreateBankSlip < ActiveRecord::Migration[5.0]
       t.references :contract, foreign_key: true
       t.integer :origin_code
       t.string :our_number
-      t.decimal :amount_principal
+      t.decimal :amount_principal, default: 0
       t.date :due_at
       t.string :customer_name
       t.string :customer_document
       t.date :paid_at
-      t.decimal :paid_amount_principal
+      t.decimal :paid_amount_principal, default: 0
       t.string :shorten_url
       t.integer :status
 

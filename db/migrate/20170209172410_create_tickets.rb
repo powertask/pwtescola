@@ -6,7 +6,7 @@ class CreateTickets < ActiveRecord::Migration[5.0]
       t.references :customer, foreign_key: true, index: true
       t.references :contract, foreign_key: true
       t.string :description
-      t.decimal :amount_principal
+      t.decimal :amount_principal, default: 0
       t.string :document_number
       t.date :due_at
       t.boolean :charge

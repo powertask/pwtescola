@@ -32,16 +32,16 @@ ActiveRecord::Schema.define(version: 20170329002050) do
     t.integer  "contract_id"
     t.integer  "origin_code"
     t.string   "our_number"
-    t.decimal  "amount_principal"
+    t.decimal  "amount_principal",      default: "0.0"
     t.date     "due_at"
     t.string   "customer_name"
     t.string   "customer_document"
     t.date     "paid_at"
-    t.decimal  "paid_amount_principal"
+    t.decimal  "paid_amount_principal", default: "0.0"
     t.string   "shorten_url"
     t.integer  "status"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.index ["bank_account_id"], name: "index_bank_slips_on_bank_account_id", using: :btree
     t.index ["contract_id"], name: "index_bank_slips_on_contract_id", using: :btree
     t.index ["customer_id"], name: "index_bank_slips_on_customer_id", using: :btree
@@ -53,11 +53,11 @@ ActiveRecord::Schema.define(version: 20170329002050) do
     t.integer "unit_id"
     t.integer "contract_id"
     t.integer "ticket_id"
-    t.decimal "amount_principal"
-    t.decimal "amount_monetary_correction"
-    t.decimal "amount_interest"
-    t.decimal "amount_fine"
-    t.decimal "amount_tax"
+    t.decimal "amount_principal",           default: "0.0"
+    t.decimal "amount_monetary_correction", default: "0.0"
+    t.decimal "amount_interest",            default: "0.0"
+    t.decimal "amount_fine",                default: "0.0"
+    t.decimal "amount_tax",                 default: "0.0"
     t.index ["contract_id"], name: "index_contract_tickets_on_contract_id", using: :btree
     t.index ["ticket_id"], name: "index_contract_tickets_on_ticket_id", using: :btree
     t.index ["unit_id"], name: "index_contract_tickets_on_unit_id", using: :btree
@@ -67,17 +67,17 @@ ActiveRecord::Schema.define(version: 20170329002050) do
     t.integer  "unit_id"
     t.integer  "customer_id"
     t.integer  "debtor_id"
-    t.decimal  "amount_principal"
-    t.decimal  "amount_monetary_correction"
-    t.decimal  "amount_interest"
-    t.decimal  "amount_fine"
+    t.decimal  "amount_principal",           default: "0.0"
+    t.decimal  "amount_monetary_correction", default: "0.0"
+    t.decimal  "amount_interest",            default: "0.0"
+    t.decimal  "amount_fine",                default: "0.0"
     t.integer  "status"
     t.integer  "ticket_quantity"
     t.string   "origin_code"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
     t.integer  "user_id"
-    t.decimal  "amount_tax"
+    t.decimal  "amount_tax",                 default: "0.0"
     t.index ["customer_id"], name: "index_contracts_on_customer_id", using: :btree
     t.index ["debtor_id"], name: "index_contracts_on_debtor_id", using: :btree
     t.index ["unit_id"], name: "index_contracts_on_unit_id", using: :btree
@@ -165,15 +165,15 @@ ActiveRecord::Schema.define(version: 20170329002050) do
     t.integer  "customer_id"
     t.integer  "contract_id"
     t.string   "description"
-    t.decimal  "amount_principal"
+    t.decimal  "amount_principal", default: "0.0"
     t.string   "document_number"
     t.date     "due_at"
     t.boolean  "charge"
     t.string   "origin_code"
     t.integer  "sequence"
     t.integer  "status"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.index ["contract_id"], name: "index_tickets_on_contract_id", using: :btree
     t.index ["customer_id"], name: "index_tickets_on_customer_id", using: :btree
     t.index ["debtor_id"], name: "index_tickets_on_debtor_id", using: :btree

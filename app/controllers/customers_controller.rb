@@ -5,7 +5,7 @@ class CustomersController < ApplicationController
   layout 'window'
 
   def index
-    @customers = Customer.where(id: session[:customer_id])
+    @customers = index_list(Customer)
     respond_with @customers, :layout => 'application'
   end
 
@@ -55,7 +55,7 @@ class CustomersController < ApplicationController
 
 
   def list_customers
-    @customers = Customer.select('id', 'name').where(origin_code: [10,4,13])
+    @customers = Customer.select('id', 'name').list(current_user.unit_id)
   end
 
   def define_customer

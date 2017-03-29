@@ -4,10 +4,10 @@ class CreateContractTicket < ActiveRecord::Migration[5.0]
       t.references :unit, foreign_key: true
       t.references :contract, foreign_key: true
       t.references :ticket, foreign_key: true
-      t.decimal :amount_principal
-      t.decimal :amount_monetary_correction
-      t.decimal :amount_interest
-      t.decimal :amount_fine
+      t.decimal :amount_principal, default: 0
+      t.decimal :amount_monetary_correction, default: 0
+      t.decimal :amount_interest, default: 0
+      t.decimal :amount_fine, default: 0
     end
   end
 end

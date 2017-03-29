@@ -5,38 +5,27 @@ class ApplicationController < ActionController::Base
 
  private
 
-    def index_class(klass, options = {})
-      options[:order] = true if options[:order].nil?
-
+    def index_list(klass)
       if params[:name].nil?
-        list(klass, options)
+        list(klass)
       else
-        filter_class(klass, options)
+        filter(klass)
       end
     end
 
-    def filter_class(klass, options = {})
+    def filter(klass)
       if params[:name].empty?
-        list(klass, options)
+        list(klass)
       else
-        list(klass, options).where("lower("<<klass.to_s.pluralize.downcase<<".name) like ?", params[:name].downcase << "%")
+        list(klass).where("lower("<<klass.to_s.pluralize.downcase<<".name) like ?", params[:name].downcase << "%")
       end
     end
 
-    def list(klass, options = {})
-      if options[:type].nil?
-        k = klass.where(klass.to_s.pluralize.downcase<<".unit_id = ?", current_user.unit_id).paginate(:page => params[:page], :per_page => 20)
-        
-        if options[:order]
-          k = k.order('name ASC')
-        end
-        k
-        
-      elsif options[:type] == :id
-        klass.where('id = ?', session[:unit_id])
+    def list(klass)
+      if klass == Customer
+        return klass.where(klass.to_s.pluralize.downcase<<".unit_id = ? AND id = ?", current_user.unit_id, session[:customer_id]).paginate(:page => params[:page], :per_page => 20)
       else
-        k = klass.all.paginate(:page => params[:page], :per_page => 20)
-        k = k.order('name ASC') unless options[:order]
+        return klass.where(klass.to_s.pluralize.downcase<<".unit_id = ? AND customer_id = ?", current_user.unit_id, session[:customer_id]).paginate(:page => params[:page], :per_page => 20)
       end
     end
 end
