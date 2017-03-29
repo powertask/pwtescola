@@ -201,7 +201,8 @@ task :import => :environment do
           contract.debtor_id = debtor.first.id
           contract.customer_id = debtor.first.customer_id
           contract.amount_principal = j['cnab_vpri'].to_f
-          contract.amount_monetary_correction = j['cnab_vcom'].to_f
+          contract.amount_monetary_correction = j['cnab_vtar'].to_f
+          contract.amount_tax = j['cnab_vcom'].to_f
           contract.amount_interest = j['cnab_vjur'].to_f
           contract.amount_fine = j['cnab_vmul'].to_f
           contract.origin_code = j['cnab_nreci'].to_s
@@ -247,9 +248,10 @@ task :import => :environment do
         contract_ticket.contract_id = contract.first.id if contract.present?
         contract_ticket.ticket_id = ticket.first.id
         contract_ticket.amount_principal = j['pag_vpri'].to_f
-        contract_ticket.amount_monetary_correction = j['pag_vcom'].to_f
+        contract_ticket.amount_monetary_correction = j['pag_vcar'].to_f
         contract_ticket.amount_interest = j['pag_vjur'].to_f
         contract_ticket.amount_fine = j['pag_vmul'].to_f
+        contract_ticket.amount_tax = j['pag_vcom'].to_f
 
         contract_ticket.save!
 

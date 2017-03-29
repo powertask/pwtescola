@@ -108,6 +108,14 @@ span.error {
   padding-top: 14px;
   padding-bottom: 1px; }
 
+.subtitle_page {
+  border-bottom: 1px gray solid;
+  color: #342d7e;
+  font-size: 16px;
+  font-weight: bold;
+  padding-top: 14px;
+  padding-bottom: 1px; }
+
 .title_tools {
   font-size: 12px;
   float: right;

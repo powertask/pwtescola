@@ -6,6 +6,7 @@ pt-BR:
   corporation: Powertask
   yes: SIM
   no: NÃO
+  status: Situação
 
   id: ID
   zipcode: CEP
@@ -109,13 +110,16 @@ pt-BR:
 
   contract:
     title: Contratos Negociados
+    title1: Dados do Contrato
     show: Detalhes do Contrato
     index: Listar Todos Contratos
     delete: Cancelar Contrato
-    amount: "Valor do Contrato"
-    unit_fee: "Percentual - %{name}"
-    ticket_quantity: "Quantidade de Parcelas - %{name}" 
     contract_date: Data do Contrato
+    amount_principal: "Valor Principal"
+    amount_monetary_correction: Correção Monetária
+    amount_interest: Juros
+    amount_fine: Multa
+    amount_tax: Taxa
     debtor: Devedor
     print_pdf: Contrato em PDF
     print_transaction_pdf: Contrato de Transação
@@ -123,10 +127,12 @@ pt-BR:
     create_bank_slip: Gerar Boletos Agrupados
     show_bank_slip: Ver Boleto
     create_new_due_at: Gerar Novo Vencimento
+    show_contract_ticket: Mensalidades Cobradas no Contrato
     status:
-      open: ABERTO
-      cancel: CANCELADO
-      paid: PAGO
+      open: Aberto
+      cancel: Cancelado
+      paid: Pago
+      x: c
 
   bank_slip:
     new: Gerar Novo Boleto
@@ -134,6 +140,7 @@ pt-BR:
     amount_principal: Valor do Boleto
     status:
       open: Em Aberto
+      paid: Pago
       canceled: Cancelado
 
   ticket:

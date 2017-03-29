@@ -30,8 +30,14 @@
         <td><%= calc_multa(ticket, nil, nil).real %> </td>
         <td><%= calc_taxa(ticket, nil, nil).real %> </td>
         <td><%= calc_ticket(ticket, nil, nil).real %> </td>
-        <td><%= t('ticket.status.'<<ticket.status) %> </td>
-        <td><%= ticket.contract_id %> </td>
+        <td>
+          <% if ticket.status == 'paid' %>
+            <a class="label label-success"><%= t('ticket.status.'<< ticket.status) %></a>
+          <% else %>
+            <%= t('ticket.status.'<< ticket.status) %>
+          <% end %>
+        </td>
+        <td><%= link_to('Ver contrato '<<ticket.contract_id.to_s, contract_path(ticket.contract_id), class: "btn btn-xs btn-default") if ticket.contract_id %> </td>
       </tr>
     <% end %>
   </tbody>

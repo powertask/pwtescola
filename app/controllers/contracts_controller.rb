@@ -12,7 +12,7 @@ class ContractsController < ApplicationController
 
   def show
     @contract = Contract.where('id = ? AND unit_id = ? AND customer_id = ?', params[:id].to_i, current_user.unit_id, session[:customer_id]).first
-    @contract_ticket = ContractTicket.list(current_user.unit_id, session[:customer_id]).where("contract_id = ?", params[:id]).order('due_at')
+    @contract_tickets = ContractTicket.list(current_user.unit_id).where("contract_id = ?", params[:id])
     @bank_slips = BankSlip.list(current_user.unit_id, session[:customer_id]).where("contract_id = ?", params[:id]).order('due_at')
     respond_with @contract
   end
