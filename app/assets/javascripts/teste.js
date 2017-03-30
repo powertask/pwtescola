@@ -9,15 +9,9 @@ $(function() {
 
 $(function() {
     $( '#due_at' ).datepicker({
-      	showOtherMonths: true,
 		format: "dd/mm/yyyy",
-      	selectOtherMonths: true,
-		changeMonth: true,
-		changeYear: true,
-		closeText: "Fechar",
-		currentText: "Hoje",
-		maxDate: new Date(2020, 1, 1),
-		showButtonPanel: true
+      	autoclose: true,
+      	startDate: "01/01/2017"
     });
   });
 

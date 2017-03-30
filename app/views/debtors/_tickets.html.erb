@@ -1,11 +1,4 @@
-<div class='title_tools'>
-	<a class="btn btn-large btn-warning" <%= link_to(t('ticket.new'), new_ticket_path(@debtor.id)) %> </a>
-</div>
-
-<div class='title_page'>
-	<span> <%= t('ticket.title') %> </span>
-</div>
-
+<div class='subtitle_page'> <%= t('debtor.title_show_2') %> </div>
 <div class='list1'>
 	<% @tickets.each do |ticket| %>
 		<li>
@@ -16,14 +9,20 @@
 			</div>
 
 			<div class='indent'>
+        <% if ticket.paid? %>
+          <span class="label label-success"><%= t('ticket.status.paid') %></span>
+        <% else %>
+          <span class="label label-primary"><%= t('ticket.status.' << ticket.status) %></span>
+        <% end %>        
+        &bull;
         <%= ticket.description %>
-        &ndash;
+        &bull;
         <%= ticket.document_number %>
-        &ndash;
+        &bull;
         <%= ticket.amount_principal.real_contabil %>
-        &ndash;
-        <%=  t('ticket.status.' << ticket.status) %>
-        &ndash;
+        &bull;
+        <%= ticket.due_at.to_s_br %>
+        &bull;
         <%=  'Contrato nro ' << ticket.contract_id.to_s if ticket.contract_id %>
 				<tt></tt>
 				<dt></dt>
@@ -31,4 +30,3 @@
 		</li>
 	<% end %>
 </div>
-

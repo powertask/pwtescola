@@ -1,26 +1,51 @@
-<div class='section'>
-  <div class='label1 top req'> <%=t("debtor.id") %>: </div>  <%= @ticket.debtor.id %>
-  <div class='label1 top req'> <%=t("debtor.origin_code") %>: </div>  <%= @ticket.debtor.origin_code %>
-  <div class='label1 top req'> <%=t("debtor.name") %>: </div>  <%= @ticket.debtor.name %>
-  <div class='label1 top req'> <%=t("ticket.id") %>: </div>  <%= @ticket.id %>
-</div>
-<br>
+<div class="row marketing">
+  <div class="col-sm-6 col-md-3">
+    <div class='subtitle_page'> <%= t('ticket.title_form_1') %> </div>
 
-<%= simple_form_for( @ticket) do |f| %>
-  <div class='section'>
-    <%= f.input :unit_id, as: :hidden %>
-    <%= f.input :debtor_id, as: :hidden %>
-    <%= f.input :status, as: :hidden %>
-    <%= f.input :description, :label => t('ticket.description') %>
-    <%= f.input :amount_principal, :label => t('ticket.amount') %>
-    <%= f.input :document_number, :label => t('ticket.document_number') %>
-
-    <div class="actions">
-      <div class='buttonbar'>
-        <%= f.button :submit, t('menu.save'), class: 'btn-primary' %>
-        <%= 'ou' %>
-        <%= link_to t('menu.cancel'), debtors_path %>
-      </div>
+    <div class='section'>
+      <div class='label1 top req'> <%=t("id") %>: </div>       <%= @debtor.id %>
+      <div class='label1 top req'> <%=t("debtor.name") %>: </div>       <%= @debtor.name %>
+      <div class='label1 top req'> <%=t("cnpj") %>: </div>          <%= @debtor.cnpj %>
+      <div class='label1 top req'> <%=t("cpf") %>: </div>          <%= @debtor.cpf %>
+      <div class='label1 top req'> <%=t("address") %>: </div>         <%= @debtor.address %>
+      <div class='label1 top req'> <%=t("address_number") %>: </div>         <%= @debtor.address_number %>
+      <div class='label1 top req'> <%=t("address_complement") %>: </div>        <%= @debtor.address_complement %>
+      <div class='label1 top req'> <%=t("neighborhood") %>: </div>      <%= @debtor.neighborhood %>
+      <div class='label1 top req'> <%=t("zipcode") %>: </div>         <%= @debtor.zipcode %>
+      <div class='label1 top req'> <%=t("city_name") %>: </div>          <%= @debtor.city_name %>
+      <div class='label1 top req'> <%=t("state") %>: </div>         <%= @debtor.state %>
+      <div class='label1 top req'> <%=t("phone_number") %>: </div>           <%= @debtor.phone_number %>
+      <div class='label1 top req'> <%=t("email") %>: </div>         <%= @debtor.email %>
     </div>
   </div>
-<% end %>
+
+  <div class="col-sm-6 col-md-9">
+    <div class='subtitle_page'> <%= t('ticket.title_form_2') %> </div>
+    <div class='section'>
+      <%= simple_form_for(  @ticket, 
+                            html: { class: 'form-horizontal' }, 
+                            wrapper: :horizontal_form,
+                            wrapper_mappings: {
+                            check_boxes: :horizontal_radio_and_checkboxes,
+                            radio_buttons: :horizontal_radio_and_checkboxes,
+                            file: :horizontal_file_input,
+                            boolean: :horizontal_boolean
+                          }) do |f| %>
+        <%= f.input :unit_id, as: :hidden %>
+        <%= f.input :debtor_id, as: :hidden %>
+        <%= f.input :customer_id, as: :hidden %>
+        <%= f.input :status, as: :hidden %>
+        <%= f.input :due_at, :label => t('ticket.due_at'), as: :string, readonly: true, placeholder: 'DD/MM/YYYY - Clique para definir data.', input_html: { :class => 'form-input', id: "due_at" } %>
+            <%= f.input :amount_principal, :label => t('ticket.amount_principal') %>
+        <%= f.input :description, :label => t('ticket.description') %>
+        <%= f.input :document_number, :label => t('ticket.document_number') %>
+
+        <div class='buttonbar'>
+          <%= f.button :submit, t('menu.save'), class: 'btn-primary' %>
+          <%= 'ou' %>
+          <%= link_to t('menu.cancel'), debtors_path %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

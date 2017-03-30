@@ -1,8 +1,9 @@
 pt-BR:
   sign_in_now: "Por favor, informe seus dados de acesso"
   sign_in: Acessar minha conta
-  sign_in_customer: Acessar o Cliente
+  sign_in_customer: Acessar a Escola
   log_in: Acessar Sistema de Cobrança
+  logout: Sair
   corporation: Powertask
   yes: SIM
   no: NÃO
@@ -42,20 +43,20 @@ pt-BR:
   user: Colaborador
   customer: Cliente
   origin: Origem
-  set_customer: Definir o Cliente
+  set_customer: Definir a Escola
   origin_code: Código Origem
 
   menu:
     home: Home
     main: Cadastros
     unit: Empresa
-    customer: Clientes
-    debtor: Devedores
+    customer: Escolas
+    debtor: Responsável Financeiro
     user: Colaboradores
     myuser: Meus Dados
     edit: Editar
     show: Detalhes
-    search: Procurar por Devedor
+    search: Procurar por Responsável Financeiro
     clean: Limpar Filtros
     create: Criar
     cancel: Cancelar
@@ -73,15 +74,14 @@ pt-BR:
   home:
     title: Home do Colaborador
     deal: Ir para Ambiente de Negociações
-    debtor: Devedor
-    name: Nome do Devedor
+    debtor: Responsável Financeiro
+    name: Nome do Responsável Financeiro
     debtor:
       show: Dados Cadastrais
     search:
-      title: Procurar por Devedor
-      name: Nome do Devedor
-      cpf: CPF do Devedor
-      cod_contribuinte: Código Devedor
+      title: Procurar por Responsável Financeiro
+      name: Nome do Responsável Financeiro
+      cpf: CPF do Responsável Financeiro
     history:
       title: Históricos do Devedor
       new: Cadastrar Novo Histórico
@@ -120,7 +120,7 @@ pt-BR:
     amount_interest: Juros
     amount_fine: Multa
     amount_tax: Taxa
-    debtor: Devedor
+    debtor: Responsável Financeiro
     print_pdf: Contrato em PDF
     print_transaction_pdf: Contrato de Transação
     bank_slip: Boletos Emitidos para o Contrato
@@ -145,9 +145,11 @@ pt-BR:
 
   ticket:
     title: Cadastro de Valores em Aberto
-    new: Cadastrar Mensalidades
-    edit: Editar Mensalidades
-    amount: Valor
+    title_form_1: Dados Responsável Financeiro
+    title_form_2: Informe os dados da mensalidade
+    new: Cadastrar Nova Mensalidade
+    edit: Editar Mensalidade
+    amount_principal: Valor da Mensalidade
     origin_code: Código Original
     id: ID da Mensalidade
     description: Descrição
@@ -161,7 +163,7 @@ pt-BR:
       paid: Pago
       contract: Em contrato
       proposal: Em proposta
-      
+
   proposal:
     title: Propostas Negociados
     show: Detalhes da Proposta
@@ -183,32 +185,35 @@ pt-BR:
     amount: Valor da Parcela a Alterar
 
   customer:
-    title: Cadastro de Clientes
-    new: Novo Cliente
-    edit: Editar Dados do Cliente
-    index: Listar Todas os Clientes
-    create: Gravar Dados do Cliente
-    show: Detalhes do Cliente
-    name: Nome do Cliente
-    full_name: Razão Social do Cliente
+    title: Cadastro de Escolas
+    new: Nova Escola
+    edit: Editar Dados da Escola
+    index: Listar Todas as Escolas
+    create: Gravar Dados da Escola
+    show: Detalhes da Escola
+    name: Nome da Escola
+    full_name: Razão Social da Escola
     fee: Taxa de Intermediação
-    search: Procurar por Cliente
+    search: Procurar por Nome da Escola
     fl_charge_monetary_correction: Calcular Correção Monetária?
     fl_charge_interest: Calcular Juros?
     fl_charge_fine: Calcular Multa?
     fl_charge_tax: Calcular Taxa?
 
   debtor:
-    title: Cadastro de Devedores
-    new: Cadastrar Novo Devedor
-    edit: Editar Dados do Devedor
-    index: Listar Todas os Devedores
-    create: Gravar Dados do Devedor
-    show: Detalhes do Devedor
-    name: Nome do Devedor
-    search: Procurar por Devedor
-    origin_code: Código Original do Devedor
-    id: ID Devedor
+    title: Cadastro de Responsável Financeiro
+    title_show_1: Dados Cadastrais
+    title_show_2: Mensalidades
+    new: Cadastrar Novo Responsável Financeiro
+    edit: Editar Dados do Responsável Financeiro
+    index: Listar Todas os Responsáveis Financeiros
+    create: Gravar Dados do Responsável Financeiro
+    show: Detalhes do Responsável Financeiro
+    name: Nome do Responsável Financeiro
+    search: Procurar por nome do Responsável Financeiro
+    origin_code: Código Responsável Financeiro
+    id: ID Responsável Financeiro
+    new_ticket: Cadastrar Nova Mensalidade
 
   unit:
     title: Cadastro do Empresa
@@ -223,7 +228,7 @@ pt-BR:
 
   history:
     new: Cadastro de Históricos
-    debtor: Devedor
+    debtor: Responsável Financeiro
     description: Histórico
     user: Colaborador
 
@@ -304,6 +309,17 @@ pt-BR:
           attributes:
             client_id:
               blank: Voce deve definir uma Federação
+        debtor:
+          attributes:
+            address:
+              blank: Logradouro não pode ficar em branco
+            city_name:
+              blank: Cidade não pode ficar em branco
+            state:
+              blank: Estado não pode ficar em branco
+            address_number:
+              blank: Número do logradouro não pode ficar em branco
+              not_a_number: Deve ser numérico
 
   will_paginate:
     next_label: Próximos &#8594;

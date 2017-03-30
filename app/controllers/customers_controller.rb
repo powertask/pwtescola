@@ -25,7 +25,7 @@ class CustomersController < ApplicationController
 
     respond_to do |format|
       if @customer.save
-        format.html { redirect_to @customer, notice: 'Cliente criado com sucesso.' }
+        format.html { redirect_to @customer, notice: 'Escola criada com sucesso.' }
         format.json { render :show, status: :created, location: @customer }
       else
         format.html { render :new }
@@ -44,7 +44,7 @@ class CustomersController < ApplicationController
         session[:fl_charge_fine] = @customer.fl_charge_fine
         session[:fl_charge_tax] = @customer.fl_charge_tax
 
-        format.html { redirect_to @customer, notice: 'Cliente atualizado com sucesso.' }
+        format.html { redirect_to @customer, notice: 'Escola atualizada com sucesso.' }
         format.json { render :show, status: :ok, location: @customer }
       else
         format.html { render :edit }

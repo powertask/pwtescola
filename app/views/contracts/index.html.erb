@@ -28,14 +28,14 @@
           <tt>
             <%= 'Data do Contrato: ' << contract.created_at.to_s_br %>
             &bull;
-            <%= 'Responsável: ' << contract.user.name if contract.user %>
+            <%= 'Colaborador: ' << contract.user.name if contract.user %>
           </tt>
           <dt></dt>
         </div>
       </li>
     <% end %>
   <% else %>
-    Devedor não tem contratos gerados.
+    Não existem contratos gerados.
   <% end %>
 </div>
 

@@ -1,10 +1,7 @@
 module ApplicationHelper
 
   def calc_meses_atraso(ticket, _dt_ini, _dt_end)
-    _dt_ini = ticket.due_at if _dt_ini.nil?
-    _dt_end = Date.current if _dt_end.nil?
-
-    (_dt_end.year * 12 + _dt_end.month) - (_dt_ini.year * 12 + _dt_ini.month)
+    Ticket.calc_diff_months(ticket, _dt_ini, _dt_end)
   end
 
 
@@ -34,7 +31,11 @@ module ApplicationHelper
     
     return 0 unless session[:fl_charge_fine]
 
-    _value = ticket.amount_principal + calc_juros(ticket, _dt_ini, _dt_end)
+    _months = Ticket.calc_diff_months(ticket, _dt_ini, _dt_end)
+    return 0 if _months <= 0
+
+    _amount_interest = Ticket.calc_amount_interest(ticket, _dt_ini, _dt_end, session[:fl_charge_amount_interest], session[:fl_charge_amount_monetary_correction])
+    _value = ticket.amount_principal + _amount_interest
     (_value * 0.02).round(2)
   end
 
@@ -43,12 +44,14 @@ module ApplicationHelper
 
     return 0 unless session[:fl_charge_interest]
 
+    _months = Ticket.calc_diff_months(ticket, _dt_ini, _dt_end)
+    return 0 if _months <= 0
+
     _dt_ini = ticket.due_at if _dt_ini.nil?
     _dt_end = Date.current if _dt_end.nil?
 
     _value = ticket.amount_principal + calc_correcao(ticket, _dt_ini, _dt_end).to_f
 
-    _months = calc_meses_atraso(ticket, _dt_ini, _dt_end)
     _perc = (_months * 0.01).round(2)
     _new_value = (_value * _perc).round(2)
   end

@@ -1,23 +1,32 @@
 <div class='title_tools'>
   <a class="btn btn-large btn-warning" <%= link_to(t('debtor.index'), debtors_path) %> </a>
+  <a class="btn btn-large btn-warning" <%= link_to(t('debtor.new_ticket'), new_ticket_path(@debtor.id)) %> </a>
 </div>
 
 <div class='title_page'> <%= t('debtor.show') %> </div>
 
-<div class='section'>
-  <div class='label1 top req'> <%=t("id") %>: </div>       <%= @debtor.id %>
-  <div class='label1 top req'> <%=t("debtor.name") %>: </div>       <%= @debtor.name %>
-  <div class='label1 top req'> <%=t("cnpj") %>: </div>          <%= @debtor.cnpj %>
-  <div class='label1 top req'> <%=t("cpf") %>: </div>          <%= @debtor.cpf %>
-  <div class='label1 top req'> <%=t("zipcode") %>: </div>         <%= @debtor.zipcode %>
-  <div class='label1 top req'> <%=t("address") %>: </div>         <%= @debtor.address %>
-  <div class='label1 top req'> <%=t("address_number") %>: </div>         <%= @debtor.address_number %>
-  <div class='label1 top req'> <%=t("address_complement") %>: </div>        <%= @debtor.address_complement %>
-  <div class='label1 top req'> <%=t("neighborhood") %>: </div>      <%= @debtor.neighborhood %>
-  <div class='label1 top req'> <%=t("city_name") %>: </div>          <%= @debtor.city_name %>
-  <div class='label1 top req'> <%=t("state") %>: </div>         <%= @debtor.state %>
-  <div class='label1 top req'> <%=t("phone_number") %>: </div>           <%= @debtor.phone_number %>
-  <div class='label1 top req'> <%=t("email") %>: </div>         <%= @debtor.email %>
-</div>
+<div class="row marketing">
+  <div class="col-sm-6 col-md-3">
 
-<%= render 'tickets' %>
+    <div class='subtitle_page'> <%= t('debtor.title_show_1') %> </div>
+    <div class='section'>
+      <div class='label1 top req'> <%=t("id") %>: </div>       <%= @debtor.id %>
+      <div class='label1 top req'> <%=t("debtor.name") %>: </div>       <%= @debtor.name %>
+      <div class='label1 top req'> <%=t("cnpj") %>: </div>          <%= @debtor.cnpj %>
+      <div class='label1 top req'> <%=t("cpf") %>: </div>          <%= @debtor.cpf %>
+      <div class='label1 top req'> <%=t("address") %>: </div>         <%= @debtor.address %>
+      <div class='label1 top req'> <%=t("address_number") %>: </div>         <%= @debtor.address_number %>
+      <div class='label1 top req'> <%=t("address_complement") %>: </div>        <%= @debtor.address_complement %>
+      <div class='label1 top req'> <%=t("neighborhood") %>: </div>      <%= @debtor.neighborhood %>
+      <div class='label1 top req'> <%=t("zipcode") %>: </div>         <%= @debtor.zipcode %>
+      <div class='label1 top req'> <%=t("city_name") %>: </div>          <%= @debtor.city_name %>
+      <div class='label1 top req'> <%=t("state") %>: </div>         <%= @debtor.state %>
+      <div class='label1 top req'> <%=t("phone_number") %>: </div>           <%= @debtor.phone_number %>
+      <div class='label1 top req'> <%=t("email") %>: </div>         <%= @debtor.email %>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-md-9">
+    <%= render 'tickets' %>
+  </div>
+</div>

@@ -9,7 +9,7 @@ class CreateTickets < ActiveRecord::Migration[5.0]
       t.decimal :amount_principal, default: 0
       t.string :document_number
       t.date :due_at
-      t.boolean :charge
+      t.boolean :charge, default: false
       t.string :origin_code
       t.integer :sequence
       t.integer :status

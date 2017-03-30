@@ -1,6 +1,9 @@
 class Debtor < ApplicationRecord
+  include ActiveModel::Validations
+  validates_with DebtorValidator
 
-  validates_presence_of :unit_id, :customer_id
+  validates_presence_of :unit_id, :customer_id, :address, :address_number, :state, :city_name
+  validates :address_number, numericality: { only_integer: true }
 
   usar_como_cpf :cpf
   usar_como_cnpj :cnpj

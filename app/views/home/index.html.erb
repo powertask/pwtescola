@@ -16,7 +16,7 @@
 
   <div class='title'>
     <br>
-    <span> <%= 'Informações sobre Devedor - ' << @debtor.name.upcase %> </span>
+    <span> <%= 'Informações sobre Responsável Financeiro - ' << @debtor.name.upcase %> </span>
   </div>
 
   <div class='title_tools'>
@@ -30,7 +30,7 @@
   <div class='subtitle'> <%= t('home.search.title') %> </div>
   <div class='section'>
     <%= bootstrap_form_tag url: filter_name_home_index_path, method: 'get', layout: :inline do |f| %>
-      <%= f.search_field :name, placeholder: 'Procure pelo nome do devedor...', size: 70, skip_label: true %>
+      <%= f.search_field :name, placeholder: 'Procure pelo nome do Responsável Financeiro...', size: 70, skip_label: true %>
       <%= f.search_field :cpf, placeholder: 'Procure pelo CPF...', size: 20, skip_label: true %> 
       <%= f.primary t('menu.search') %>
     <% end %>
@@ -38,7 +38,7 @@
 
   <div class='list1'>
     <% unless @debtors.nil? %>
-      <div class='subtitle'> <%= 'Devedores Encontrados' %> </div>
+      <div class='subtitle'> <%= 'Responsáveis Financeiros Encontrados' %> </div>
 
       <% @debtors.each do |debtor| %>
         <li>

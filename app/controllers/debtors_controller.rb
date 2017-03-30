@@ -10,7 +10,7 @@ class DebtorsController < ApplicationController
   end
 
   def show
-    @tickets = Ticket.list(current_user.unit_id, session[:customer_id], @debtor.id)
+    @tickets = Ticket.list(current_user.unit_id, session[:customer_id], @debtor.id).order('due_at')
   end
 
   def new
@@ -27,7 +27,7 @@ class DebtorsController < ApplicationController
 
     respond_to do |format|
       if @debtor.save
-        format.html { redirect_to @debtor, notice: 'Devedor criado.' }
+        format.html { redirect_to @debtor, notice: 'Responsável Financeiro criado.' }
         format.json { render :show, status: :created, location: @debtor }
       else
         format.html { render :new }
@@ -39,7 +39,7 @@ class DebtorsController < ApplicationController
   def update
     respond_to do |format|
       if @debtor.update(debtor_params)
-        format.html { redirect_to @debtor, notice: 'Devedor atualizado com sucesso.' }
+        format.html { redirect_to @debtor, notice: 'Responsável Financeiro atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @debtor }
       else
         format.html { render :edit }

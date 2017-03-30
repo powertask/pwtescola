@@ -21,7 +21,7 @@
     if params[:name].present?
 
       if params[:name].size < 3
-        flash[:alert] = "Nome do devedor deve conter ao menos 3 letras."
+        flash[:alert] = "Nome do Responsável Financeiro deve conter ao menos 3 letras."
         redirect_to :root and return
       end 
 
@@ -45,7 +45,7 @@
     end
 
     if @debtors.nil? || @debtors.empty?
-      flash[:alert] = "Devedor não encontrado."
+      flash[:alert] = "Responsável Financeiro não encontrado."
       redirect_to :root and return
     end 
   

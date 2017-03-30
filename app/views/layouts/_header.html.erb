@@ -22,7 +22,7 @@
 
           <%= render "layouts/menu" if session[:customer_id] %>
 
-      	  <li class='active'><%= link_to t("logout", default: "Logout"), destroy_user_session_path, method: :delete %></li>
+      	  <li class='active'><%= link_to t("logout"), destroy_user_session_path, method: :delete %></li>
         </ul>
   		<% end %>
     </div>

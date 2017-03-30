@@ -19,11 +19,19 @@ User.create!(	email: 'demonstracao@powertask.com.br',
 
 Customer.create!(	name: 'Colegio Demonstração Ltda - Unidade Sul',
 					full_name: 'Colegio Demonstração Ltda - Unidade Sul',
-					unit_id: unit.id)
+					unit_id: unit.id,
+					fl_charge_monetary_correction: true,
+					fl_charge_interest: true,
+					fl_charge_fine: true,
+					fl_charge_tax: true	)
 
 Customer.create!(	name: 'Colegio Demonstração Ltda - Unidade Norte',
-					full_name: 'Colegio Demonstração Ltda - Unidade Sul',
-					unit_id: unit.id)
+					full_name: 'Colegio Demonstração Ltda - Unidade Norte',
+					unit_id: unit.id,
+					fl_charge_monetary_correction: true,
+					fl_charge_interest: true,
+					fl_charge_fine: true,
+					fl_charge_tax: true	)
 
 
 MonetaryIndex.create!(index_at: Date.new(2013,12,1), value:	0.60)

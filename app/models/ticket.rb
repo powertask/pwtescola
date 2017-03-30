@@ -3,7 +3,7 @@ class Ticket < ApplicationRecord
   belongs_to :unit
   belongs_to :customer
 
-  validates_presence_of :unit_id, :debtor_id, :customer_id, :amount_principal, :status, :description
+  validates_presence_of :unit_id, :debtor_id, :customer_id, :amount_principal, :status, :description, :due_at
 
   enum status: [:open, :paid, :contract, :proposal, :legacy]
 
@@ -16,7 +16,10 @@ class Ticket < ApplicationRecord
     _dt_ini = ticket.due_at if _dt_ini.nil?
     _dt_end = Date.current if _dt_end.nil?
 
-    (_dt_end.year * 12 + _dt_end.month) - (_dt_ini.year * 12 + _dt_ini.month)
+    _months = (_dt_end.year * 12 + _dt_end.month) - (_dt_ini.year * 12 + _dt_ini.month)
+
+    return 0 if _months < 0
+    _months
   end
 
 
