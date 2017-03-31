@@ -13,6 +13,9 @@ class Ticket < ApplicationRecord
 
 
   def self.calc_diff_months(ticket, _dt_ini, _dt_end)
+    
+    return 0 unless ticket.open?
+    
     _dt_ini = ticket.due_at if _dt_ini.nil?
     _dt_end = Date.current if _dt_end.nil?
 
