@@ -5,7 +5,8 @@ class CreateBankSlip < ActiveRecord::Migration[5.0]
       t.references :customer, foreign_key: true
       t.references :debtor, foreign_key: true
       t.references :bank_account, foreign_key: true
-      t.references :contract, foreign_key: true
+      t.references :contract, foreign_key: true, index: true
+      t.references :contract_ticket, foreign_key: true, index: true
       t.integer :origin_code
       t.string :our_number
       t.decimal :amount_principal, default: 0

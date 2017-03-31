@@ -211,10 +211,9 @@ namespace :db do
             contract.amount_interest = j['cnab_vjur'].to_f
             contract.amount_fine = j['cnab_vmul'].to_f
             contract.origin_code = j['cnab_nreci'].to_s
-            contract.status = :legacy
             contract.ticket_quantity = j['cnab_qpar'].to_i
             contract.created_at = j['cnab_demt']
-
+            contract.status = :open
             contract.save!
 
 
@@ -232,8 +231,7 @@ namespace :db do
             bank_slip.customer_document = j['cnab_cpfc']
             bank_slip.paid_at = j['cnab_dcrep']
             bank_slip.paid_amount_principal = j['cnab_vpagp'].to_f
-            bank_slip.status = :legacy
-
+            bank_slip.status = :open
             bank_slip.save!
           end
         end
@@ -257,6 +255,7 @@ namespace :db do
           contract_ticket.amount_interest = j['pag_vjur'].to_f
           contract_ticket.amount_fine = j['pag_vmul'].to_f
           contract_ticket.amount_tax = j['pag_vcom'].to_f
+          contract_ticket.status = :open
 
           contract_ticket.save!
 

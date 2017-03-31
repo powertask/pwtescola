@@ -4,10 +4,12 @@ class CreateContracts < ActiveRecord::Migration[5.0]
       t.references :unit, foreign_key: true
       t.references :customer, foreign_key: true
       t.references :debtor, foreign_key: true, index: true
+      t.references :user, foreign_key: true
       t.decimal :amount_principal, default: 0
       t.decimal :amount_monetary_correction, default: 0
       t.decimal :amount_interest, default: 0
       t.decimal :amount_fine, default: 0
+      t.decimal :amount_tax, default: 0
       t.integer :status
       t.integer :ticket_quantity
       t.string :origin_code

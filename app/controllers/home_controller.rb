@@ -26,9 +26,9 @@
       end 
 
       @debtors = Debtor
-                      .where("unit_id = ? AND customer_id = ? AND lower(debtors.name) like ?", current_user.unit_id, session[:customer_id], "%"<< params[:name].downcase << "%")
-                      .paginate(:page => params[:page], :per_page => 5)
-                      .order('name ASC')
+                .where("unit_id = ? AND customer_id = ? AND lower(debtors.name) like ?", current_user.unit_id, session[:customer_id], "%"<< params[:name].downcase << "%")
+                .paginate(:page => params[:page], :per_page => 5)
+                .order('name ASC')
 
     elsif params[:cpf].present?
 
@@ -38,9 +38,9 @@
       end 
 
       @debtors = Debtor
-                      .where("unit_id = ? AND customer_id = ? AND debtors.cpf = ?", current_user.unit_id, session[:customer_id], params[:cpf])
-                      .paginate(:page => params[:page], :per_page => 5)
-                      .order('name ASC')
+                .where("unit_id = ? AND customer_id = ? AND debtors.cpf = ?", current_user.unit_id, session[:customer_id], params[:cpf])
+                .paginate(:page => params[:page], :per_page => 5)
+                .order('name ASC')
 
     end
 
@@ -56,7 +56,8 @@
   def show
     @debtor = Debtor.find(params[:cod])
    
-    @tickets = Ticket.list(current_user.unit_id, session[:customer_id], params[:cod]).order('due_at, document_number')
+    @tickets = Ticket.list(current_user.unit_id, session[:customer_id], params[:cod]).where('status <> ?', :open).order('due_at, document_number')
+    @contract_tickets = ContractTicket.list(current_user.unit_id, session[:customer_id]).where('debtor_id = ?', params[:cod])
     @contracts = Contract.list(current_user.unit_id, session[:customer_id]).where('debtor_id = ?', params[:cod])
 
     clear_variable_session

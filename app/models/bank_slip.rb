@@ -7,7 +7,7 @@ class BankSlip < ActiveRecord::Base
 
   validates_presence_of :unit_id, :customer_id, :due_at, :contract_id, :status
 
-  enum status: [:generating, :open, :canceled, :paid, :overdue, :blocked, :chargeback, :legacy]
+  enum status: [:generating, :open, :canceled, :paid, :overdue, :blocked, :chargeback]
 
   def self.list(unit, customer)
     self.where("unit_id = ? AND customer_id = ?", unit, customer)

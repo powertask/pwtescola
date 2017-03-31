@@ -2,6 +2,7 @@ class CreateCustomers < ActiveRecord::Migration[5.0]
   def change
     create_table :customers do |t|
       t.references :unit, foreign_key: true
+      t.references :bank_account, foreign_key: true
       t.string :full_name
       t.string :name
       t.string :cnpj
@@ -19,6 +20,10 @@ class CreateCustomers < ActiveRecord::Migration[5.0]
       t.string :mobile_local_code
       t.string :mobile_number
       t.string :origin_code
+      t.boolean :fl_charge_monetary_correction, default: true
+      t.boolean :fl_charge_interest, default: true
+      t.boolean :fl_charge_fine, default: true
+      t.boolean :fl_charge_tax, default: true
 
       t.timestamps
     end
