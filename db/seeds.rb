@@ -10,14 +10,14 @@
 unit = Unit.create!(	name: 'Colégio Demonstração Ltda',
 				cnpj_cpf: '05948748000140'	)
 
-User.create!(	email: 'demonstracao@powertask.com.br', 
+user = User.create!(	email: 'demonstracao@powertask.com.br', 
 				password: 'demonstracao123', 
 				password_confirmation: 'demonstracao123', 
 				name: 'Usuário Demonstracao', 
 				profile: 0,
 				unit_id: unit.id)
 
-Customer.create!(	name: 'Colegio Demonstração Ltda - Unidade Sul',
+customer = Customer.create!(	name: 'Colegio Demonstração Ltda - Unidade Sul',
 					full_name: 'Colegio Demonstração Ltda - Unidade Sul',
 					unit_id: unit.id,
 					fl_charge_monetary_correction: true,
@@ -25,7 +25,7 @@ Customer.create!(	name: 'Colegio Demonstração Ltda - Unidade Sul',
 					fl_charge_fine: true,
 					fl_charge_tax: true	)
 
-Customer.create!(	name: 'Colegio Demonstração Ltda - Unidade Norte',
+customer = Customer.create!(	name: 'Colegio Demonstração Ltda - Unidade Norte',
 					full_name: 'Colegio Demonstração Ltda - Unidade Norte',
 					unit_id: unit.id,
 					fl_charge_monetary_correction: true,
@@ -33,6 +33,30 @@ Customer.create!(	name: 'Colegio Demonstração Ltda - Unidade Norte',
 					fl_charge_fine: true,
 					fl_charge_tax: true	)
 
+debtor = Debtor.create!(unit_id: unit.id, 
+												customer_id: customer.id, 
+												name: 'Marcelo Reichert', 
+												cpf: 69806594053,
+												address: 'Rua Wilson A Freitas de Paiva',
+												address_number: 41,
+												address_complement: 'Ap 201',
+												neighborhood: 'Cavalhada',
+												zipcode: 90830244,
+												city_name: 'Porto Alegre',
+												state: 'RS' )
+
+ticket = Ticket.create!(unit_id: unit.id, debtor_id: debtor.id,	customer_id: customer.id,	charge: true, status: :open, due_at: '10/01/2017', description: 'Janeiro/2017', document_number: '2017_1', amount_principal: 1001.00)
+ticket = Ticket.create!(unit_id: unit.id, debtor_id: debtor.id,	customer_id: customer.id,	charge: true, status: :open, due_at: '10/02/2017', description: 'Fevereiro/2017', document_number: '2017_2', amount_principal: 1002.00)
+ticket = Ticket.create!(unit_id: unit.id, debtor_id: debtor.id,	customer_id: customer.id,	charge: true, status: :open, due_at: '10/03/2017', description: 'Março/2017', document_number: '2017_3', amount_principal: 1003.00)
+ticket = Ticket.create!(unit_id: unit.id, debtor_id: debtor.id,	customer_id: customer.id,	charge: true, status: :open, due_at: '10/04/2017', description: 'Abril/2017', document_number: '2017_4', amount_principal: 1004.00)
+ticket = Ticket.create!(unit_id: unit.id, debtor_id: debtor.id,	customer_id: customer.id,	charge: true, status: :open, due_at: '10/05/2017', description: 'Maio/2017', document_number: '2017_5', amount_principal: 1005.00)
+ticket = Ticket.create!(unit_id: unit.id, debtor_id: debtor.id,	customer_id: customer.id,	charge: true, status: :open, due_at: '10/06/2017', description: 'Junho/2017', document_number: '2017_6', amount_principal: 1006.00)
+ticket = Ticket.create!(unit_id: unit.id, debtor_id: debtor.id,	customer_id: customer.id,	charge: true, status: :open, due_at: '10/07/2017', description: 'Julho/2017', document_number: '2017_7', amount_principal: 1007.00)
+ticket = Ticket.create!(unit_id: unit.id, debtor_id: debtor.id,	customer_id: customer.id,	charge: true, status: :open, due_at: '10/08/2017', description: 'Agosto/2017', document_number: '2017_8', amount_principal: 1008.00)
+ticket = Ticket.create!(unit_id: unit.id, debtor_id: debtor.id,	customer_id: customer.id,	charge: true, status: :open, due_at: '10/09/2017', description: 'Setembro/2017', document_number: '2017_9', amount_principal: 1009.00)
+ticket = Ticket.create!(unit_id: unit.id, debtor_id: debtor.id,	customer_id: customer.id,	charge: true, status: :open, due_at: '10/10/2017', description: 'Outubro/2017', document_number: '2017_10', amount_principal: 1010.00)
+ticket = Ticket.create!(unit_id: unit.id, debtor_id: debtor.id,	customer_id: customer.id,	charge: true, status: :open, due_at: '10/11/2017', description: 'Novembro/2017', document_number: '2017_11', amount_principal: 1011.00)
+ticket = Ticket.create!(unit_id: unit.id, debtor_id: debtor.id,	customer_id: customer.id,	charge: true, status: :open, due_at: '10/12/2017', description: 'Dezembro/2017', document_number: '2017_12', amount_principal: 1012.00)
 
 MonetaryIndex.create!(index_at: Date.new(2013,12,1), value:	0.60)
 MonetaryIndex.create!(index_at: Date.new(2013,11,1), value:	0.29)

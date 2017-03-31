@@ -36,7 +36,7 @@
         <%= f.input :customer_id, as: :hidden %>
         <%= f.input :status, as: :hidden %>
         <%= f.input :due_at, :label => t('ticket.due_at'), as: :string, readonly: true, placeholder: 'DD/MM/YYYY - Clique para definir data.', input_html: { :class => 'form-input', id: "due_at" } %>
-            <%= f.input :amount_principal, :label => t('ticket.amount_principal') %>
+        <%= f.input :amount_principal, :label => t('ticket.amount_principal') %>
         <%= f.input :description, :label => t('ticket.description') %>
         <%= f.input :document_number, :label => t('ticket.document_number') %>
 

@@ -4,8 +4,8 @@
   <thead>
     <tr>
       <th>ID</th>
-      <th>Documento</th>
       <th>Vencimento</th>
+      <th>Documento</th>
       <th>Atraso(Mes)</th>
       <th>Principal</th>
       <th>Correção(IGP-M)</th>
@@ -21,8 +21,8 @@
     <% @tickets.each do |ticket| %>
       <tr>
         <td><%= ticket.id %> </td>
-        <td><%= ticket.document_number %> </td>
         <td><%= ticket.due_at.to_s_br %> </td>
+        <td><%= ticket.document_number %> </td>
         <td><%= calc_meses_atraso(ticket, nil, nil) %> </td>
         <td><%= ticket.amount_principal.real %> </td>
         <td><%= calc_correcao(ticket, nil, nil).real %> </td>

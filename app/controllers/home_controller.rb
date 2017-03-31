@@ -89,7 +89,7 @@
 
     @contract = Contract.new
 
-    @tickets = Ticket.list(current_user.unit_id, session[:customer_id], params[:cod]).open.order('document_number')
+    @tickets = Ticket.list(current_user.unit_id, session[:customer_id], params[:cod]).open.order('due_at, document_number')
     @ticket = Ticket.new
 
     clear_variable_session()
