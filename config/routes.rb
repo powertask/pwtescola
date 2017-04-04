@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   resources :customers
   resources :units
   resources :bank_slips
+  resources :students
+  resources :courses
 
   devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

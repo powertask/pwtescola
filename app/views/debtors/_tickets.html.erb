@@ -1,4 +1,10 @@
+<br>
+<div class='title_tools'>
+  <a class="btn btn-large btn-default" <%= link_to(t('debtor.new_ticket'), new_ticket_path(@debtor.id)) %> </a>
+</div>
+
 <div class='subtitle_page'> <%= t('debtor.title_show_2') %> </div>
+
 <div class='list1'>
 	<% @tickets.each do |ticket| %>
 		<li>
@@ -14,6 +20,10 @@
         <% else %>
           <span class="label label-primary"><%= t('ticket.status.' << ticket.status) %></span>
         <% end %>        
+        &dash;
+        <%= ticket.student.name if ticket.student %>
+        &bull;
+        <%= ticket.course.name if ticket.course %>
         &bull;
         <%= ticket.description %>
         &bull;

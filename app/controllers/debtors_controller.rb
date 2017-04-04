@@ -10,7 +10,8 @@ class DebtorsController < ApplicationController
   end
 
   def show
-    @tickets = Ticket.list(current_user.unit_id, session[:customer_id], @debtor.id).order('due_at')
+    @tickets = Ticket.list(current_user.unit_id, session[:customer_id], @debtor.id).order('id')
+    @students = Student.find_by_sql(["select s.id, s.name student_name, c.name course_name, sum(t.amount_principal) amount_principal from students s, courses c, tickets t where s.unit_id = ? and s.customer_id = ? and s.debtor_id = ? and s.course_id = c.id and s.id = t.student_id group by s.id, s.name, c.name order by s.name", current_user.unit_id, session[:customer_id], @debtor.id])
   end
 
   def new

@@ -91,6 +91,12 @@ ActiveRecord::Schema.define(version: 20170324182509) do
     t.index ["user_id"], name: "index_contracts_on_user_id", using: :btree
   end
 
+  create_table "courses", force: :cascade do |t|
+    t.integer "unit_id"
+    t.string  "name"
+    t.index ["unit_id"], name: "index_courses_on_unit_id", using: :btree
+  end
+
   create_table "customers", force: :cascade do |t|
     t.integer  "unit_id"
     t.integer  "bank_account_id"
@@ -167,11 +173,26 @@ ActiveRecord::Schema.define(version: 20170324182509) do
     t.decimal "value",    precision: 5, scale: 4
   end
 
+  create_table "students", force: :cascade do |t|
+    t.integer "unit_id"
+    t.integer "customer_id"
+    t.integer "debtor_id"
+    t.integer "course_id"
+    t.string  "name"
+    t.string  "cpf"
+    t.index ["course_id"], name: "index_students_on_course_id", using: :btree
+    t.index ["customer_id"], name: "index_students_on_customer_id", using: :btree
+    t.index ["debtor_id"], name: "index_students_on_debtor_id", using: :btree
+    t.index ["unit_id"], name: "index_students_on_unit_id", using: :btree
+  end
+
   create_table "tickets", force: :cascade do |t|
     t.integer  "unit_id"
     t.integer  "customer_id"
     t.integer  "debtor_id"
+    t.integer  "student_id"
     t.integer  "contract_id"
+    t.integer  "course_id"
     t.string   "description"
     t.decimal  "amount_principal", default: "0.0"
     t.string   "document_number"
@@ -183,8 +204,10 @@ ActiveRecord::Schema.define(version: 20170324182509) do
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
     t.index ["contract_id"], name: "index_tickets_on_contract_id", using: :btree
+    t.index ["course_id"], name: "index_tickets_on_course_id", using: :btree
     t.index ["customer_id"], name: "index_tickets_on_customer_id", using: :btree
     t.index ["debtor_id"], name: "index_tickets_on_debtor_id", using: :btree
+    t.index ["student_id"], name: "index_tickets_on_student_id", using: :btree
     t.index ["unit_id"], name: "index_tickets_on_unit_id", using: :btree
   end
 
@@ -241,6 +264,7 @@ ActiveRecord::Schema.define(version: 20170324182509) do
   add_foreign_key "contracts", "debtors"
   add_foreign_key "contracts", "units"
   add_foreign_key "contracts", "users"
+  add_foreign_key "courses", "units"
   add_foreign_key "customers", "bank_accounts"
   add_foreign_key "customers", "units"
   add_foreign_key "debtors", "customers"
@@ -249,9 +273,15 @@ ActiveRecord::Schema.define(version: 20170324182509) do
   add_foreign_key "histories", "debtors"
   add_foreign_key "histories", "units"
   add_foreign_key "histories", "users"
+  add_foreign_key "students", "courses"
+  add_foreign_key "students", "customers"
+  add_foreign_key "students", "debtors"
+  add_foreign_key "students", "units"
   add_foreign_key "tickets", "contracts"
+  add_foreign_key "tickets", "courses"
   add_foreign_key "tickets", "customers"
   add_foreign_key "tickets", "debtors"
+  add_foreign_key "tickets", "students"
   add_foreign_key "tickets", "units"
   add_foreign_key "users", "units"
 end

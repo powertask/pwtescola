@@ -4,7 +4,9 @@ class CreateTickets < ActiveRecord::Migration[5.0]
       t.references :unit, foreign_key: true
       t.references :customer, foreign_key: true
       t.references :debtor, foreign_key: true, index: true
+      t.references :student, foreign_key: true, index: true
       t.references :contract, foreign_key: true, index: true
+      t.references :course, foreign_key: true
       t.string :description
       t.decimal :amount_principal, default: 0
       t.string :document_number

@@ -1,0 +1,26 @@
+<div class='title_tools'>
+  <a class="btn btn-large btn-default" <%= link_to(t('debtor.new_student'), new_student_path(@debtor.id)) %> </a>
+</div>
+
+<div class='subtitle_page'> <%= t('debtor.title_show_3') %> </div>
+<div class='list1'>
+  <% @students.each do |student| %>
+    <li>
+      <div class='strip' id='none'> <%= student.id %> </div>
+
+      <div class='tools'>
+        <%= link_to(t('menu.edit'), edit_student_path(student), class: "btn btn-xs btn-default") %>
+      </div>
+
+      <div class='indent'>
+        <%= student.student_name %>
+        &bull;
+        <%= student.course_name  %>
+        &bull;
+        <%= student.cpf %>
+        <tt></tt>
+        <dt><%= 'Valor em aberto: ' << student.amount_principal.real_contabil %></dt>
+      </div>
+    </li>
+  <% end %>
+</div>

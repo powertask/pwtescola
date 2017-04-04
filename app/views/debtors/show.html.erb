@@ -1,6 +1,5 @@
 <div class='title_tools'>
   <a class="btn btn-large btn-warning" <%= link_to(t('debtor.index'), debtors_path) %> </a>
-  <a class="btn btn-large btn-warning" <%= link_to(t('debtor.new_ticket'), new_ticket_path(@debtor.id)) %> </a>
 </div>
 
 <div class='title_page'> <%= t('debtor.show') %> </div>
@@ -27,6 +26,7 @@
   </div>
 
   <div class="col-sm-6 col-md-9">
+    <%= render 'students' %>
     <%= render 'tickets' %>
   </div>
 </div>

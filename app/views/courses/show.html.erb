@@ -1,0 +1,11 @@
+<div class='title_tools'>
+  <a class="btn btn-large btn-warning" <%= link_to(t('course.index'), courses_path) %> </a>
+</div>
+
+<div class='title_page'> <%= t('course.show') %> </div>
+
+<div class='section'>
+  <div class='label1 top req'> <%=t("course.name") %> </div>
+  <%= @course.name %>
+</div>
+

@@ -40,15 +40,6 @@ class TicketsController < ApplicationController
   end
 
 
-  def destroy
-    @ticket.destroy
-    respond_to do |format|
-      format.html { redirect_to tickets_url, notice: 'Ticket was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
-
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_ticket

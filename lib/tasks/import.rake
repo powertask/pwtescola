@@ -168,31 +168,6 @@ namespace :db do
           end
         end
 
-=begin
-        ## Import HISTORY
-        puts "Import data from MYSQL.....HISTORIES"
-
-        JSON.parse(File.read('lib/tasks/arcacie.json')).each do |j|
-
-          unit     = Unit.all.first
-          customer = Customer.where('origin_code = ?', j['acie_clie'])
-          debtor   = Debtor.where('origin_code = ?', j['acie_codi'].to_s)
-          user     = User.where('origin_code = ?', j['acie_cobr'])
-
-          if customer.present? && debtor.present? && user.present?
-
-            h = History.new
-            h.unit_id = unit.id
-            h.customer_id = customer.first.id
-            h.debtor_id = debtor.first.id
-            h.user_id = user.first.id
-            h.description = j['acie_comm']
-            h.history_date = (j['acie_dlan'] + ' ' + j['acie_dhor']).to_datetime
-            h.save!
-
-          end
-        end
-=end
 
         ## Import PAYMENT
         puts "Import data from MYSQL.....PAGAMENTOS"
@@ -282,6 +257,30 @@ namespace :db do
             bank_slip.paid_amount_principal = j['cnab_vpagp'].to_f
             bank_slip.status = :open
             bank_slip.save!
+          end
+        end
+
+
+        ## Import HISTORY
+        puts "Import data from MYSQL.....HISTORIES"
+
+        JSON.parse(File.read('lib/tasks/arcacie.json')).each do |j|
+
+          customer = Customer.where('origin_code = ?', j['acie_clie'])
+          debtor   = Debtor.where('origin_code = ?', j['acie_codi'].to_s)
+          user     = User.where('origin_code = ?', j['acie_cobr'])
+
+          if customer.present? && debtor.present? && user.present?
+
+            h = History.new
+            h.unit_id = unit.id
+            h.customer_id = customer.first.id
+            h.debtor_id = debtor.first.id
+            h.user_id = user.first.id
+            h.description = j['acie_comm']
+            h.history_date = (j['acie_dlan'] + ' ' + j['acie_dhor']).to_datetime
+            h.save!
+
           end
         end
 

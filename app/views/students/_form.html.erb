@@ -1,6 +1,6 @@
 <div class="row marketing">
   <div class="col-sm-6 col-md-3">
-    <div class='subtitle_page'> <%= t('ticket.title_form_1') %> </div>
+    <div class='subtitle_page'> <%= t('student.title_form_1') %> </div>
 
     <div class='section'>
       <div class='label1 top req'> <%=t("id") %>: </div>       <%= @debtor.id %>
@@ -20,15 +20,15 @@
   </div>
 
   <div class="col-sm-6 col-md-9">
-    <div class='subtitle_page'> <%= t('ticket.title_form_2') %> </div>
+    <div class='subtitle_page'> <%= t('student.title_form_2') %> </div>
     <div class='section'>
-      <div class='label1 top req'> <%=t("student.name") %>: </div> <%= @ticket.student.name if @ticket.student %>
-      <div class='label1 top req'> <%=t("course.name") %>: </div> <%= @ticket.course.name if @ticket.course %>
+      <div class='label1 top req'> <%=t("student.name") %>: </div> <%= @student.name if @student %>
+      <div class='label1 top req'> <%=t("course.name") %>: </div> <%= @student.course.name if @student.course %>
     </div>
 
-    <div class='subtitle_page'> <%= t('ticket.title_form_3') %> </div>
+    <div class='subtitle_page'> <%= t('student.title_form_3') %> </div>
     <div class='section'>
-      <%= simple_form_for(  @ticket, 
+      <%= simple_form_for(  @student, 
                             html: { class: 'form-horizontal' }, 
                             wrapper: :horizontal_form,
                             wrapper_mappings: {
@@ -37,20 +37,19 @@
                             file: :horizontal_file_input,
                             boolean: :horizontal_boolean
                           }) do |f| %>
+        
+        <%= f.error_notification %>
+
         <%= f.input :unit_id, as: :hidden %>
         <%= f.input :debtor_id, as: :hidden %>
         <%= f.input :customer_id, as: :hidden %>
-        <%= f.input :student_id, as: :hidden %>
-        <%= f.input :status, as: :hidden %>
-        <%= f.input :due_at, :label => t('ticket.due_at'), as: :string, readonly: true, placeholder: 'DD/MM/YYYY - Clique para definir data.', input_html: { :class => 'form-input', id: "due_at" } %>
-        <%= f.input :amount_principal, :label => t('ticket.amount_principal') %>
-        <%= f.input :description, :label => t('ticket.description') %>
-        <%= f.input :document_number, :label => t('ticket.document_number') %>
+        <%= f.input :name, :label => t('student.name') %>
+        <%= f.association :course, :label => t('course.name') %>
 
         <div class='buttonbar'>
           <%= f.button :submit, t('menu.save'), class: 'btn-primary' %>
           <%= 'ou' %>
-          <%= link_to t('menu.cancel'), debtor_path( @ticket.debtor_id) %>
+          <%= link_to t('menu.cancel'), debtor_path( @student.debtor_id) %>
         </div>
       <% end %>
     </div>

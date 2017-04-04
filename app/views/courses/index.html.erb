@@ -1,0 +1,23 @@
+<div class='title_page'>
+  <span> <%= t('course.title') %> </span>
+</div>
+
+<div class='list1'>
+  <% unless @courses.empty? %>
+    <% @courses.each do |course| %>
+      <li>
+        <div class='strip' id='none'> <%= course.id %> </div>
+
+        <div class='tools'>
+          <%= link_to(t('menu.edit'), edit_course_path(course), class: "btn btn-xs btn-default") %>
+        </div>
+ 
+        <div class='indent'>
+          <%= link_to(course.name, course_path(course)) %>
+          <tt></tt>
+          <dt></dt>
+        </div>
+      </li>
+    <% end %>
+  <% end %>
+</div>

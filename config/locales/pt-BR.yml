@@ -8,7 +8,6 @@ pt-BR:
   yes: SIM
   no: NÃO
   status: Situação
-
   id: ID
   zipcode: CEP
   state: Estado
@@ -33,7 +32,6 @@ pt-BR:
   remember_me: Lembrar a Senha
   choose: Escolha...
   status: Situação
-  stage: Tipo cobrança
   lawyer: Judicial
   normal: Extrajudicial
   not_pay: Em aberto
@@ -42,12 +40,11 @@ pt-BR:
   admin: Administrador
   user: Colaborador
   customer: Cliente
-  origin: Origem
   set_customer: Definir a Escola
   origin_code: Código Origem
 
   menu:
-    home: Home
+    home: Início
     main: Cadastros
     unit: Empresa
     customer: Escolas
@@ -70,6 +67,7 @@ pt-BR:
     bankbillet: Boletos
     discharge: Retornos
     proposal: Propostas
+    course: Cursos
 
   home:
     title: Home do Colaborador
@@ -132,7 +130,6 @@ pt-BR:
       open: Aberto
       cancel: Cancelado
       paid: Pago
-      x: c
 
   bank_slip:
     new: Gerar Novo Boleto
@@ -146,7 +143,8 @@ pt-BR:
   ticket:
     title: Cadastro de Valores em Aberto
     title_form_1: Dados Responsável Financeiro
-    title_form_2: Informe os dados da mensalidade
+    title_form_2: Dados do Aluno referente a mensalidade
+    title_form_3: Informe os dados da mensalidade
     new: Cadastrar Nova Mensalidade
     edit: Editar Mensalidade
     amount_principal: Valor da Mensalidade
@@ -157,6 +155,7 @@ pt-BR:
     due_at: Vencimento
     charge: Cobrar?
     yes: 'Sim, cobrar'
+    course: Curso
     status:
       not_pay: Aberto
       open: Aberto
@@ -204,6 +203,7 @@ pt-BR:
     title: Cadastro de Responsável Financeiro
     title_show_1: Dados Cadastrais
     title_show_2: Mensalidades
+    title_show_3: Alunos
     new: Cadastrar Novo Responsável Financeiro
     edit: Editar Dados do Responsável Financeiro
     index: Listar Todas os Responsáveis Financeiros
@@ -214,6 +214,17 @@ pt-BR:
     origin_code: Código Responsável Financeiro
     id: ID Responsável Financeiro
     new_ticket: Cadastrar Nova Mensalidade
+    new_student: Cadastrar Novo Aluno
+
+  student:
+    name: Nome do Aluno
+
+  course:
+    title: Cadastro de Cursos
+    index: Listar Todos os Cursos
+    show: Detalhe do Curso
+    edit: Editar o Curso
+    name: Nome do Curso
 
   unit:
     title: Cadastro do Empresa
@@ -320,6 +331,12 @@ pt-BR:
             address_number:
               blank: Número do logradouro não pode ficar em branco
               not_a_number: Deve ser numérico
+        student:
+          attributes:
+            name:
+              blank: Nome do aluno não pode ficar em branco
+            course_id:
+              blank: Nome do curso não pode ficar em branco
 
   will_paginate:
     next_label: Próximos &#8594;

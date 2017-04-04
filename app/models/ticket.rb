@@ -2,6 +2,8 @@ class Ticket < ApplicationRecord
   belongs_to :debtor
   belongs_to :unit
   belongs_to :customer
+  belongs_to :student
+  belongs_to :course
 
   validates_presence_of :unit_id, :debtor_id, :customer_id, :amount_principal, :status, :description, :due_at
 
