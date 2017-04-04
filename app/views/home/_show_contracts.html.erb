@@ -4,8 +4,8 @@
   <thead>
     <tr>
       <th>Contrato</th>
-      <th>Nro Original</th>
       <th>Situação</th>
+      <th>Nro Original</th>
       <th>Data Contrato</th>
       <th>Parcelas</th>
       <th>Valor</th>
@@ -18,12 +18,14 @@
       <% @contracts.each do |contract| %>
         <tr>
           <td><%= contract.id %> </td>
+          <td>
+            <% if contract.paid? %>
+              <a class="label label-success"><%= t('contract.status.paid') %></a>
+            <% else %>
+              <%= t('contract.status.' << contract.status) %>
+            <% end %>
+          </td>
           <td><%= contract.origin_code %> </td>
-          <% if contract.open? %>
-            <td><%= link_to(t('contract.status.' << contract.status) << ' - Ver Contrato', contract_path(contract)) %> </td>
-          <% else %>
-            <td><%= t('contract.status.' << contract.status) %></td>
-          <% end %>
           <td><%= contract.created_at.to_s_br %> </td>
           <td><%= contract.ticket_quantity %> </td>
           <td><%= contract.amount_principal.real %> </td>

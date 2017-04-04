@@ -1,0 +1,44 @@
+    <div class='subtitle_page'> <%= t('home.ticket_paid') %> </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Vencimento</th>
+          <th>Documento</th>
+          <th>Valor Principal</th>
+          <th>Correção Monetária</th>
+          <th>Juros</th>
+          <th>Multa</th>
+          <th>Taxa</th>
+          <th>Contrato</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th><%= @contract_tickets.map{|i|i[:amount_principal]}.inject(:+).real if @contract_tickets %></th>
+          <th><%= @contract_tickets.map{|i|i[:amount_monetary_correction]}.inject(:+).real if @contract_tickets %></th>
+          <th><%= @contract_tickets.map{|i|i[:amount_interest]}.inject(:+).real if @contract_tickets %></th>
+          <th><%= @contract_tickets.map{|i|i[:amount_fine]}.inject(:+).real if @contract_tickets %></th>
+          <th><%= @contract_tickets.map{|i|i[:amount_tax]}.inject(:+).real if @contract_tickets %></th>
+          <th></th>
+        </tr>
+      </tfoot>
+      <tbody>
+        <% @contract_tickets.each do |contract_ticket| %>
+          <tr>
+            <td><%= contract_ticket.id %> </td>
+            <td><%= contract_ticket.ticket.due_at.to_s_br %> </td>
+            <td><%= contract_ticket.ticket.description %> </td>
+            <td><%= contract_ticket.amount_principal.real %> </td>
+            <td><%= contract_ticket.amount_monetary_correction.real %> </td>
+            <td><%= contract_ticket.amount_interest.real %> </td>
+            <td><%= contract_ticket.amount_fine.real %> </td>
+            <td><%= contract_ticket.amount_tax.real %> </td>
+            <td><%= link_to('Ver Contrato '<< contract_ticket.contract_id.to_s, contract_path(contract_ticket.contract_id)) %> </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>

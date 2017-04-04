@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170329002050) do
+ActiveRecord::Schema.define(version: 20170324182509) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20170329002050) do
     t.integer  "debtor_id"
     t.integer  "bank_account_id"
     t.integer  "contract_id"
+    t.integer  "contract_ticket_id"
     t.integer  "origin_code"
     t.string   "our_number"
     t.decimal  "amount_principal",      default: "0.0"
@@ -44,6 +45,7 @@ ActiveRecord::Schema.define(version: 20170329002050) do
     t.datetime "updated_at",                            null: false
     t.index ["bank_account_id"], name: "index_bank_slips_on_bank_account_id", using: :btree
     t.index ["contract_id"], name: "index_bank_slips_on_contract_id", using: :btree
+    t.index ["contract_ticket_id"], name: "index_bank_slips_on_contract_ticket_id", using: :btree
     t.index ["customer_id"], name: "index_bank_slips_on_customer_id", using: :btree
     t.index ["debtor_id"], name: "index_bank_slips_on_debtor_id", using: :btree
     t.index ["unit_id"], name: "index_bank_slips_on_unit_id", using: :btree
@@ -51,6 +53,8 @@ ActiveRecord::Schema.define(version: 20170329002050) do
 
   create_table "contract_tickets", force: :cascade do |t|
     t.integer "unit_id"
+    t.integer "customer_id"
+    t.integer "debtor_id"
     t.integer "contract_id"
     t.integer "ticket_id"
     t.decimal "amount_principal",           default: "0.0"
@@ -58,7 +62,10 @@ ActiveRecord::Schema.define(version: 20170329002050) do
     t.decimal "amount_interest",            default: "0.0"
     t.decimal "amount_fine",                default: "0.0"
     t.decimal "amount_tax",                 default: "0.0"
+    t.integer "status"
     t.index ["contract_id"], name: "index_contract_tickets_on_contract_id", using: :btree
+    t.index ["customer_id"], name: "index_contract_tickets_on_customer_id", using: :btree
+    t.index ["debtor_id"], name: "index_contract_tickets_on_debtor_id", using: :btree
     t.index ["ticket_id"], name: "index_contract_tickets_on_ticket_id", using: :btree
     t.index ["unit_id"], name: "index_contract_tickets_on_unit_id", using: :btree
   end
@@ -67,17 +74,17 @@ ActiveRecord::Schema.define(version: 20170329002050) do
     t.integer  "unit_id"
     t.integer  "customer_id"
     t.integer  "debtor_id"
+    t.integer  "user_id"
     t.decimal  "amount_principal",           default: "0.0"
     t.decimal  "amount_monetary_correction", default: "0.0"
     t.decimal  "amount_interest",            default: "0.0"
     t.decimal  "amount_fine",                default: "0.0"
+    t.decimal  "amount_tax",                 default: "0.0"
     t.integer  "status"
     t.integer  "ticket_quantity"
     t.string   "origin_code"
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
-    t.integer  "user_id"
-    t.decimal  "amount_tax",                 default: "0.0"
     t.index ["customer_id"], name: "index_contracts_on_customer_id", using: :btree
     t.index ["debtor_id"], name: "index_contracts_on_debtor_id", using: :btree
     t.index ["unit_id"], name: "index_contracts_on_unit_id", using: :btree
@@ -86,6 +93,7 @@ ActiveRecord::Schema.define(version: 20170329002050) do
 
   create_table "customers", force: :cascade do |t|
     t.integer  "unit_id"
+    t.integer  "bank_account_id"
     t.string   "full_name"
     t.string   "name"
     t.string   "cnpj"
@@ -103,13 +111,13 @@ ActiveRecord::Schema.define(version: 20170329002050) do
     t.string   "mobile_local_code"
     t.string   "mobile_number"
     t.string   "origin_code"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
-    t.boolean  "fl_charge_monetary_correction"
-    t.boolean  "fl_charge_interest"
-    t.boolean  "fl_charge_fine"
-    t.boolean  "fl_charge_tax"
-    t.integer  "bank_account_id"
+    t.boolean  "fl_charge_monetary_correction", default: true
+    t.boolean  "fl_charge_interest",            default: true
+    t.boolean  "fl_charge_fine",                default: true
+    t.boolean  "fl_charge_tax",                 default: true
+    t.boolean  "fl_show",                       default: true
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
     t.index ["bank_account_id"], name: "index_customers_on_bank_account_id", using: :btree
     t.index ["unit_id"], name: "index_customers_on_unit_id", using: :btree
   end
@@ -161,14 +169,14 @@ ActiveRecord::Schema.define(version: 20170329002050) do
 
   create_table "tickets", force: :cascade do |t|
     t.integer  "unit_id"
-    t.integer  "debtor_id"
     t.integer  "customer_id"
+    t.integer  "debtor_id"
     t.integer  "contract_id"
     t.string   "description"
     t.decimal  "amount_principal", default: "0.0"
     t.string   "document_number"
     t.date     "due_at"
-    t.boolean  "charge"
+    t.boolean  "charge",           default: false
     t.string   "origin_code"
     t.integer  "sequence"
     t.integer  "status"
@@ -219,11 +227,14 @@ ActiveRecord::Schema.define(version: 20170329002050) do
 
   add_foreign_key "bank_accounts", "units"
   add_foreign_key "bank_slips", "bank_accounts"
+  add_foreign_key "bank_slips", "contract_tickets"
   add_foreign_key "bank_slips", "contracts"
   add_foreign_key "bank_slips", "customers"
   add_foreign_key "bank_slips", "debtors"
   add_foreign_key "bank_slips", "units"
   add_foreign_key "contract_tickets", "contracts"
+  add_foreign_key "contract_tickets", "customers"
+  add_foreign_key "contract_tickets", "debtors"
   add_foreign_key "contract_tickets", "tickets"
   add_foreign_key "contract_tickets", "units"
   add_foreign_key "contracts", "customers"

@@ -2,6 +2,8 @@ class CreateContractTicket < ActiveRecord::Migration[5.0]
   def change
     create_table :contract_tickets do |t|
       t.references :unit, foreign_key: true
+      t.references :customer, foreign_key: true
+      t.references :debtor, foreign_key: true
       t.references :contract, foreign_key: true
       t.references :ticket, foreign_key: true, index: true
       t.decimal :amount_principal, default: 0

@@ -1,4 +1,4 @@
-<div class='title_page'> <%= t('home.ticket.title') %> </div>
+<div class='subtitle_page'> <%= t('home.ticket_open') %> </div>
 
 <table class="table">
   <thead>
@@ -13,8 +13,6 @@
       <th>Multa(2%)</th>
       <th>Taxa(10%)</th>
       <th>Valor Total</th>
-      <th><%= t('status') %></th>
-      <th>Contrato</th>
     </tr>
   </thead>
   <tbody>
@@ -30,14 +28,6 @@
         <td><%= calc_multa(ticket, nil, nil).real %> </td>
         <td><%= calc_taxa(ticket, nil, nil).real %> </td>
         <td><%= calc_ticket(ticket, nil, nil).real %> </td>
-        <td>
-          <% if ticket.status == 'paid' %>
-            <a class="label label-success"><%= t('ticket.status.'<< ticket.status) %></a>
-          <% else %>
-            <%= t('ticket.status.'<< ticket.status) %>
-          <% end %>
-        </td>
-        <td><%= link_to('Ver contrato '<<ticket.contract_id.to_s, contract_path(ticket.contract_id), class: "btn btn-xs btn-default") if ticket.contract_id %> </td>
       </tr>
     <% end %>
   </tbody>

@@ -10,7 +10,7 @@ class Customer < ApplicationRecord
   has_many :tickets
 
   def self.list(unit)
-    self.where("unit_id = ?", unit).order("name ASC")
+    self.where("unit_id = ? and fl_show = ?", unit, true).order("name ASC")
   end
 
 end

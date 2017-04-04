@@ -83,14 +83,14 @@ pt-BR:
       name: Nome do Responsável Financeiro
       cpf: CPF do Responsável Financeiro
     history:
-      title: Históricos do Devedor
+      title: Históricos do Responsável Financeiro
       new: Cadastrar Novo Histórico
     filter:
-      name: Nome do Devedor
+      name: Nome do Responsável Financeiro
     contract:
       title: Contratos
-    ticket:
-      title: Mensalidades
+    ticket_open: Mensalidades em Aberto
+    ticket_paid: Mensalidades Cobradas
 
   deal:
     title: Ambiente de Negociações

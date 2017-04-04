@@ -13,6 +13,8 @@
       return
     end
 
+    @histories = History.list_dashboard(current_user.unit_id, session[:customer_id]).order('created_at DESC')
+
   end
 
 
@@ -56,14 +58,11 @@
   def show
     @debtor = Debtor.find(params[:cod])
    
-    @tickets = Ticket.list(current_user.unit_id, session[:customer_id], params[:cod]).where('status <> ?', :open).order('due_at, document_number')
+    @tickets = Ticket.list(current_user.unit_id, session[:customer_id], params[:cod]).open.order('due_at, document_number')
     @contract_tickets = ContractTicket.list(current_user.unit_id, session[:customer_id]).where('debtor_id = ?', params[:cod])
     @contracts = Contract.list(current_user.unit_id, session[:customer_id]).where('debtor_id = ?', params[:cod])
 
     clear_variable_session
-    #contracts_meter
-
-    @histories = History.list(current_user.unit_id, session[:customer_id], params[:cod]).order('created_at DESC')
 
     session[:debtor_id] = params[:cod]
 

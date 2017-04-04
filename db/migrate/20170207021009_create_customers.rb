@@ -24,6 +24,7 @@ class CreateCustomers < ActiveRecord::Migration[5.0]
       t.boolean :fl_charge_interest, default: true
       t.boolean :fl_charge_fine, default: true
       t.boolean :fl_charge_tax, default: true
+      t.boolean :fl_show, default: true
 
       t.timestamps
     end

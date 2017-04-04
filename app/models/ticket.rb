@@ -5,7 +5,7 @@ class Ticket < ApplicationRecord
 
   validates_presence_of :unit_id, :debtor_id, :customer_id, :amount_principal, :status, :description, :due_at
 
-  enum status: [:open, :paid, :contract, :proposal, :legacy]
+  enum status: [:open, :paid]
 
   def self.list(unit, customer, debtor)
     self.where("unit_id = ? AND customer_id = ? AND debtor_id = ?", unit, customer, debtor)
