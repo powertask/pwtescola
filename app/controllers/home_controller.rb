@@ -13,8 +13,6 @@
       return
     end
 
-    @histories = History.list_dashboard(current_user.unit_id, session[:customer_id]).order('created_at DESC')
-
   end
 
 
@@ -215,7 +213,7 @@
     @count_contracts_day        = Contract.list(current_user.unit_id,session[:customer_id]).open.where('created_at between ? AND ?', Date.current.beginning_of_day, Date.current.end_of_day).count
     @count_contracts_month      = Contract.list(current_user.unit_id,session[:customer_id]).open.where('created_at between ? AND ?', dt_ini, dt_end ).count
     @count_contracts_day_master = Contract.list(current_user.unit_id,session[:customer_id]).open.where('created_at between ? AND ?', Date.current.beginning_of_day, Date.current.end_of_day).group('user_id').count
-    @histories                  = History.list_dashboard(current_user.unit_id, session[:customer_id]).where('history_date is not null').order('history_date DESC').limit(30)
+    @histories                  = History.list_dashboard(current_user.unit_id, session[:customer_id]).where('history_date is not null').order('history_date DESC').limit(12)
 
     #@resume = Cna.find_by_sql(['select u.id, (select count(1) from histories where histories.history_date between ? AND ? AND histories.user_id = u.id) count_histories_today, count(1), sum(amount), u.name from cnas c, taxpayers t, cities ct, users u where c.taxpayer_id = t.id and t.user_id = u.id and c.status = 0 and t.city_id = ct.id and ct.fl_charge = ? AND t.client_id = ? group by u.name, u.id order by u.name', Date.current.beginning_of_day, Date.current.end_of_day, true, session[:client_id]])
 
