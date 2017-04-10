@@ -46,8 +46,8 @@ pt-BR:
   menu:
     home: Início
     main: Cadastros
-    unit: Empresa
-    customer: Escolas
+    unit: A Empresa
+    customer: A Escola
     debtor: Responsável Financeiro
     user: Colaboradores
     myuser: Meus Dados
@@ -218,6 +218,11 @@ pt-BR:
 
   student:
     name: Nome do Aluno
+    new: Cadastro de Novo Aluno
+    edit: Editar dados do Aluno
+    title_form_1: Dados Responsável Financeiro
+    title_form_2: Dados do Aluno
+    title_form_3: Informe novos dados do aluno
 
   course:
     title: Cadastro de Cursos

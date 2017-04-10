@@ -22,35 +22,19 @@ class CustomersController < ApplicationController
 
   def create
     @customer = Customer.new(customer_params)
-
-    respond_to do |format|
-      if @customer.save
-        format.html { redirect_to @customer, notice: 'Escola criada com sucesso.' }
-        format.json { render :show, status: :created, location: @customer }
-      else
-        format.html { render :new }
-        format.json { render json: @customer.errors, status: :unprocessable_entity }
-      end
-    end
+    respond_with @customer
   end
 
   def update
-    respond_to do |format|
-      if @customer.update(customer_params)
-        
-        session[:customer_name] = @customer.name
-        session[:fl_charge_monetary_correction] = @customer.fl_charge_monetary_correction
-        session[:fl_charge_interest] = @customer.fl_charge_interest
-        session[:fl_charge_fine] = @customer.fl_charge_fine
-        session[:fl_charge_tax] = @customer.fl_charge_tax
-
-        format.html { redirect_to @customer, notice: 'Escola atualizada com sucesso.' }
-        format.json { render :show, status: :ok, location: @customer }
-      else
-        format.html { render :edit }
-        format.json { render json: @customer.errors, status: :unprocessable_entity }
-      end
+    if @customer.update(customer_params)
+      
+      session[:customer_name] = @customer.name
+      session[:fl_charge_monetary_correction] = @customer.fl_charge_monetary_correction
+      session[:fl_charge_interest] = @customer.fl_charge_interest
+      session[:fl_charge_fine] = @customer.fl_charge_fine
+      session[:fl_charge_tax] = @customer.fl_charge_tax
     end
+    respond_with @customer
   end
 
 

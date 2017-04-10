@@ -1,5 +1,5 @@
 <div class='title_tools'>
-  <a class="btn btn-large btn-warning" <%= link_to(t('unit.index'), units_path) %> </a>
+  <a class="btn btn-large btn-warning" <%= link_to(t('unit.edit'), edit_unit_path(@unit)) %> </a>
 </div>
 
 <div class='title_page'> <%= t('unit.show') %> </div>
@@ -17,7 +17,7 @@
   <%= @unit.address_complement %>
   <div class='label1 top req'> <%=t("neighborhood") %>: </div>
   <%= @unit.neighborhood %>
-  <div class='label1 top req'> <%=t("cities") %>: </div>
+  <div class='label1 top req'> <%=t("city_name") %>: </div>
   <%= @unit.city_name %>
   <div class='label1 top req'> <%=t("state") %>: </div>
   <%= @unit.state %>

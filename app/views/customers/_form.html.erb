@@ -32,12 +32,10 @@
     <%= f.input :fl_charge_tax, as: :boolean, :label => t('customer.fl_charge_tax') %>
 
 
-    <div class="actions">
       <div class='buttonbar'>
         <%= f.button :submit, t('menu.save'), class: 'btn-primary' %>
         <%= 'ou' %>
-        <%= link_to t('menu.cancel'), customers_path %>
+        <%= link_to t('menu.cancel'), customer_path(@customer) %>
       </div>
-    </div>
   </div>
 <% end %>

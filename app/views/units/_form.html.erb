@@ -1,22 +1,32 @@
-<%= bootstrap_form_for(@unit, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10") do |f| %>
+<%= simple_form_for(
+    @unit, 
+    html: { class: 'form-horizontal' }, 
+    wrapper: :horizontal_form,
+    wrapper_mappings: {
+    check_boxes: :horizontal_radio_and_checkboxes,
+    radio_buttons: :horizontal_radio_and_checkboxes,
+    file: :horizontal_file_input,
+    boolean: :horizontal_boolean
+  }) do |f| %>
+
+  <%= f.error_notification %>
+
   <div class='section'>
-    <%= f.text_field :name, :label => t('unit.name') %>
-    <%= f.text_field :cnpj_cpf, :label => t('cnpj')  %>
-    <%= f.text_field :zipcode, :label => t('zipcode')  %>
-    <%= f.text_field :address, :label => t('address')  %>
-    <%= f.text_field :address_complement, :label => t('address_complement') %>
-    <%= f.text_field :neighborhood, :label => t('neighborhood')  %>
-    <%= f.text_field :city_name, :label => t('city_name')  %>
-    <%= f.text_field :state, :label => t('state')  %>
-    <%= f.text_field :email, :label => t('email') %>
+    <%= f.input :name, :label => t('unit.name') %>
+    <%= f.input :cnpj_cpf, :label => t('cnpj')  %>
+    <%= f.input :zipcode, :label => t('zipcode')  %>
+    <%= f.input :address, :label => t('address')  %>
+    <%= f.input :address_complement, :label => t('address_complement') %>
+    <%= f.input :neighborhood, :label => t('neighborhood')  %>
+    <%= f.input :city_name, :label => t('city_name')  %>
+    <%= f.input :state, :label => t('state')  %>
+    <%= f.input :email, :label => t('email') %>
   </div>
 
-   <div class="actions">
-    <div class='buttonbar'>
-      <%= f.primary t('menu.save') %>
-      <%= 'ou' %>
-      <%= link_to t('menu.cancel'), units_path %>
-    </div>
+  <div class='buttonbar'>
+    <%= f.button :submit, t('menu.save'), class: 'btn-primary' %>
+    <%= 'ou' %>
+    <%= link_to t('menu.cancel'), unit_path(@unit) %>
   </div>
 
 <% end %>
