@@ -10,6 +10,15 @@ namespace :db do
 
         puts "Update data....."
 
+        bank_slips = BankSlip.all
+        bank_slips.each do |bank_slip|
+
+          if bank_slip.paid_amount_principal > 0
+            bank_slip.status = :paid
+          end
+          bank_slip.save!
+        end
+
         contracts = Contract.all
 
         contracts.each do |contract|

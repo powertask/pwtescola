@@ -64,7 +64,7 @@ pt-BR:
     city: Cidades
     contract: Contratos
     remittance: Remessas
-    bankbillet: Boletos
+    bankslip: Boletos
     discharge: Retornos
     proposal: Propostas
     course: Cursos
@@ -133,8 +133,10 @@ pt-BR:
 
   bank_slip:
     new: Gerar Novo Boleto
+    title: Boletos
     new_due_at: Novo Vencimento
     amount_principal: Valor do Boleto
+    search: Procurar...
     status:
       open: Em Aberto
       paid: Pago

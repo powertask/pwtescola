@@ -1,0 +1,75 @@
+<div class='title_tools'>
+  <button class="btn btn-primary" type="button">
+    Abertos &nbsp; <span class="badge"> <%= @count_open %> </span>
+  </button>
+  <button class="btn btn-success" type="button">
+    Pagos &nbsp; <span class="badge"> <%= @count_paid %> </span>
+  </button>
+  <button class="btn btn-danger" type="button">
+    Vencidos &nbsp; <span class="badge"> <%= @count_overdue %> </span>
+  </button>
+</div>
+
+<div class='title_page'>
+	<span> <%= t('bank_slip.title') %> </span>
+</div>
+
+<p>
+  <%= bootstrap_form_tag url: bank_slips_path, method: 'get', layout: :inline do |f| %>
+    <%= f.select :status, options_for_select([ 'Todos Status...', 'Gerando', 'Aberto', 'Cancelado', 'Pago', 'Vencido', 'Bloqueado' ]), skip_label: true %>
+    <%= f.search_field :name, placeholder: 'Procure pelo nome do responsável financeiro...', size: 60, skip_label: true %>
+    <%= f.text_field :due_at, readonly: true, placeholder: 'Vencimento', id: 'due_at', skip_label: true %>
+    <%= f.text_field :paid_at, readonly: true, placeholder: 'Pagamento', id: 'paid_at', skip_label: true %>
+    <%= f.submit t('bank_slip.search'), class: "btn btn-large btn-success" %> ou <%= link_to t('menu.clean'), bank_slips_path %>
+  <% end %>
+</p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th><%= t('status') %></th>
+      <th>Nosso Número</th>
+      <th>Carteira de Cobrança</th>
+      <th>Nome/Razão Social</th>
+      <th>Valor (R$)</th>
+      <th>Vencimento</th>
+      <th>Data do Pagamento</th>
+      <th>Valor Pago (R$)</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @bank_slips.each do |bank_slip| %>
+      <tr>
+        <td><%= bank_slip.origin_code %> </td>
+        <td>
+          <% if bank_slip.status == 'open' %>
+            <span class="label label-primary"><%= t('bank_slip.status.'<< bank_slip.status) %></span>
+          <% elsif bank_slip.status == 'canceled' %>
+            <span class="label label-warning"><%= t('bank_slip.status.'<< bank_slip.status) %></span>
+          <% elsif bank_slip.status == 'paid' %>
+            <span class="label label-success"><%= t('bank_slip.status.'<< bank_slip.status) %></span>
+          <% elsif bank_slip.status == 'overdue' %>
+            <span class="label label-danger"><%= t('bank_slip.status.'<< bank_slip.status) %></span>
+          <% else %>
+            <%= t('bank_slip.status.'<< bank_slip.status) %>
+          <% end %>
+        </td>
+        <td><%= bank_slip.our_number %> </td>
+        <td><%= bank_slip.bank_account.name if bank_slip.bank_account %></td>
+        <td><%= bank_slip.customer_name %></td>
+        <td><%= bank_slip.amount_principal.real %> </td>
+        <td><%= bank_slip.due_at.to_date.to_s_br %> </td>
+        <td><%= bank_slip.paid_at.to_date.to_s_br if bank_slip.paid_at %> </td>
+        <td><%= bank_slip.paid_amount_principal.real %> </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div id='paginate'>
+  <div class="apple_pagination">
+    <%= will_paginate @bank_slips, :container => false  if @bank_slips.present? %>
+  </div>
+</div>
