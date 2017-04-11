@@ -5,6 +5,7 @@ class Customer < ApplicationRecord
   usar_como_cnpj :cnpj
 
   belongs_to :unit
+  belongs_to :bank_account
 
   has_many :debtors
   has_many :tickets

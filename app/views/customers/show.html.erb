@@ -15,5 +15,6 @@
   <div class='label1 top req'> <%=t("neighborhood") %>: </div>      <%= @customer.neighborhood %>
   <div class='label1 top req'> <%=t("city") %>: </div>          <%= @customer.city_name %>
   <div class='label1 top req'> <%=t("state") %>: </div>         <%= @customer.state %>
+  <div class='label1 top req'> <%=t("customer.bank_account") %>: </div>         <%= @customer.bank_account.name if @customer.bank_account %>
 </div>
 

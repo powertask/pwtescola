@@ -192,7 +192,7 @@ pt-BR:
     show: Detalhes da Escola
     name: Nome da Escola
     full_name: Razão Social da Escola
-    fee: Taxa de Intermediação
+    bank_account: Carteira de Cobrança
     search: Procurar por Nome da Escola
     fl_charge_monetary_correction: Calcular Correção Monetária?
     fl_charge_interest: Calcular Juros?
