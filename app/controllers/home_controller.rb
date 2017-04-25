@@ -69,10 +69,10 @@
 
 
   def deal
-    if params[:date_current].nil?
+    if params[:calc][:date_current].nil?
       @date_current = Date.current
     else
-      @date_current = Date.new(params[:date_current][:year].to_i, params[:date_current][:month].to_i, params[:date_current][:day].to_i)
+      @date_current = params[:calc][:date_current].to_date
     end
 
     if @date_current < Date.current
@@ -105,7 +105,7 @@
     @ticket = Ticket.find(params[:cod])
     @ticket.update_attributes(ticket_params)
 
-    @tickets = Ticket.list(current_user.unit_id, session[:customer_id], @ticket.debtor.id).open.order(:document_number, :due_at)
+    @tickets = Ticket.list(current_user.unit_id, session[:customer_id], @ticket.debtor.id).open.order(:due_at)
     @debtor = Debtor.find @ticket.debtor.id
 
     if params[:date_current].nil?

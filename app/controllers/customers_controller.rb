@@ -40,12 +40,16 @@ class CustomersController < ApplicationController
 
   def list_customers
     @customers = Customer.select('id', 'name').list(current_user.unit_id)
+
+    unit = Unit.find current_user.unit_id
+    session[:header_name] = unit.name
   end
 
   def define_customer
     customer = Customer.find params[:customer][:customer_id]
 
     if customer.present?
+      session[:header_name] = customer.name
       session[:customer_id] = customer.id
       session[:customer_name] = customer.name
       session[:fl_charge_monetary_correction] = customer.fl_charge_monetary_correction

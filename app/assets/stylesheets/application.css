@@ -1,6 +1,5 @@
 /*
-	*= require bootstrap
-	*= require bootstrap-datepicker
+	*= require jquery-ui
 	*= require_self
 	*= require_tree .
 */

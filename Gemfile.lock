@@ -40,14 +40,8 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     arel (7.1.4)
-    autoprefixer-rails (6.7.7.1)
-      execjs
     bcrypt (3.1.11)
     bindex (0.5.0)
-    bootstrap (4.0.0.alpha6)
-      autoprefixer-rails (>= 6.0.3)
-      sass (>= 3.4.19)
-    bootstrap_form (2.6.0)
     brI18n (3.3.0)
       actionpack (>= 3.0.0)
       activerecord (>= 3.0.0)
@@ -98,8 +92,8 @@ GEM
     erubis (2.7.0)
     execjs (2.7.0)
     ffi (1.9.18)
-    globalid (0.3.7)
-      activesupport (>= 4.1.0)
+    globalid (0.4.0)
+      activesupport (>= 4.2.0)
     i18n (0.8.1)
     jbuilder (2.6.3)
       activesupport (>= 3.0.0, < 5.2)
@@ -126,8 +120,6 @@ GEM
     mime-types-data (3.2016.0521)
     mini_portile2 (2.1.0)
     minitest (5.10.1)
-    momentjs-rails (2.17.1)
-      railties (>= 3.1)
     multi_json (1.12.1)
     nio4r (2.0.0)
     nokogiri (1.7.1)
@@ -226,8 +218,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bootstrap (~> 4.0.0.alpha6)
-  bootstrap_form
   brazilian-rails
   byebug
   coffee-rails (~> 4.2)
@@ -237,7 +227,6 @@ DEPENDENCIES
   jquery-turbolinks
   jquery-ui-rails
   listen (~> 3.0.5)
-  momentjs-rails (>= 2.9.0)
   pg
   pry
   puma (~> 3.0)

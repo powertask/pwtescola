@@ -4,8 +4,8 @@
       <th>#</th>
       <th>ID</th>
       <th>Documento</th>
+      <th>Aluno</th>
       <th>Vencimento</th>
-      <th><%= t('status') %></th>
       <th>Meses</th>
       <th>Principal</th>
       <th>Correção</th>
@@ -28,8 +28,8 @@
         </td>    
         <td><%= ticket.id %>
         <td><%= ticket.document_number %> </td>
+        <td><%= ticket.student.name if ticket.student %> </td>
         <td><%= ticket.due_at.to_s_br %> </td>
-        <td><%= t('ticket.status.'<<ticket.status) %> </td>
         <td><%= calc_meses_atraso(ticket, nil, @date_current) %> </td>
         <td><%= ticket.amount_principal.real %> </td>
         <td><%= calc_correcao(ticket, nil, @date_current).real %> </td>

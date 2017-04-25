@@ -1,5 +1,5 @@
 <br>
-<%= bootstrap_form_for(@ticket, :url => set_charge_ticket_path, remote: true) do |f| %>
+<%= simple_form_for(@ticket, :url => set_charge_ticket_path, remote: true) do |f| %>
 
 	<table style="width:100%">
 		<tr>
@@ -16,9 +16,7 @@
 		</tr>
 	</table>
   
-	<div class="actions">
-		<div class='buttonbar'>
-			<%= f.primary t('menu.save') %>
-		</div>
-  </div>
+	<div class='buttonbar'>
+		<%= f.button :submit, t('menu.save'), class: 'btn-primary' %>
+	</div>
 <% end %>

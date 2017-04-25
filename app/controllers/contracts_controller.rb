@@ -64,6 +64,8 @@ class ContractsController < ApplicationController
         contract_ticket.unit_id = current_user.unit_id
         contract_ticket.contract_id = @contract.id
         contract_ticket.ticket_id = ticket.id
+        contract_ticket.customer_id = customer.id
+        contract_ticket.debtor_id = debtor.id
         contract_ticket.amount_principal = ticket.amount_principal
         contract_ticket.amount_monetary_correction = Ticket.calc_amount_monetary_correction(ticket, nil, nil, false)
         contract_ticket.amount_interest = Ticket.calc_amount_interest(ticket, nil, nil, true, false)
