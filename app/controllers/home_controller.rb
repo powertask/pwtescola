@@ -69,10 +69,11 @@
 
 
   def deal
-    if params[:calc][:date_current].nil?
-      @date_current = Date.current
-    else
+
+    if params[:calc].present? && params[:calc][:date_current].present?
       @date_current = params[:calc][:date_current].to_date
+    else
+      @date_current = Date.current
     end
 
     if @date_current < Date.current
