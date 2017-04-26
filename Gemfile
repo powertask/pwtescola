@@ -19,8 +19,6 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'jquery-turbolinks'
 
-gem 'bootstrap', '~> 4.0.0.alpha6'
-
 gem 'devise'
 gem 'simple_form'
 gem 'pg'
@@ -29,9 +27,6 @@ gem 'rails_12factor'
 gem 'responders'
 gem 'brazilian-rails'
 
-source 'https://rails-assets.org' do
-  gem 'rails-assets-tether', '>= 1.3.3'
-end
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
