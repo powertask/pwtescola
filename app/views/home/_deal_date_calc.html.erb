@@ -16,7 +16,7 @@
   <%= f.error_notification %>
 
   <div class='section'>
-    <%= f.input :date_current, as: :string, label: 'Data base para efetuar os cálculos: ' << @date_current.to_s_br, hint: 'Clique aqui para informar outra data para cálculo.', readonly: true  %>
+    <%= f.input :date_current, as: :string, label: 'Data base para efetuar os cálculos: ' << @date_current.to_s_br, hint: 'Clique aqui para informar outra data base.', readonly: true  %>
 
     <div class='buttonbar'>
       <%= f.button :submit, 'Atualizar data base de cálculo', class: 'btn-primary' %>
