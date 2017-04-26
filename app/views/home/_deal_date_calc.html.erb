@@ -17,7 +17,7 @@
 
   <div class='section'>
     <%= f.input :date_current, as: :string, label: 'Data base para efetuar os cálculos: ' << @date_current.to_s_br, hint: 'Clique aqui para informar outra data base.'  %>
-    <%= f.input :tax, label: 'Percentual de Taxa da Negociação:', input_html: { value: session[:tax] } %>
+    <%= f.input :tax, label: 'Percentual de Taxa da Negociação:', input_html: { value: number_to_percentage(session[:tax], precision: 2), maxlength: 5 } %>
 
     <div class='buttonbar'>
       <%= f.button :submit, 'Atualizar data base de cálculo e Taxa', class: 'btn-primary' %>
