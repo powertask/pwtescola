@@ -8,3 +8,9 @@ test:
   adapter: postgresql
   encoding: utf8
   database: pwtcharges_test
+
+production:
+  adapter: postgresql
+  encoding: utf8
+  database: pwtcharges_production
+
