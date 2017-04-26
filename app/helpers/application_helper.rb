@@ -66,7 +66,14 @@ module ApplicationHelper
     _juros      = calc_juros(ticket, _dt_ini, _dt_end)
     _multa      = calc_multa(ticket, _dt_ini, _dt_end)
     _total      = _principal + _correcao + _juros + _multa
-    (_total.to_f * 0.1).round(2)
+    
+    unless session[:tax].nil?
+      _tax = session[:tax] / 100
+    else
+      _tax = 0.1
+    end
+
+    (_total.to_f * _tax).round(2)
   end
 
 

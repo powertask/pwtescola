@@ -11,7 +11,7 @@
       <th>Correção</th>
       <th>Juros</th>
       <th>Multa</th>
-      <th>Taxa</th>
+      <th><%= 'Taxa(' + number_to_currency(session[:tax], unit: '' ) + ')' %></th>
       <th>Valor Total</th>
       <th></th>
     </tr>

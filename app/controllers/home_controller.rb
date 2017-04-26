@@ -76,6 +76,12 @@
       @date_current = Date.current
     end
 
+    if params[:calc].present? && params[:calc][:tax].present?
+      session[:tax] = params[:calc][:tax].to_f
+    else
+      session[:tax] = 10.00
+    end
+
     if @date_current < Date.current
       flash[:alert] = "Data base não pode ser menor que data atual"
       @date_current = nil
