@@ -25,7 +25,7 @@ namespace :db do
         bank.save!
 
 
-        puts "Import data from MYSQL.....USERS"
+        puts "Import data from MYSQL.....PWT"
         user = User.new
         user.unit_id = unit.id
         user.profile = 0

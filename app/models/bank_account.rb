@@ -3,6 +3,6 @@ class BankAccount < ActiveRecord::Base
 
   has_many :customers
   
-  validates_presence_of :unit_id, :name, :bank_billet_account
+  validates_presence_of :unit_id, :name
  
 end

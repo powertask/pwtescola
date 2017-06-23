@@ -1,16 +1,15 @@
 development:
   adapter: postgresql
   encoding: utf8
-  database: pwtcharges_development
-
+  database: pwtescola_development
 
 test:
   adapter: postgresql
   encoding: utf8
-  database: pwtcharges_test
+  database: pwtescola_test
 
 production:
   adapter: postgresql
   encoding: utf8
-  database: pwtcharges_production
+  database: pwtescola_production
 

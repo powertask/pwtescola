@@ -6,7 +6,7 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module Pwtcharges
+module Pwtescola
   class Application < Rails::Application
     config.time_zone = 'Brasilia'
     config.i18n.default_locale = :"pt-BR"
