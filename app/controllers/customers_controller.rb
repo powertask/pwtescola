@@ -56,7 +56,6 @@ class CustomersController < ApplicationController
       session[:fl_charge_interest] = customer.fl_charge_interest
       session[:fl_charge_fine] = customer.fl_charge_fine
       session[:fl_charge_tax] = customer.fl_charge_tax
-
     end
     redirect_to root_path
   end
