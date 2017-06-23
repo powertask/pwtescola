@@ -18,27 +18,27 @@
 
   def filter_name
     
-    if params[:name].present?
+    if params[:filter][:name].present?
 
-      if params[:name].size < 3
+      if params[:filter][:name].size < 3
         flash[:alert] = "Nome do Responsável Financeiro deve conter ao menos 3 letras."
         redirect_to :root and return
       end 
 
       @debtors = Debtor
-                .where("unit_id = ? AND customer_id = ? AND lower(debtors.name) like ?", current_user.unit_id, session[:customer_id], "%"<< params[:name].downcase << "%")
+                .where("unit_id = ? AND customer_id = ? AND lower(debtors.name) like ?", current_user.unit_id, session[:customer_id], "%"<< params[:filter][:name].downcase << "%")
                 .paginate(:page => params[:page], :per_page => 5)
                 .order('name ASC')
 
-    elsif params[:cpf].present?
+    elsif params[:filter][:cpf].present?
 
-      unless params[:cpf].size == 14
+      unless params[:filter][:cpf].size == 14
         flash[:alert] = "CPF deve conter 11 números no formato 999.999.999-99"
         redirect_to :root and return
       end 
 
       @debtors = Debtor
-                .where("unit_id = ? AND customer_id = ? AND debtors.cpf = ?", current_user.unit_id, session[:customer_id], params[:cpf])
+                .where("unit_id = ? AND customer_id = ? AND debtors.cpf = ?", current_user.unit_id, session[:customer_id], params[:filter][:cpf])
                 .paginate(:page => params[:page], :per_page => 5)
                 .order('name ASC')
 
