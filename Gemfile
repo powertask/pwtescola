@@ -6,7 +6,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'rails', '~> 5.1.1'
+gem 'rails', '~> 5.1.2'
 gem 'pg'
 gem 'puma', '~> 3.7'
 gem 'sass-rails', '~> 5.0'
@@ -22,9 +22,13 @@ gem 'jquery-ui-rails'
 
 gem 'devise'
 gem 'simple_form'
-gem 'will_paginate'
 gem 'responders'
 gem 'brazilian-rails'
+gem 'will_paginate'
+
+gem "font-awesome-rails"
+gem 'magnific-popup-rails', '~> 1.1.0'
+gem "scrollreveal-rails"
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.3.3'
