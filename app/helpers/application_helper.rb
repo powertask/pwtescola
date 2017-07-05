@@ -1,5 +1,16 @@
 module ApplicationHelper
 
+  def flash_class(level)
+    case level
+      when 'success' then "alert alert-success alert-dismissable fade in"
+      when 'notice' then "alert alert-success alert-dismissable fade in"
+      when 'info' then "alert alert-info alert-dismissable fade in"
+      when 'warning' then "alert alert-warning alert-dismissable fade in"
+      when 'danger' then "alert alert-danger alert-dismissable fade in"
+      when 'alert' then "alert alert-danger alert-dismissable fade in"
+    end
+  end
+  
   def calc_meses_atraso(ticket, _dt_ini, _dt_end)
     Ticket.calc_diff_months(ticket, _dt_ini, _dt_end)
   end
@@ -131,7 +142,7 @@ module ApplicationHelper
 
     end
     total
-	end
+  end
 
 
   def user_name(user_id)
