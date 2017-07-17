@@ -1,0 +1,40 @@
+<div class='title_page'>
+  <span> <%= t('proposal.title') %> </span>
+</div>
+
+<p id="notice"><%= notice %></p>
+
+<div class='list1'>
+  <% unless @proposals.empty? %>
+    <% @proposals.each do |proposal| %>
+      <li>
+        <div class='strip' id='none'> <%= proposal.id %> </div>
+
+        <div class='indent'>
+          <% if proposal.contract? %>
+            <span class="label label-success"><%= t('proposal.status.'<< proposal.status, :contract => proposal.contract_id ) %> </span> 
+          <% elsif proposal.cancel? %>
+            <span class="label label-danger"><%= t('proposal.status.'<< proposal.status ) %> </span> 
+          <% else %>
+            <span class="label label-primary"><%= t('proposal.status.'<< proposal.status ) %> </span> 
+          <% end %>
+          &nbsp;
+          <%= proposal.debtor.origin_code %>
+          &bull;
+          <%= link_to(proposal.debtor.name, proposal_path(proposal)) %>
+          &bull;
+          <%= 'Termo gerado: ' << proposal.contract_id.to_s if proposal.contract? %>
+          <dt></dt>
+        </div>
+      </li>
+    <% end %>
+  <% else %>
+    Colaborador não tem propostas geradas.
+  <% end %>
+</div>
+
+<div id='paginate'>
+  <div class="apple_pagination">
+    <%= will_paginate @proposals, :container => false  if @proposals.present? %>
+  </div>
+</div>

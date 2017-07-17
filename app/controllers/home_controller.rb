@@ -56,7 +56,7 @@
   def show
     @debtor = Debtor.find(params[:cod])
    
-    @tickets = Ticket.list(current_user.unit_id, session[:customer_id], params[:cod]).open.order('due_at, document_number')
+    @tickets = Ticket.list(current_user.unit_id, session[:customer_id], params[:cod]).not_pay.order('due_at, document_number')
     @contract_tickets = ContractTicket.list(current_user.unit_id, session[:customer_id]).where('debtor_id = ?', params[:cod])
     @contracts = Contract.list(current_user.unit_id, session[:customer_id]).where('debtor_id = ?', params[:cod])
 
@@ -94,7 +94,7 @@
 
     @contract = Contract.new
 
-    @tickets = Ticket.list(current_user.unit_id, session[:customer_id], params[:cod]).open.order('due_at, document_number')
+    @tickets = Ticket.list(current_user.unit_id, session[:customer_id], params[:cod]).not_pay.order('due_at, document_number')
     @ticket = Ticket.new
 
     clear_variable_session()

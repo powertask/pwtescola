@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170324182509) do
+ActiveRecord::Schema.define(version: 20170714014912) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,8 +85,10 @@ ActiveRecord::Schema.define(version: 20170324182509) do
     t.string "origin_code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "proposal_id"
     t.index ["customer_id"], name: "index_contracts_on_customer_id"
     t.index ["debtor_id"], name: "index_contracts_on_debtor_id"
+    t.index ["proposal_id"], name: "index_contracts_on_proposal_id"
     t.index ["unit_id"], name: "index_contracts_on_unit_id"
     t.index ["user_id"], name: "index_contracts_on_user_id"
   end
@@ -173,6 +175,42 @@ ActiveRecord::Schema.define(version: 20170324182509) do
     t.decimal "value", precision: 5, scale: 4
   end
 
+  create_table "proposal_tickets", id: :serial, force: :cascade do |t|
+    t.integer "unit_id"
+    t.integer "proposal_id"
+    t.integer "ticket_type"
+    t.float "amount"
+    t.integer "ticket_number"
+    t.date "due_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["proposal_id"], name: "index_proposal_tickets_on_proposal_id"
+    t.index ["unit_id"], name: "index_proposal_tickets_on_unit_id"
+  end
+
+  create_table "proposals", id: :serial, force: :cascade do |t|
+    t.integer "unit_id"
+    t.integer "user_id"
+    t.integer "debtor_id"
+    t.float "unit_amount"
+    t.float "unit_fee"
+    t.integer "unit_ticket_quantity"
+    t.integer "client_ticket_quantity"
+    t.float "client_amount"
+    t.date "unit_due_at"
+    t.date "client_due_at"
+    t.integer "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "contract_id"
+    t.integer "customer_id"
+    t.index ["contract_id"], name: "index_proposals_on_contract_id"
+    t.index ["customer_id"], name: "index_proposals_on_customer_id"
+    t.index ["debtor_id"], name: "index_proposals_on_debtor_id"
+    t.index ["unit_id"], name: "index_proposals_on_unit_id"
+    t.index ["user_id"], name: "index_proposals_on_user_id"
+  end
+
   create_table "students", id: :serial, force: :cascade do |t|
     t.integer "unit_id"
     t.integer "customer_id"
@@ -203,10 +241,12 @@ ActiveRecord::Schema.define(version: 20170324182509) do
     t.integer "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "proposal_id"
     t.index ["contract_id"], name: "index_tickets_on_contract_id"
     t.index ["course_id"], name: "index_tickets_on_course_id"
     t.index ["customer_id"], name: "index_tickets_on_customer_id"
     t.index ["debtor_id"], name: "index_tickets_on_debtor_id"
+    t.index ["proposal_id"], name: "index_tickets_on_proposal_id"
     t.index ["student_id"], name: "index_tickets_on_student_id"
     t.index ["unit_id"], name: "index_tickets_on_unit_id"
   end
@@ -262,6 +302,7 @@ ActiveRecord::Schema.define(version: 20170324182509) do
   add_foreign_key "contract_tickets", "units"
   add_foreign_key "contracts", "customers"
   add_foreign_key "contracts", "debtors"
+  add_foreign_key "contracts", "proposals"
   add_foreign_key "contracts", "units"
   add_foreign_key "contracts", "users"
   add_foreign_key "courses", "units"
@@ -273,6 +314,13 @@ ActiveRecord::Schema.define(version: 20170324182509) do
   add_foreign_key "histories", "debtors"
   add_foreign_key "histories", "units"
   add_foreign_key "histories", "users"
+  add_foreign_key "proposal_tickets", "proposals"
+  add_foreign_key "proposal_tickets", "units"
+  add_foreign_key "proposals", "contracts"
+  add_foreign_key "proposals", "customers"
+  add_foreign_key "proposals", "debtors"
+  add_foreign_key "proposals", "units"
+  add_foreign_key "proposals", "users"
   add_foreign_key "students", "courses"
   add_foreign_key "students", "customers"
   add_foreign_key "students", "debtors"
@@ -281,6 +329,7 @@ ActiveRecord::Schema.define(version: 20170324182509) do
   add_foreign_key "tickets", "courses"
   add_foreign_key "tickets", "customers"
   add_foreign_key "tickets", "debtors"
+  add_foreign_key "tickets", "proposals"
   add_foreign_key "tickets", "students"
   add_foreign_key "tickets", "units"
   add_foreign_key "users", "units"

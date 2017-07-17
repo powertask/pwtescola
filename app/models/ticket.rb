@@ -7,7 +7,7 @@ class Ticket < ApplicationRecord
 
   validates_presence_of :unit_id, :debtor_id, :customer_id, :amount_principal, :status, :description, :due_at
 
-  enum status: [:open, :paid, :contract]
+  enum status: [:not_pay, :paid, :contract, :proposal]
 
   def self.list(unit, customer, debtor)
     self.where("unit_id = ? AND customer_id = ? AND debtor_id = ?", unit, customer, debtor)
@@ -16,7 +16,7 @@ class Ticket < ApplicationRecord
 
   def self.calc_diff_months(ticket, _dt_ini, _dt_end)
     
-    return 0 unless ticket.open?
+    return 0 unless ticket.not_pay?
     
     _dt_ini = ticket.due_at if _dt_ini.nil?
     _dt_end = Date.current if _dt_end.nil?

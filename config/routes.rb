@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
   resources :contracts
+  resources :proposals
+  resources :proposal_tickets
   resources :tickets
   resources :debtors
   resources :customers
