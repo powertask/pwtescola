@@ -80,7 +80,7 @@ class ContractsController < ApplicationController
   end
 
 
-  def create_bank_slip
+  def create_bank_billet
     @bank_slips = BankSlip.where('contract_id = ?', params[:cod]).order('due ASC')
     @keys = [:name, :url]
     @values = []
