@@ -61,7 +61,7 @@
 
     <div class='title_tools'>
       <% if @contract.open? %>
-        <a class="btn btn-large btn-default" <%= link_to(t('contract.create_bank_slip'), :action => "create_bank_slip", :cod => @contract.id) %></a>
+        <a class="btn btn-large btn-default" <%= link_to(t('contract.create_bank_slip'), :action => "create_bank_billet", :cod => @contract.id) %></a>
       <% end %>
     </div>
 
