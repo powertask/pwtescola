@@ -122,7 +122,7 @@ class ContractsController < ApplicationController
                             customer_state: @debtor.state,
                             customer_zipcode: @debtor.zipcode,
                             bank_billet_account_id: 1502,
-                            instructions: 'Parcela ' << bank_slip.ticket_number.to_s
+                            instructions: ''
                           })
 
           if bank_billet.persisted?
