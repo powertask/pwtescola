@@ -87,13 +87,11 @@ class ContractsController < ApplicationController
 
     @bank_slips.each do |bank_slip|
 
-      if bank_slip.status == :generating
+      if bank_slip.status == 'generating'
 
         @contract = Contract.find(bank_slip.contract_id)
         @debtor = Debtor.find(@contract.debtor_id)
         customer = Customer.find(@debtor.customer_id)
-        bank_billet_account = 
-        bank_billet_account_unit = 
 
         t = Debtor.new(:cnpj => @debtor.cnpj, :cpf => @debtor.cpf)
         
