@@ -87,7 +87,7 @@ class ContractsController < ApplicationController
 
     @bank_slips.each do |bank_slip|
 
-      if bank_slip.status == 'generating'
+      if bank_slip.status == 'waiting'
 
         @contract = Contract.find(bank_slip.contract_id)
         @debtor = Debtor.find(@contract.debtor_id)
