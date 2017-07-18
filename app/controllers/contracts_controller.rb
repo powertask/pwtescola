@@ -139,7 +139,7 @@ class ContractsController < ApplicationController
       else
         @contract = Contract.find(bank_slip.contract_id)
         @debtor = Debtor.find(@contract.debtor_id)
-        @values << [bank_slip.customer_person_name << '_' << bank_slip.our_number, bank_slip.shorten_url] if bank_slip.status == :open
+        @values << [bank_slip.customer_person_name << '_' << bank_slip.our_number, bank_slip.shorten_url] if bank_slip.open?
       end
     end
 
