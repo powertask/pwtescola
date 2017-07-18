@@ -30,6 +30,12 @@ gem "font-awesome-rails"
 gem 'magnific-popup-rails', '~> 1.1.0'
 gem "scrollreveal-rails"
 
+gem 'boletosimples'
+gem 'prawn'
+gem 'prawn-table'
+gem 'rubyzip'
+gem 'roo'
+
 source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.3.3'
 end
