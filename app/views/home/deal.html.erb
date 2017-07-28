@@ -46,3 +46,31 @@
 
   </div>
 </div>
+
+<script type="text/javascript">
+  $(function() {
+  $( '#simul_bank_slip_due_at' ).datepicker({
+    dateFormat: "dd/mm/yy",
+        autoclose: true,
+        showButtonPanel: true,
+        numberOfMonths: 3,
+        minDate: 0,
+        showWeek: true,
+      firstDay: 1
+    });
+  });
+
+
+$(function() {
+    $( '#calc_date_current' ).datepicker({
+    dateFormat: "dd/mm/yy",
+        autoclose: true,
+        showButtonPanel: true,
+        numberOfMonths: 3,
+        minDate: 0,
+        showWeek: true,
+      firstDay: 1
+    });
+  });
+
+</script>

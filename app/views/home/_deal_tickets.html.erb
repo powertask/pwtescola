@@ -21,9 +21,9 @@
       <tr>
         <td>
           <% if ticket.charge %>
-            <div class='strip green'> <%= 'Cobrar' %> </div>
+            <div class='strip green'> <%= 'COBRAR' %> </div>
           <% else %>
-            <div class='strip red' id='none'> <%= 'Não Cobrar' %> </div>
+            <div class='strip red' id='none'> <%= 'NÃO COBRAR' %> </div>
           <% end %> 
         </td>    
         <td><%= ticket.id %>
@@ -37,7 +37,7 @@
         <td><%= calc_multa(ticket, nil, @date_current).real %> </td>
         <td><%= calc_taxa(ticket, nil, @date_current).real %> </td>
         <td><%= calc_ticket(ticket, nil, @date_current).real %> </td>
-        <td><%= link_to(t('edit'), get_charge_ticket_path(ticket), class: "btn btn-xs btn-default", remote: true ) %></td>
+        <td><%= link_to(ticket.charge ? 'Marcar NÃO COBRAR' : 'Marcar COBRAR', set_charge_ticket_path(ticket), class: "btn btn-xs btn-default", remote: true, method: :patch ) %></td>
       </tr>
     <% end %>
   </tbody>

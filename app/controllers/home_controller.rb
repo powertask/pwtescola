@@ -69,7 +69,6 @@
 
 
   def deal
-
     if params[:calc].present? && params[:calc][:date_current].present?
       @date_current = params[:calc][:date_current].to_date
     else
@@ -110,9 +109,10 @@
 
   def set_charge_ticket
     @ticket = Ticket.find(params[:cod])
-    @ticket.update_attributes(ticket_params)
+    @ticket.charge = @ticket.charge == true ? false : true
+    @ticket.save!
 
-    @tickets = Ticket.list(current_user.unit_id, session[:customer_id], @ticket.debtor.id).open.order(:due_at)
+    @tickets = Ticket.list(current_user.unit_id, session[:customer_id], @ticket.debtor.id).not_pay.order('due_at, document_number')
     @debtor = Debtor.find @ticket.debtor.id
 
     if params[:date_current].nil?
@@ -174,7 +174,6 @@
     session[:unit_profile] = params[:profile]
     respond_with(@unit, layout: "unit")
   end
-
 
 
   private
