@@ -61,11 +61,11 @@
 
     <div class='title_tools'>
       <% if @contract.open? %>
-        <a class="btn btn-large btn-default" <%= link_to(t('contract.create_bank_slip'), :action => "create_bank_billet", :cod => @contract.id) %></a>
+        <a class="btn btn-large btn-default" <%= link_to('Enviar Boletos', :action => "create_bank_billet", :cod => @contract.id) %></a>
       <% end %>
     </div>
 
-    <div class='subtitle_page'> <%= t('contract.bank_slip') %> </div>
+    <div class='subtitle_page'> Boletos para o Contrato </div>
     <table class="table">
       <thead>
         <tr>
@@ -83,7 +83,9 @@
           <tr>
             <td><%= bank_slip.id %> </td>
             <td>
-              <% if bank_slip.generating? %>
+              <% if bank_slip.waiting? %>
+                <a class="label label-default"> Aguardando Envio Boletos</a>
+              <% elsif bank_slip.generating? %>
                 <a class="label label-primary"><%= t('bank_slip.status.generating') %></a>
               <% elsif bank_slip.open? %>
                 <a class="label label-primary"><%= t('bank_slip.status.open') %></a>

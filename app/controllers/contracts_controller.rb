@@ -23,7 +23,7 @@ class ContractsController < ApplicationController
     debtor = Debtor.find(cod)
     customer = Customer.find session[:customer_id]
     unit = Unit.find(current_user.unit_id)
-    tickets = Ticket.list(current_user.unit_id, session[:customer_id], params[:cod]).open.where('charge = ?', true)
+    tickets = Ticket.list(current_user.unit_id, session[:customer_id], params[:cod]).not_pay.where('charge = ?', true)
 
     ActiveRecord::Base.transaction do
       @contract = Contract.new
@@ -50,7 +50,7 @@ class ContractsController < ApplicationController
 
         bank_slip.customer_name = customer[:name]
         bank_slip.customer_document = customer[:cnpj].present? ? customer[:cnpj] : customer[:cpf]
-        bank_slip.status = :generating
+        bank_slip.status = :waiting
 
         bank_slip.save!
       end
@@ -87,7 +87,7 @@ class ContractsController < ApplicationController
 
     @bank_slips.each do |bank_slip|
 
-      if bank_slip.status == 'waiting'
+      if bank_slip.waiting?
 
         @contract = Contract.find(bank_slip.contract_id)
         @debtor = Debtor.find(@contract.debtor_id)
