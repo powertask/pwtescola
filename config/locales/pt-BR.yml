@@ -137,12 +137,14 @@ pt-BR:
     new_due_at: Novo Vencimento
     amount_principal: Valor do Boleto
     search: Procurar...
+    cancel: Cancelar Boleto
     status:
       open: Em Aberto
       paid: Pago
       canceled: Cancelado
       generating: Gerando
       waiting: Aguardando Envio
+      overdue: Vencido
 
   ticket:
     title: Cadastro de Valores em Aberto
