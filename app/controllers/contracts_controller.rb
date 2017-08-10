@@ -218,7 +218,7 @@ class ContractsController < ApplicationController
 
         bank_slip.customer_name = customer[:name]
         bank_slip.customer_document = customer[:cnpj].present? ? customer[:cnpj] : customer[:cpf]
-        bank_slip.status = :generating
+        bank_slip.status = :waiting
 
         bank_slip.save!
       end

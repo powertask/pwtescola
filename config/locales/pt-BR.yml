@@ -141,6 +141,8 @@ pt-BR:
       open: Em Aberto
       paid: Pago
       canceled: Cancelado
+      generating: Gerando
+      waiting: Aguardando Envio
 
   ticket:
     title: Cadastro de Valores em Aberto

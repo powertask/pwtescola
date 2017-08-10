@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   resources :bank_slips
   resources :students
   resources :courses
+  resources :remittances
+  resources :discharges
 
   devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
@@ -48,6 +50,13 @@ Rails.application.routes.draw do
   get 'contract/:cod/create_bank_billet' => 'contracts#create_bank_billet', as: :create_bank_billet
   post 'contract/:cod/create_contract_from_proposal' => 'contracts#create_contract_from_proposal', as: :create_contract_from_proposal
   post 'contract/:cod/create_contract' => 'contracts#create_contract', as: :create_contract
+
+  post 'remittance/remittance_create' => 'remittances#remittance_create', as: :remittance_create
+  get 'remittance/remittance_new' => 'remittances#remittance_new', as: :remittance_new
+  get 'remittance/:cod/remittance_download' => 'remittances#remittance_download', as: :remittance_download
+  get 'discharge/sent_discharge' => 'discharges#sent_discharge', as: :sent_discharge
+  post 'discharge/create_discharge' => 'discharges#create_discharge', as: :create_discharge
+
 
   root 'home#index'
 

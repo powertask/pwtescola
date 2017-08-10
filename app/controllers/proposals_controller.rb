@@ -15,6 +15,7 @@ class ProposalsController < ApplicationController
   def show
     @proposal = Proposal.where('id = ? and unit_id = ? and customer_id = ?', params[:id].to_i, current_user.unit_id, session[:customer_id]).first
     @tickets = ProposalTicket.list(params[:id]).order('ticket_number')
+    session[:bank_slips] = @tickets
     respond_with @proposal
   end
 

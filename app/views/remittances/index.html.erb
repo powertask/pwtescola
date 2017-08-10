@@ -1,0 +1,36 @@
+<div class='title_tools'>
+	<a class="btn btn-large btn-warning" <%= link_to(t('remittance.new'), remittance_new_path) %> </a>
+</div>
+
+<div class='title_page'>
+	<span> <%= t('remittance.title') %> </span>
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Carteira de Cobrança</th>
+      <th>Nome do Arquivo</th>
+      <th><%= t('status') %></th>
+      <th>Data do Processamento</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% unless @remittances.nil? %>
+      <% @remittances.each do |remittance| %>
+        <% if (current_user.client? and remittance.bank_billet_account_id == 47) or current_user.admin? or current_user.user? %>
+          <tr>
+            <td><%= remittance.id %> </td>
+            <td><%= remittance.bank_billet_account_id %> </td>
+            <td><%= remittance.filename %> </td>
+            <td><%= t('remittance.status.'<< remittance.status) %> </td>
+            <td><%= remittance.processed_at.to_date.to_s_br if remittance.processed_at %> </td>
+            <td><%= link_to(t('remittance.download'), :action => "remittance_download", :cod => remittance.id) %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

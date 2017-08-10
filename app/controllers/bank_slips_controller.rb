@@ -4,39 +4,26 @@ class BankSlipsController < ApplicationController
   respond_to :html
   layout 'window'
 
-
   def index
 
-    name = ''
-    name = params[:name].upcase unless params[:name].nil?
-
-    filter_dates = ''
-
-    if params[:due_at].present?
-      filter_dates << ' AND due_at = ?'
-    else
-      filter_dates << ' AND due_at > ?'
-      params[:due_at] = '01/01/1900'.to_date
-    end
-
-    if params[:status].nil? or params[:status].downcase == 'todos status...'
+    if params[:filter].nil? or params[:filter][:status].nil? or params[:filter][:status].downcase == 'todos status...'
       
       if current_user.admin?
-        @bank_slips = BankSlip.where("unit_id = ? AND customer_id = ? AND customer_name like ? " + filter_dates, current_user.unit_id, session[:customer_id], "%"<< name << "%", params[:due_at].to_date).order('due_at DESC').paginate(:page => params[:page], :per_page => 20)
+        @bank_slips = BankSlip.where("unit_id = ? AND customer_id = ?", current_user.unit_id, session[:customer_id]).order('due_at DESC').paginate(:page => params[:page], :per_page => 20)
         status_counter
       end
 
     else
-      status = 0 if params[:status].downcase == 'gerando'
-      status = 1 if params[:status].downcase == 'aberto'
-      status = 2 if params[:status].downcase == 'cancelado'
-      status = 3 if params[:status].downcase == 'pago'
-      status = 4 if params[:status].downcase == 'vencido'
-      status = 5 if params[:status].downcase == 'bloqueado'
-      status = 6 if params[:status].downcase == 'devolucao'
+      status = 0 if params[:filter][:status].downcase == 'gerando'
+      status = 1 if params[:filter][:status].downcase == 'aberto'
+      status = 2 if params[:filter][:status].downcase == 'cancelado'
+      status = 3 if params[:filter][:status].downcase == 'pago'
+      status = 4 if params[:filter][:status].downcase == 'vencido'
+      status = 5 if params[:filter][:status].downcase == 'bloqueado'
+      status = 6 if params[:filter][:status].downcase == 'devolucao'
 
       if current_user.admin?
-        @bank_slips = BankSlip.where("unit_id = ? AND customer_id = ? AND status = ? AND customer_name like ?", current_user.unit_id, session[:customer_id], status, "%"<< name << "%").order('due_at DESC').paginate(:page => params[:page], :per_page => 20)
+        @bank_slips = BankSlip.where("unit_id = ? AND customer_id = ? AND status = ?", current_user.unit_id, session[:customer_id], status).order('due_at DESC').paginate(:page => params[:page], :per_page => 20)
         status_counter
       end     
     end
