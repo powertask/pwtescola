@@ -58,14 +58,11 @@ namespace :production do
           ActiveRecord::Base.transaction do
             bankslip.status = status
             bankslip.paid_at = bankbillet_api.paid_at
-            bankslip.paid_amount = bankbillet_api.paid_amount
-            bankslip.our_number = bankbillet_api.our_number
-            bankslip.fine_for_delay = bankbillet_api.fine_for_delay
-            bankslip.late_payment_interest = bankbillet_api.late_payment_interest
+            bankslip.paid_amount_principal = bankbillet_api.paid_amount
             bankslip.save!
 
             if bankbillet_api.paid_amount > 0
-              any_not_paid = BankSlip.where('contract_id = ? AND status in (0,1,4)', ticket.contract_id)
+              any_not_paid = BankSlip.where('contract_id = ? AND status in (0,1,4)', bankslip.contract_id)
               if any_not_paid.empty?
                 contract.status = :paid
                 contract.save!
