@@ -64,6 +64,25 @@ class BankSlipsController < ApplicationController
     redirect_to(contracts_path)
   end
 
+  def bank_slip_cancel
+    bank_slip = BankSlip.find params[:cod]
+
+    if bank_slip.present?
+      
+      bank_billet = BoletoSimples::BankBillet.find(bank_slip.origin_code)
+
+      if bank_billet.cancel
+        bank_slip.canceled!
+        
+        flash[:alert] = "Boleto CANCELADO. Numero: " << bank_slip.our_number.to_s 
+      else
+        flash[:alert] = "Não foi possível CANCELAR boleto. Numero: " << bank_slip.our_number.to_s 
+      end
+    else
+      flash[:alert] = "Parcela não encontrada."      
+    end
+    respond_with contract_path(bank_slip.contract_id)
+  end
 
   private
     # Never trust parameters from the scary internet, only allow the white list through.
