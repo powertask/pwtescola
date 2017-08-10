@@ -45,10 +45,8 @@ namespace :production do
 
       if bankbillet_api.present?
         bankslip = BankSlip.find(i.id)
-        ticket   = Ticket.where('bank_slip_id = ?', i.id).first
         
-        if ticket.present?
-          contract   = Contract.find ticket.contract_id
+          contract  = Contract.find bankslip.contract_id
 
           begin
             ActiveRecord::Base.transaction do
@@ -60,30 +58,14 @@ namespace :production do
               bankslip.late_payment_interest = bankbillet_api.late_payment_interest
               bankslip.save!
 
-              ticket.status = bankbillet_api.status
-              ticket.paid_at = bankbillet_api.paid_at
-              ticket.paid_amount = bankbillet_api.paid_amount
-
-              ticket.save!
-
               if bankbillet_api.paid_amount > 0
-                ticket_not_paid = Ticket.where('contract_id = ? AND status in (0,1,4)', ticket.contract_id)
-                if ticket_not_paid.empty?
+                any_not_paid = BankSlip.where('contract_id = ? AND status in (0,1,4)', ticket.contract_id)
+                if any_not_paid.empty?
                   contract.status = :paid
                   contract.save!
                 end
               end
 
-              if bankslip.paid_amount > 0
-                history = History.new
-                history.description = 'Boleto ' << bankslip.our_number.to_s << ' pago no valor de R$ ' << bankslip.paid_amount.to_s
-                history.history_date = Time.current
-                history.unit_id = 1
-                history.user_id = 1
-                history.client_id = ticket.client_id
-                history.taxpayer_id = contract.taxpayer_id
-                history.save!
-              end
             end
             rescue ActiveRecord::RecordInvalid => e
             puts e.record.errors.full_messages
