@@ -110,7 +110,6 @@
 
               <%= link_to(t('bank_slip.cancel'), bank_slip_cancel_path(bank_slip.id), class: "btn btn-xs btn-danger", remote: true, id: 'cancel_ticket') if bank_slip.present? & (bank_slip.open? || bank_slip.overdue?) %> 
 
-              <%= link_to(t('bank_slip.paid'), update_status_ticket_path(bank_slip.id), class: "btn btn-xs btn-success") if bank_slip.overdue? %> 
             </td>
           </tr>
         <% end %>
