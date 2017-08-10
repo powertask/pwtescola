@@ -48,9 +48,15 @@ namespace :production do
         
         contract  = Contract.find bankslip.contract_id
 
+        status = :open if bankbillet_api.status == 'opened'
+        status = :generating if bankbillet_api.status == 'generating'
+        status = :canceled if bankbillet_api.status == 'canceled'
+        status = :paid if bankbillet_api.status == 'paid'
+        status = :overdue if bankbillet_api.status == 'overdue'
+
         begin
           ActiveRecord::Base.transaction do
-            bankslip.status = bankbillet_api.status
+            bankslip.status = status
             bankslip.paid_at = bankbillet_api.paid_at
             bankslip.paid_amount = bankbillet_api.paid_amount
             bankslip.our_number = bankbillet_api.our_number
