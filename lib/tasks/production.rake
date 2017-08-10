@@ -46,30 +46,29 @@ namespace :production do
       if bankbillet_api.present?
         bankslip = BankSlip.find(i.id)
         
-          contract  = Contract.find bankslip.contract_id
+        contract  = Contract.find bankslip.contract_id
 
-          begin
-            ActiveRecord::Base.transaction do
-              bankslip.status = bankbillet_api.status
-              bankslip.paid_at = bankbillet_api.paid_at
-              bankslip.paid_amount = bankbillet_api.paid_amount
-              bankslip.our_number = bankbillet_api.our_number
-              bankslip.fine_for_delay = bankbillet_api.fine_for_delay
-              bankslip.late_payment_interest = bankbillet_api.late_payment_interest
-              bankslip.save!
+        begin
+          ActiveRecord::Base.transaction do
+            bankslip.status = bankbillet_api.status
+            bankslip.paid_at = bankbillet_api.paid_at
+            bankslip.paid_amount = bankbillet_api.paid_amount
+            bankslip.our_number = bankbillet_api.our_number
+            bankslip.fine_for_delay = bankbillet_api.fine_for_delay
+            bankslip.late_payment_interest = bankbillet_api.late_payment_interest
+            bankslip.save!
 
-              if bankbillet_api.paid_amount > 0
-                any_not_paid = BankSlip.where('contract_id = ? AND status in (0,1,4)', ticket.contract_id)
-                if any_not_paid.empty?
-                  contract.status = :paid
-                  contract.save!
-                end
+            if bankbillet_api.paid_amount > 0
+              any_not_paid = BankSlip.where('contract_id = ? AND status in (0,1,4)', ticket.contract_id)
+              if any_not_paid.empty?
+                contract.status = :paid
+                contract.save!
               end
-
             end
-            rescue ActiveRecord::RecordInvalid => e
-            puts e.record.errors.full_messages
+
           end
+          rescue ActiveRecord::RecordInvalid => e
+          puts e.record.errors.full_messages
         end
       end
       sleep(1.second)
