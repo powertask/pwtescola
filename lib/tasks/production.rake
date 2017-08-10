@@ -38,7 +38,7 @@ namespace :production do
 
   desc "Update ticket status"
   task :update_bankslip_status => :environment do
-    bank_billet_pwt = BankSlip.all
+    bank_billet_pwt = BankSlip.joins(:contract).where('bank_slips.unit_id = ? and bank_slips.customer_id = ? and origin_code > 0', current_user.unit_id, session[:customer_id])
 
     bank_billet_pwt.each do |i|
       bankbillet_api = BoletoSimples::BankBillet.find(i.origin_code)
