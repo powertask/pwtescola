@@ -14,8 +14,7 @@ class ProposalsController < ApplicationController
 
   def show
     @proposal = Proposal.where('id = ? and unit_id = ? and customer_id = ?', params[:id].to_i, current_user.unit_id, session[:customer_id]).first
-    @tickets = ProposalTicket.list(params[:id]).order('ticket_number')
-    session[:bank_slips] = @tickets
+    @proposal_tickets = ProposalTicket.list(params[:id]).order('ticket_number')
     respond_with @proposal
   end
 
@@ -81,17 +80,17 @@ class ProposalsController < ApplicationController
     end 
 
     if proposal.cancel?
-      flash[:alert] = "Ação não permitida. Proposta ja esta cancelada"
+      flash[:alert] = "Ação não permitida. Proposta ja esta cancelada."
       redirect_to :proposals and return
     end 
 
-    cnas = Cna.list(current_user.unit_id, session[:client_id]).where('proposal_id = ?', cod)
+    tickets = Ticket.list(current_user.unit_id, session[:customer_id], proposal.debtor_id).where('proposal_id = ?', cod)
 
     ActiveRecord::Base.transaction do
-      cnas.each do  |cna|
-        cna.proposal_id = nil
-        cna.status = :not_pay
-        cna.save!
+      tickets.each do  |ticket|
+        ticket.proposal_id = nil
+        ticket.status = :not_pay
+        ticket.save!
       end
 
       proposal.status = :cancel

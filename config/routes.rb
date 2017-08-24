@@ -37,6 +37,7 @@ Rails.application.routes.draw do
   patch 'home/:cod/set_charge_ticket' => 'home#set_charge_ticket', as: :set_charge_ticket
 
   post 'proposal/:cod/create_proposal' => 'proposals#create_proposal', as: :create_proposal
+  post 'proposal/:cod/cancel_proposal' => 'proposals#cancel_proposal', as: :cancel_proposal
 
   get 'bank_slip/:cod/create_new_due_at' => 'bank_slips#create_new_due_at', as: :create_new_due_at
   get 'bank_slip/:cod/bank_slip_cancel' => 'bank_slips#bank_slip_cancel', as: :bank_slip_cancel
