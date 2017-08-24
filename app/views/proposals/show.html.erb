@@ -2,11 +2,11 @@
   <%= link_to(t('proposal.index'), proposals_path, class: "btn btn-large btn-warning") %>
   
   <% if @proposal.active? %>
-    <%= link_to('Cancelar Proposta', create_contract_from_proposal_path(@proposal.id), method: 'post', class: "btn btn-large btn-success") %>
+    <%= link_to('Gerar Contrato', create_contract_from_proposal_path(@proposal.id), method: 'post', class: "btn btn-large btn-success") %>
   <% end %>
 
   <% if @proposal.active? %>
-    <%= link_to(t('proposal.delete_proposal'), cancel_proposal_path(@proposal.id), method: 'post', class: "btn btn-large btn-danger", data: {confirm: 'Você tem certeza de que deseja CANCELAR a proposta gerada?'}) %>
+    <%= link_to('Cancelar Proposta', cancel_proposal_path(@proposal.id), method: 'post', class: "btn btn-large btn-danger", data: {confirm: 'Você tem certeza de que deseja CANCELAR a proposta gerada?'}) %>
   <% end %>
 
 </div>
