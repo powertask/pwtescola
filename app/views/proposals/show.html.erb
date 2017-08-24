@@ -2,7 +2,7 @@
   <%= link_to(t('proposal.index'), proposals_path, class: "btn btn-large btn-warning") %>
   
   <% if @proposal.active? %>
-    <%= link_to('Cancelar Proposta'), create_contract_from_proposal_path(@proposal.id), method: 'post', class: "btn btn-large btn-success") %>
+    <%= link_to('Cancelar Proposta', create_contract_from_proposal_path(@proposal.id), method: 'post', class: "btn btn-large btn-success") %>
   <% end %>
 
   <% if @proposal.active? %>
