@@ -62,7 +62,7 @@
           <td><%= ticket.due_at.to_date.to_s_br %> </td>
           <td><%= ticket.amount.real %> </td>
           <td>
-            <% unless @proposal.contract? %>
+            <% if @proposal.active? %>
               <div class='tools'>
                 <%= link_to(t('menu.edit'), edit_proposal_ticket_path(ticket), class: "btn btn-xs btn-default") %>
               </div>

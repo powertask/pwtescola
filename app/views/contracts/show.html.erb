@@ -1,5 +1,10 @@
 <div class='title_tools'>
-  <a class="btn btn-large btn-warning" <%= link_to(t('contract.index'), contracts_path) %> </a>
+  <%= link_to(t('contract.index'), contracts_path, class: "btn btn-large btn-warning") %>
+
+  <% if @contract.open? & current_user.admin? %>
+    <%= link_to('Cancelar Contrato', { controller: "contracts", action: "delete_contract", contract: @contract.id }, data: {confirm: 'Você tem certeza de que deseja CANCELAR o contrato?'}, class: "btn btn-large btn-danger" ) %>
+  <% end %>
+
 </div>
 
 <div class='title_page'> <%= t('contract.show') %> </div>

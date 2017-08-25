@@ -251,6 +251,39 @@ class ContractsController < ApplicationController
     respond_with @contract, notice: 'Contrato criado com sucesso.'
   end
 
+
+  def delete_contract
+    contract = params[:contract]
+
+    contract    = Contract.find(contract)
+    tickets     = Ticket.where('contract_id = ?', contract)
+    bank_slips  = BankSlip.where('contract_id = ?', contract)
+
+    bank_slips.each  do |bank_slip|
+      unless bank_slip.canceled? || bank_slip.generating? || bank_slip.waiting? || bank_slip.status.nil?
+        flash[:alert] = "Existem boletos emitidos. Contrato não pode ser CANCELADO."
+        redirect_to contract_path(contract) and return
+      end
+    end
+
+    bank_slips.each  do |bank_slip|
+      BoletoSimples::BankBillet.find(bank_slip.origin_code).cancel
+    end
+
+    ActiveRecord::Base.transaction do
+      tickets.each do  |ticket|
+        ticket.contract_id = nil
+        ticket.not_pay!
+        ticket.save!
+      end
+      contract.cancel!
+    end
+
+    redirect_to(controller: 'contracts', action:'index')
+
+  end
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_contract
