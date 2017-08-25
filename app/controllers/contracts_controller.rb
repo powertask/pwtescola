@@ -45,7 +45,7 @@ class ContractsController < ApplicationController
         bank_slip.bank_account_id = customer.bank_account_id
         bank_slip.contract_id = @contract.id
 
-        bank_slip.amount_principal = tic['amount_principal'].to_f
+        bank_slip.amount_principal = tic['amount'].to_f
         bank_slip.due_at = tic['due_at']
 
         bank_slip.customer_name = customer[:name]

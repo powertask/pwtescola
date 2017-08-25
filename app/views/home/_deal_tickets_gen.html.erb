@@ -18,7 +18,7 @@
   <tfoot>
     <tr>
       <td>Totais</td>
-      <td><%= @bank_slips.map{|i|i[:amount_principal]}.inject(:+).real if @bank_slips %></td>
+      <td><%= @bank_slips.map{|i|i[:amount]}.inject(:+).real if @bank_slips %></td>
       <td></td>
     </tr>
   </tfoot>  
@@ -27,7 +27,7 @@
       <% @bank_slips.each do |bank_slip| %>
         <tr>
           <td><%= bank_slip[:id] %> </td>
-          <td><%= bank_slip[:amount_principal].real %> </td>
+          <td><%= bank_slip[:amount].real %> </td>
           <td><%= bank_slip[:due_at].to_s_br %> </td>
         </tr>
       <% end %>

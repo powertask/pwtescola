@@ -143,7 +143,7 @@
       due_at = bank_slip_due_at if tic == 1
       due_at = bank_slip_due_at + (tic - 1).month if tic > 1
 
-      bank_slip = { id: tic, amount_principal: amount.round(2), due_at: due_at}
+      bank_slip = { id: tic, amount: amount.round(2), due_at: due_at}
       @bank_slips << bank_slip
       session[:bank_slips] = @bank_slips
     end
@@ -183,6 +183,7 @@
 
   def clear_variable_session
 
+    session[:bank_slips] = nil
     session[:value_ticket] = 0
     session[:total_multa] = 0
     session[:total_juros] = 0

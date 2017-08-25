@@ -53,7 +53,7 @@ class ProposalsController < ApplicationController
         @ticket.unit_id = current_user.unit_id
         @ticket.proposal_id = @proposal.id
         
-        @ticket.amount = tic['amount_principal'].to_f if tic['amount_principal'].to_f > 0
+        @ticket.amount = tic['amount'].to_f if tic['amount'].to_f > 0
         @ticket.due_at = tic['due_at'].to_date
         @ticket.ticket_number = n
 
